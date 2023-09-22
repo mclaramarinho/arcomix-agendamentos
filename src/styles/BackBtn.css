@@ -1,0 +1,15 @@
+:root{
+    font-family: 'Martel Sans' !important;
+}
+.back-btn{
+    font-size: 2rem;    
+    font-weight: 700;
+    outline: none !important;
+    border: none !important;
+    color: #343232 !important;
+}
+.back-btn:hover, .back-btn:active{
+    outline: none !important;
+    border: none !important;
+    color: #343232b3 !important;
+}

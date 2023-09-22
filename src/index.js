@@ -5,21 +5,40 @@ import StartColab from './pages/StartColab'
 import StartForn from './pages/StartForn'
 import { createBrowserRouter, RouterProvider, useParams} from 'react-router-dom';
 import './styles/login.css'
+import './styles/Navbar.css'
+import './styles/BackBtn.css'
+
+import PerfilColab from './pages/PerfilColab';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 const router = createBrowserRouter([
   {
-    path:'/login',
+    path:'/',
     element: <Login />,
+    children:[
+      {
+        path: "login",
+        element: <Login />
+      }
+    ]
   },
   {
-    path:'/colaborador/:id',
+    path:'/colaborador/:id/',
     element: <StartColab  />
+  },  
+  {
+    path: "/colaborador/:id/perfil",
+    element: <PerfilColab />
   },
   {
     path:'/fornecedor/:id',
     element: <StartForn  />
   },
 ])
+
+
 root.render(
   <RouterProvider router={router} />
 );

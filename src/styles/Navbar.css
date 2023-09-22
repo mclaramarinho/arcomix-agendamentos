@@ -1,0 +1,45 @@
+:root{
+    --sky-blue: #8AD3ED;
+    --dark-blue: #087BBF;
+    font-size: 10px;
+    font-family: 'Martel Sans' !important;
+}
+
+.blue-bg{
+    background-color: var(--sky-blue) !important;
+}
+.dark-blue-bg{
+    background-color: var(--dark-blue) !important;
+}
+
+.entrar-btn, .entrar-btn:active{
+    border-radius: 10vh;
+    background-color: var(--dark-blue) !important;
+    color: white !important;
+    font-weight: 700;
+    font-size: 1.8rem;
+    padding-top: 1vh !important;
+}
+.entrar-btn:hover{
+    background-color: #429acc !important;
+}
+
+.avatar-icon, .avatar-icon:active{
+    font-size: 4rem !important;
+    color: #087BBF !important;
+    cursor: pointer;
+}
+.avatar-icon:hover{
+    color: #429acc !important;
+}
+
+@media (min-width: 768px) {
+    .hide-lg{
+        display: none !important;
+    }
+}
+@media (max-width: 768px) {
+    .hide-sm{
+        display: none;
+    }
+}

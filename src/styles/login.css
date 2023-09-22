@@ -2,7 +2,7 @@
     
     font-size: 10px;
 
-    --font: 'Martel Sans';
+    font-family: 'Martel Sans' !important;
 
     /* COLORS */
     --sky-blue: #8AD3ED;
@@ -11,13 +11,6 @@
     --peach-red: #d76767;
     --main-black: #343232;
     --dark-gray: #A09F9F;
-    --light-gray: #DBDADA;
-    --lighter-gray: #DBDBDB;
-}
-
-
-body{
-    font-family: var(--font) !important;
 }
 
 .container-login{
@@ -66,7 +59,7 @@ body{
     .container-login{
         width: 45% !important;
     }
-    #login-right-side, #login-left-side{
+    .login-right-side, .login-left-side{
         padding: 3vh 0;
     }
     .logo-login{
@@ -75,10 +68,10 @@ body{
 }
 
 
-#login-right-side{
+.login-right-side{
     background-color: #8AD3ED;
 }
-#login-right-side, #login-left-side{
+.login-right-side, .login-left-side{
     overflow: clip;
 }
 .actor{

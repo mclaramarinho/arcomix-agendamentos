@@ -26,7 +26,7 @@ function Login (){
         async function getResult(storedInfo) {
             const result = await runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id);
             setAuth(result);
-            return (result === true) && navigate(`/${storedInfo.actor}/${storedInfo.id}`);
+            return (result === true) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
         }
     }, [])
 
@@ -41,6 +41,7 @@ function Login (){
         if(result && lembrar){
             localStorage.setItem('loginInfo', JSON.stringify({id: loginId, senha: pswd, actor: actor}));
         }
+        
         return setAuth(result);
     }
 
@@ -48,7 +49,7 @@ function Login (){
         <div className="container container-login position-absolute top-50 start-50 translate-middle">
 
             <form onSubmit={(e)=>{setSubmit(true); onSubmit(actor, pswd, loginId); e.preventDefault()}} className="row">
-                <div className="col-lg-5 col-xl-5" id="login-right-side">
+                <div className="col-lg-5 col-xl-5 login-right-side">
                     <div className="row text-center my-5 mt-5 pt-5">
                         <h1 className="actor">{actor}</h1>
                     </div>
@@ -63,7 +64,7 @@ function Login (){
                     </div>
                 </div>
 
-                <div className="col-lg-7 col-xl-7" id="login-left-side">
+                <div className="col-lg-7 col-xl-7 login-left-side">
 
                     <div className="mt-5 pt-5">
                         <div className="row text-center">

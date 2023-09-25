@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider, useParams} from 'react-router-dom'
 import './styles/login.css'
 import './styles/Navbar.css'
 import './styles/BackBtn.css'
-
+import './styles/MenuTabs.css'
 import PerfilColab from './pages/PerfilColab';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

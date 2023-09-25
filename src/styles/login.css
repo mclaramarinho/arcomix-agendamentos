@@ -120,7 +120,7 @@
     font-size: 1.1rem;
     color: var(--dark-gray);
 }
-.form-control{
+.form-input{
     outline: none !important;
     border: none !important;
     box-shadow: none !important;

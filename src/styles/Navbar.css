@@ -18,7 +18,7 @@
     color: white !important;
     font-weight: 700;
     font-size: 1.8rem;
-    padding-top: 1vh !important;
+    padding-top: 0.5vh !important;
 }
 .entrar-btn:hover{
     background-color: #429acc !important;

@@ -10,38 +10,41 @@ function Login (){
     const [loginId, setLoginId] = useState("");
     const [actor, setActor] = useState("Colaborador")
     const [pswd, setPswd] = useState("")
-    
     const [lembrar, setLembrar] = useState(false);
+
     //auth controls
     const [auth, setAuth] = useState(false);
     const [submit, setSubmit] = useState(false);
     
-
     //To login automatically if info are saved
     useEffect(() => {
-        if(localStorage.getItem('loginInfo') !== null){
+        //To prevent getting back to the login screen if already logged in
+        if(sessionStorage.getItem('tempLoginInfo')!==null && sessionStorage.getItem('tempLoginInfo').length > 2){
+            const authInfo = JSON.parse(sessionStorage.getItem('tempLoginInfo'));
+            navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
+        }else if(localStorage.getItem('loginInfo') !== null && localStorage.getItem('loginInfo').length>1){
             const storedInfo = JSON.parse(localStorage.getItem('loginInfo'));
             getResult(storedInfo)
         }
         async function getResult(storedInfo) {
             const result = await runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id);
             setAuth(result);
-            return (result === true) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
+            return (result === true) && sessionStorage.setItem('tempLoginInfo', JSON.stringify({id: storedInfo.id, senha: storedInfo.senha, actor: storedInfo.actor})) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
         }
-    }, [])
+    })
 
     //redirects to dashboard if authorized
     useEffect(() => {
-        (submit && auth) && navigate(`/${actor}/${loginId}`);
+        (submit && auth) && navigate(`/${actor.toLowerCase()}/${loginId}`);
     }, [auth])
 
-
+    
     async function onSubmit(actor, pswd, loginId){
         const result = await runAuth(actor, pswd, loginId);
+        result && sessionStorage.setItem('tempLoginInfo', JSON.stringify({id: loginId, senha: pswd, actor: actor}));
         if(result && lembrar){
             localStorage.setItem('loginInfo', JSON.stringify({id: loginId, senha: pswd, actor: actor}));
         }
-        
         return setAuth(result);
     }
 
@@ -80,7 +83,7 @@ function Login (){
                                 <div className="col-2 input-icon text-center pt-1 p-0">
                                     <i class="fa-regular fa-user"></i>
                                 </div>
-                                <input type="text" class="form-control col text-center"
+                                <input type="text" class="form-input form-control col text-center"
                                     placeholder={(actor==="Colaborador") ? "Matrícula" : "ID Login"}
                                     value={loginId}
                                     onChange={(e) => setLoginId(e.target.value)}
@@ -90,7 +93,7 @@ function Login (){
                                 <div className="col-2 input-icon text-center pt-1 p-0">
                                     <i class="fa-solid fa-lock mt-2"></i>
                                 </div>
-                                <input type="password" class="form-control col text-center" placeholder="Senha" value={pswd}
+                                <input type="password" class="form-input form-control col text-center" placeholder="Senha" value={pswd}
                                     onChange={(e) => setPswd(e.target.value)}
                                 />
                             </div>
@@ -118,5 +121,4 @@ function Login (){
         </div>
     )
 }
-
-export default Login;   
+export default Login;

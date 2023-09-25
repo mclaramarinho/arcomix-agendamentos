@@ -1,0 +1,60 @@
+:root{
+    --main-red: #DD3F3F;
+    --peach-red: #d76767;
+    --main-black: #343232;
+    --dark-gray: #A09F9F;
+    --lighter-gray: #DBDBDB;
+    font-size: 10px !important;
+}
+
+.nav-tabs{
+    background-color: var(--lighter-gray);
+}
+
+.nav-item{
+    background-color: var(--dark-gray);
+    --bs-nav-link-padding-y: 1vh !important;
+    --bs-nav-link-color: white !important;
+    --bs-nav-link-hover-color: white !important;
+    --bs-nav-tabs-link-active-color: var(--main-red);
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .nav-item{
+        width: 33.33%;
+        font-size: 1.2rem;
+    }
+}
+
+/* MEDIUM SIZES */
+@media (min-width: 576px) and  (max-width: 992px){
+    .nav-item{
+        width: 25%;
+        margin-right: 2vh;
+        font-size: 1.5rem;
+    }
+}
+/* LARGE SIZES */
+@media (min-width: 992px) and  (max-width: 1200px){
+    .nav-item{
+        width: 20%;
+        margin-right: 2vh;
+        font-size: 1.5rem;
+
+    }
+}
+/* EXTRA LARGE SIZES */
+@media (min-width: 1200px){
+    .nav-item{
+        width: 15%;
+        margin-right: 1.5vh;
+        font-size: 1.5rem;
+
+    }
+}

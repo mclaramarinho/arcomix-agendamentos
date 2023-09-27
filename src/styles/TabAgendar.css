@@ -1,0 +1,103 @@
+:root{
+    --main-black: #343232;
+    --dark-gray: #A09F9F;
+    --lighter-gray: #DBDBDB;
+    --sky-blue: #8AD3ED;
+    --dark-blue: #087BBF;
+    --main-red: #DD3F3F;
+    --peach-red: #d76767;
+    font-size: 10px !important;
+}
+@media (max-width: 992px) {
+    .button-row{
+        width: 50%;
+    }
+    .btn-container{
+        display: inline-flex;
+        justify-content: center;
+        margin: 2vh 0 5vh;
+    }
+    .tab-btn{
+        width: 80%;
+        margin: 0 auto;
+        font-size: 1.2rem;
+    }
+}
+@media (min-width: 992px) {
+    .tab-btn{
+        width: 70%;
+        margin: 0 auto;
+        font-size: 1.7rem;
+        padding: 1vh 0;
+    }
+    .btn-container, .list-container{
+        position: relative;
+        height: 100vh;
+    }
+    .tab-container{
+        position: fixed;
+        height: 100%;
+    }
+    .btn-container{
+        position: relative;
+        margin-top: 25vh;
+    }
+    .button-row{
+        margin-bottom: 3vh;
+    }
+    
+}
+
+.tab-btn{
+    font-weight: 700;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.selected-tab-btn, .selected-tab-btn:active, .selected-tab-btn:hover{
+    background-color: var(--sky-blue) !important;
+    color: white !important;
+    border-color: var(--dark-blue) !important;
+}
+
+.unselected-tab-btn, .unselected-tab-btn:active{
+    background-color: var(--lighter-gray) !important;
+    color:  #343232b3 !important;
+    border-color: var(--main-black) !important;
+}
+.unselected-tab-btn:hover{
+    background-color: white !important;
+    color: var(--main-black) !important;
+    border-color: var(--main-black) !important;
+}
+
+
+.solic-btn, .solic-btn:hover{
+    color: white;
+    font-weight: 700;
+}
+.red-bg{
+    background-color: var(--main-red);
+}
+.green-bg{
+    background-color: #68B644;
+}
+.red-bg:hover{
+    background-color: var(--peach-red);
+}
+.green-bg:hover{
+    background-color: #68b644a8;
+}
+.list-container{
+    padding: 5vh 0;
+}
+.lista-container{
+    width: 75% !important;
+    height: 80%;
+    box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.284);
+    border-radius: 3vh;
+    overflow-y: scroll;
+}
+.lista-container::-webkit-scrollbar{
+    appearance: none;
+}

@@ -18,17 +18,23 @@
     --bs-nav-link-hover-color: white !important;
     --bs-nav-tabs-link-active-color: var(--main-red);
     font-weight: 700;
-    font-size: 1.5rem;
     text-align: center;
     border-top-left-radius: 1vh;
     border-top-right-radius: 1vh;
 }
 
 /* MOBILE */
+@media (max-width: 345px){
+    .nav-item{
+    }
+    .tab{
+        padding: 1vh 0;
+    }
+}
 @media (max-width: 576px) {
     .nav-item{
         width: 33.33%;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 
@@ -37,7 +43,7 @@
     .nav-item{
         width: 25%;
         margin-right: 2vh;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 }
 /* LARGE SIZES */

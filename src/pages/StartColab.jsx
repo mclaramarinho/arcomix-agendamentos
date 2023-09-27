@@ -4,6 +4,7 @@ import colaboradores from "../users/colaboradores";
 import Navbar from "../components/Navbar";
 import runAuth from "../utils/runAuth";
 import MenuTabs from "../components/MenuTabs";
+import TabAgendar from "../components/TabAgendar";
 
 function StartColab (){
     
@@ -52,7 +53,7 @@ function StartColab (){
                 <Navbar handleProfile={()=>handleProfile()} />
                 <MenuTabs onTabClick={(e) => handleTabs(e)}/>
                 { 
-                    currentTab.includes("AGENDAR") ? <h1>TAB DE AGENDAR</h1> 
+                    currentTab.includes("AGENDAR") ? <TabAgendar /> 
                     : currentTab.includes("AGENDAMENTOS") ? <h1>TAB DE AGENDAMENTOS</h1> 
                     : <h1>TAB DE FINALIZADOS</h1>
                 }

@@ -13,6 +13,8 @@ function StartColab (){
 
     const authInfo = JSON.parse(sessionStorage.getItem('tempLoginInfo'));
 
+    
+
     const [auth, setAuth] = useState();
 
     let profileInfo;

@@ -7,13 +7,13 @@ function TabBtn(props){
     if(isSelected){
         return(
             <div className="row button-row">
-                <input value={props.label} type="button" className="btn tab-btn selected-tab-btn" onMouseUp={handleClick()} id={props.id}/>
+                <input value={props.label} type="button" className="btn tab-btn m-auto selected-tab-btn" onMouseUp={handleClick()} id={props.id}/>
             </div>
         )
     }else{
         return(
             <div className="row button-row">
-                <input value={props.label} type="button" className="btn tab-btn unselected-tab-btn" onMouseUp={handleClick()} id={props.id}/>
+                <input value={props.label} type="button" className="btn tab-btn m-auto unselected-tab-btn" onMouseUp={handleClick()} id={props.id}/>
             </div>
         )
     }

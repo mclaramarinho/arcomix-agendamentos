@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
 import FormInputField from "./FormInputField";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DigitalClock, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-import { Badge } from "@mui/material";
+import { Badge, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 
 function CriarForm(){
@@ -28,7 +28,7 @@ function CriarForm(){
             reject(new DOMException('aborted', 'AbortError'));
           };
         });
-      }
+    }
 
     
     function ServerDay(props) {
@@ -96,8 +96,10 @@ function CriarForm(){
     const [recorrenciaV, setRecorrenciaV] = useState(recorrencias[0])
 
 
-    const [selectedDay, setSelectedDay] = useState(new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate());
-
+    const [selectedDay, setSelectedDay] = useState();
+    useEffect(() => {
+        console.log(selectedDay)
+    }, [selectedDay])
     return(
         <div className="container py-5">
             <div className="row my-5">
@@ -108,43 +110,52 @@ function CriarForm(){
                 <div className="col-lg-3 me-lg-5">
                     <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} defaultValue={"124534"}  />
                     <FormInputField type={"autocomplete"} label={"FORNECEDOR"}disabled={false} id={"fornecedores"} value={fornecedorV}
-                        setArrayV={()=>setFornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} array={fornecedor}
-                        setArray={()=>setFornecedor}
+                        setArrayV={setFornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} array={fornecedor}
+                        setArray={setFornecedor}
                     />
-                   <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} setArrayV={()=>setCargaV}
-                        options={tiposDeCarga} array={carga} setArray={()=>setCarga}
+                   <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} setArrayV={setCargaV}
+                        options={tiposDeCarga} array={carga} setArray={setCarga}
                     />
                    <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV}
-                        setArrayV={()=>setDescargaV} options={tiposDeDescarga} array={descarga} setArray={()=>setDescarga}
+                        setArrayV={setDescargaV} options={tiposDeDescarga} array={descarga} setArray={setDescarga}
                     />
                     <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV}
-                        setArrayV={()=>setRecorrenciaV} options={recorrencias} array={recorrencia} setArray={()=>setRecorrencia}
+                        setArrayV={setRecorrenciaV} options={recorrencias} array={recorrencia} setArray={setRecorrencia}
                     />
-                    <FormInputField
-                        id={"observacoes"} label={"OBSERVAÇÕES"} type={"paragraph"}/>
+                    <FormInputField id={"observacoes"} label={"OBSERVAÇÕES"} type={"paragraph"}/>
                 </div>
                 
                 <div className="col-lg-8" >
                     <div className="row">
-                        <div className="col-lg-8">
-                        <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DateCalendar
-                                loading={isLoading}
-                                onMonthChange={handleMonthChange}
-                                renderLoading={() => <DayCalendarSkeleton />}
-                                slots={{
-                                    day: ServerDay,
-                                }}
-                                slotProps={{
-                                    day: {
-                                        highlightedDays,
-                                    },
-                                }}
-                                disablePast
-                            />
-                        </LocalizationProvider>
+                        <div className="col-lg-7">
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <DateCalendar
+                                    loading={isLoading}
+                                    onMonthChange={handleMonthChange}
+                                    renderLoading={() => <DayCalendarSkeleton />}
+                                    slots={{
+                                        day: ServerDay,
+                                    }}
+                                    slotProps={{
+                                        day: {
+                                            highlightedDays,
+                                        },
+                                    }}
+                                    disablePast
+                                    onChange={(value, selectionState)=>setSelectedDay(value.$y + "-" + (value.$M < 10 ? "0"+(value.$M + 1) : value.$M+1) + "-" + value.$D)}
+                                />
+                                <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" width={"50%"} className="m-auto">
+                                    <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
+                                </Typography>
+                            </LocalizationProvider>
+                        </div>
+                        <div className="col-lg-4">
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <DigitalClock disablePast minTime={dayjs(selectedDay+'T09:00')} maxTime={dayjs(selectedDay+'T19:00')} ampm={false} />
+                            </LocalizationProvider>
                         </div>
                     </div>
+
                     
                 </div>
             </div>

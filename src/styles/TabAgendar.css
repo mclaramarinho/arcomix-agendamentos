@@ -151,3 +151,15 @@ body{
     border-width: 2px;
     border-style: solid;
 }
+
+.MuiInputBase-inputSizeSmall, .MuiOutlinedInput-root{
+    font-size: 14px !important;
+    border-radius: 20vh !important;
+}
+
+.MuiOutlinedInput-input::-webkit-scrollbar{
+    display: none !important;
+}
+.MuiAutocomplete-option, .MuiPickersDay-root, .MuiPickersCalendarHeader-labelContainer, .MuiDayCalendar-weekDayLabel{
+    font-size: 14px !important;
+}

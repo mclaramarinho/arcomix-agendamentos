@@ -16,8 +16,8 @@ function StartColab (){
 
     const [auth, setAuth] = useState();
 
-    let profileInfo;
 
+    let profileInfo;
     useEffect(() => {
         getAuth() //checks if user is authorized
     }, []);

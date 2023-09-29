@@ -17,7 +17,7 @@ function SolicitacaoCard(props){
                     </div>
                     <div className="col col-12 col-md-4 solic-btn-container info-row">
                         <button value="accept" id={props.idAgendamento} onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn green-bg w-100 mt-2 -3">Aceitar</button>
-                        <button value="reject" onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn red-bg w-100">Recusar</button>
+                        <button value="reject" id={props.idAgendamento} onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn red-bg w-100">Recusar</button>
                     </div>
                 </div>
             </div>

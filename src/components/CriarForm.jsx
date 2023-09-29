@@ -12,10 +12,10 @@ function CriarForm(){
     const tiposDeDescarga = ["Manual", "Paletizada"];
     const recorrencias = ["Única", "Diária", "Semanal", "Mensal", "Trimestral", "Semestral", "Anual"];
     const [idAgendamento, setIdAgendamento] = useState(generateId())
-    const [fornecedorV, setFornecedorV] = useState(fornecedores[0].informacoesLegais[0]);
-    const [cargaV, setCargaV] = useState(tiposDeCarga[0])
-    const [descargaV, setDescargaV] = useState(tiposDeDescarga[0])
-    const [recorrenciaV, setRecorrenciaV] = useState(recorrencias[0])
+    const [fornecedorV, setFornecedorV] = useState("");
+    const [cargaV, setCargaV] = useState("")
+    const [descargaV, setDescargaV] = useState("")
+    const [recorrenciaV, setRecorrenciaV] = useState("")
     const [obsV, setObsV] = useState("")
 
     const [minTime, setMinTime] = useState();

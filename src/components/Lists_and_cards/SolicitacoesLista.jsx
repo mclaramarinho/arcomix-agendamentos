@@ -6,61 +6,124 @@ import Paper from '@mui/material/Paper';
 import SolicitacaoCard from "./SolicitacaoCard";
 
 function SolicitacoesLista(){
+    //controls the value of what's typed in the filter field
     const [filtro, setFiltro] = useState("");
     function handleFiltro(e){
         return setFiltro(e.target.value)
     }
-    let [localSolicitacoes, setLocalSolicitacoes] = useState([]);
-    
-    useEffect(()=>{
+
+    //array to store only the requests
+    const [localSolicitacoes, setLocalSolicitacoes] = useState([]);
+
+    //array to store all the appointments
+    const [agendamentos, setAgendamentos]=  useState([]);
+
+
+    //runs everytime the page is loaded
+    useEffect(() => {
+        if(localStorage.getItem("agendamentos")!==null){ //if this local storage exists
+            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
+            
+        }
         
-        (localStorage.getItem("solicitacoes", JSON.stringify(localSolicitacoes)));
+    }, [])
+
+    //every time agendamentos changes
+    useEffect(()=>{
+        let solicit;
+        if( agendamentos !== undefined && agendamentos !== null && agendamentos.length > 0 ){
+            solicit = agendamentos.map(item => {
+                if(item.status === "pendente"){
+                    return item
+                }
+            }) 
+            setLocalSolicitacoes(() => {
+                return [solicit.map(item=>{
+                    if(item !== undefined){
+                        return item
+                    }
+                })]
+            }) 
+            
+        }
+    }, [agendamentos]) 
+
+    //every time locaSolicitacoes changes
+    useEffect(() =>{
     }, [localSolicitacoes])
+
 
 
     function handleCardClick(e){
         const value = e.target.value;
-        const id = e.target.getAttribute("id");
+        const id = e.target.getAttribute('id');
+
         if(value==="accept"){
-            setLocalSolicitacoes(prev => {
-                return [...prev.filter(item => item.idSolicitacao !== id)]
+            agendamentos.map(item => {
+                if(item.id_agendamento === id){
+                    item.status="aceito"
+                }
             })
+            
         }else{
-            setLocalSolicitacoes(prev => {
-                return [...prev.map(item => {
-                    item.idSolicitacao === id && (
-                        item.status="rejeitada"
-                    )
-                })]
+            agendamentos.map(item => {
+                if(item.id_agendamento === id){
+                    item.status="recusado"
+                }
             })
         }
+
+
+        setLocalSolicitacoes(localSolicitacoes.filter(item => {
+            if(item!==undefined){
+                return item
+            }
+        }))
+        localStorage.setItem("agendamentos", JSON.stringify(agendamentos))
     }
-    //i need another array to show only the pending requests
-    function showLista(localSolicitacoes){
-        if(localSolicitacoes.length > 1){
-            return localSolicitacoes.map((item) => {
-                return (
-                    <SolicitacaoCard 
-                        key={item.idSolicitacao}
-                        empresa={item.id_fornecedor} 
-                        idAgendamento={item.idSolicitacao} 
-                        dataAgendamento={item.data} 
-                        horaAgendamento={item.hora} 
-                        tipoCarga={item.tipo_carga} 
-                        tipoDescarga={item.tipo_descarga} 
-                        recorrencia={item.recorrencia}
-                        handleCardClick={handleCardClick}
-                    />
-                )
-            })
-        }else{
+
+
+    function showLista(localSolicitacoes){ 
+        let control;
+        //checks if the localSolicitacoes array contains only undefined items
+        localSolicitacoes.map(item =>{
+            if(item === undefined){
+                return control = true;
+            }else{
+                return control = false;
+            }
+        })
+
+
+        if((localSolicitacoes === undefined || localSolicitacoes.length === 0) || !control){
             return(
-                    <div className="row text-center mt-5">
-                        <h2 className="subheader">Não há solicitações no momento.</h2>
-                        <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
-                    </div>
-            );
+                <div className="row text-center mt-5">
+                    <h2 className="subheader">Não há solicitações no momento.</h2>
+                    <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
+                </div>
+            )
+        }else{
+            return localSolicitacoes.map((item) => {
+                return item.map(subItem => {
+                    if(subItem !== undefined){
+                        return (
+                            <SolicitacaoCard 
+                                key={subItem.id_agendamento}
+                                empresa={subItem.id_fornecedor} 
+                                idAgendamento={subItem.id_agendamento} 
+                                dataAgendamento={subItem.data} 
+                                horaAgendamento={subItem.hora} 
+                                tipoCarga={subItem.tipo_carga} 
+                                tipoDescarga={subItem.tipo_descarga} 
+                                recorrencia={subItem.recorrencia}
+                                handleCardClick={handleCardClick}
+                            />
+                        )}
+                })
+                
+            })
         }
+        
     }
 
     return(

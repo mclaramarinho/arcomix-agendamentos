@@ -98,6 +98,10 @@ function CriarForm(){
 
     const [selectedDay, setSelectedDay] = useState();
     useEffect(() => {
+        console.log(today)
+        if(today.getDate() > selectedDay){
+            console.log("greater")
+        }
         console.log(selectedDay)
     }, [selectedDay])
     return(
@@ -142,7 +146,7 @@ function CriarForm(){
                                         },
                                     }}
                                     disablePast
-                                    onChange={(value, selectionState)=>setSelectedDay(value.$y + "-" + (value.$M < 10 ? "0"+(value.$M + 1) : value.$M+1) + "-" + value.$D)}
+                                    onChange={(value, selectionState)=>selectionState==="finish" && setSelectedDay(value.$y + "-" + (value.$M < 10 ? "0"+(value.$M+1) : value.$M) + "-" + value.$D)}
                                 />
                                 <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" width={"50%"} className="m-auto">
                                     <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
@@ -151,7 +155,7 @@ function CriarForm(){
                         </div>
                         <div className="col-lg-4">
                             <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DigitalClock disablePast minTime={dayjs(selectedDay+'T09:00')} maxTime={dayjs(selectedDay+'T19:00')} ampm={false} />
+                                <DigitalClock disablePast ampm={false}  />
                             </LocalizationProvider>
                         </div>
                     </div>

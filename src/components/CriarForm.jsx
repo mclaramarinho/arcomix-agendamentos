@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-import { Badge, Typography } from "@mui/material";
+import { Badge, Stack, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 
 function CriarForm(){
@@ -95,18 +95,16 @@ function CriarForm(){
     const [recorrencia, setRecorrencia] = useState("");
     const [recorrenciaV, setRecorrenciaV] = useState(recorrencias[0])
 
-
+    // let minTime, maxTime;
     const [selectedDay, setSelectedDay] = useState();
     useEffect(() => {
-        console.log(today)
-        if(today.getDate() > selectedDay){
-            console.log("greater")
-        }
+        
         console.log(selectedDay)
     }, [selectedDay])
+    const [timeValue, setTimeValue] = useState(dayjs());
     return(
-        <div className="container py-5">
-            <div className="row my-5">
+        <div className="container h-auto m-auto mt-5 criar-form-container">
+            <div className="row my-5 header">
                 CRIAR NOVO AGENDAMENTO
             </div>
             <div className="row m-auto">
@@ -129,34 +127,47 @@ function CriarForm(){
                     <FormInputField id={"observacoes"} label={"OBSERVAÇÕES"} type={"paragraph"}/>
                 </div>
                 
-                <div className="col-lg-8" >
+                <div className="col-lg-8 ms-lg-5" >
                     <div className="row">
-                        <div className="col-lg-7">
+                        <div className="col-lg-9">
                             <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DateCalendar
-                                    loading={isLoading}
-                                    onMonthChange={handleMonthChange}
-                                    renderLoading={() => <DayCalendarSkeleton />}
-                                    slots={{
-                                        day: ServerDay,
-                                    }}
-                                    slotProps={{
-                                        day: {
-                                            highlightedDays,
-                                        },
-                                    }}
-                                    disablePast
-                                    onChange={(value, selectionState)=>selectionState==="finish" && setSelectedDay(value.$y + "-" + (value.$M < 10 ? "0"+(value.$M+1) : value.$M) + "-" + value.$D)}
-                                />
-                                <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" width={"50%"} className="m-auto">
-                                    <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
-                                </Typography>
+                                <Stack>
+                                    <DateCalendar
+                                        loading={isLoading}
+                                        onMonthChange={handleMonthChange}
+                                        renderLoading={() => <DayCalendarSkeleton />}
+                                        slots={{
+                                            day: ServerDay,
+                                        }}
+                                        slotProps={{
+                                            day: {
+                                                highlightedDays,
+                                            },
+                                        }}
+                                        disablePast /*{setSelectedDay(value.$y + "-" + (value.$M < 9 ? "0"+(value.$M+1) : value.$M+1) + "-" + value.$D)}}*/
+                                        onChange={(value, selectionState)=>{setSelectedDay(value)}}
+                                    />
+                                    <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
+                                        <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
+                                    </Typography>
+                                </Stack>
                             </LocalizationProvider>
                         </div>
-                        <div className="col-lg-4">
+
+                        <div className="col-lg-3">
                             <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DigitalClock disablePast ampm={false}  />
+                                <Stack>
+                                    <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="text-end" >
+                                        Horários disponíveis
+                                    </Typography>
+                                    <DigitalClock sx={{width:"70%"}} className="me-0" value={timeValue} onChange={(value, selectionState) => setTimeValue(value)}  skipDisabled />
+                                </Stack>
                             </LocalizationProvider>
+                        </div>
+                        <div className="col text-end">
+                            <button className="entrar-btn btn btn-lg px-5 py-1  dark-blue-bg" >
+                                AGENDAR
+                            </button>
                         </div>
                     </div>
 

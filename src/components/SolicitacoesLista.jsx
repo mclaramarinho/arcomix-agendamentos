@@ -55,7 +55,7 @@ function SolicitacoesLista(){
         }else{
             return(
                     <div className="row text-center mt-5">
-                        <h2>Não há solicitações no momento.</h2>
+                        <h2 className="subheader">Não há solicitações no momento.</h2>
                         <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh"}}></i>
                     </div>
             );
@@ -66,7 +66,7 @@ function SolicitacoesLista(){
         
         <div className='row lista-container position-relative m-auto' >
             <div className="col-12  text-center mt-5 ">
-                <h2>SOLICITAÇÕES DE AGENDAMENTO</h2>
+                <h2 className="header">SOLICITAÇÕES DE AGENDAMENTO</h2>
                 <hr className="w-50 m-auto" />
             </div>
             <div className="col-12 text-center">

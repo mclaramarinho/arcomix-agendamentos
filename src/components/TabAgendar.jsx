@@ -22,7 +22,7 @@ function TabAgendar(props){
         if(subTab1){
             return <SolicitacoesLista />
         }else{
-            document.body.style.overflowY="scroll";
+            document.body.style.overflowY="auto";
             return <h1><CriarForm /></h1>
         }
     }
@@ -33,7 +33,7 @@ function TabAgendar(props){
                     <TabBtn isSelected={subTab1} key="solicitacao" id="solicitacao" label="SOLICITAÇÃO" handleClick={() => !subTab1 && setSubTab1(true)} />      
                     <TabBtn isSelected={!subTab1} key="criar" id="criar" label="CRIAR" handleClick={() => subTab1 && setSubTab1(false)} />              
                 </div>
-                    <div className={`col-lg-${colSize} col`} style={{height: "100vh"}}>
+                    <div className={`col-lg-${colSize} col`} style={{height: "100%"}}>
                         {tabContent()}
                     </div>
                 

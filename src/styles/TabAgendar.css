@@ -97,6 +97,16 @@
     }
 }
 
+body{
+    font-family: 'Martel Sans';
+    color: var(--main-black);
+}
+.header{
+    font-weight: 900;
+}
+.subheader{
+    font-weight: 700;
+}
 .selected-tab-btn, .selected-tab-btn:active, .selected-tab-btn:hover{
     background-color: var(--sky-blue) !important;
     color: white !important;
@@ -131,12 +141,12 @@
 .green-bg:hover{
     background-color: #68b644a8;
 }
-.lista-container{
+.lista-container, .criar-form-container{
     box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.284);
     border-radius: 3vh;
     overflow-y: scroll;
 }
-.lista-container::-webkit-scrollbar{
+.lista-container::-webkit-scrollbar, .criar-form-container::-webkit-scrollbar{
     display: none;
 }
 body{
@@ -162,4 +172,7 @@ body{
 }
 .MuiAutocomplete-option, .MuiPickersDay-root, .MuiPickersCalendarHeader-labelContainer, .MuiDayCalendar-weekDayLabel{
     font-size: 14px !important;
+}
+.criar-form-container{
+    padding: 2vh 4vh 2vh 6vh;
 }

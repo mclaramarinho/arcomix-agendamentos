@@ -1,181 +1,120 @@
 import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
 import FormInputField from "./FormInputField";
-import { DigitalClock, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-import { Badge, Stack, Typography } from "@mui/material";
 import dayjs from 'dayjs';
+import Calendar from "./Calendar";
+import DigitalTimePicker from "./DigitalTimePicker";
+import {createAgendamento, generateId} from "../utils/createAgendamento";
+
 
 function CriarForm(){
-    const initialValue = dayjs(new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate());
-    const requestAbortController = React.useRef(null);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [highlightedDays, setHighlightedDays] = React.useState([]);
-
-    function fakeFetch(date, { signal }) {
-        return new Promise((resolve, reject) => {
-          const timeout = setTimeout(() => {
-            const daysToHighlight = [1, 2, 3];
-      
-            resolve({ daysToHighlight });
-          }, 500);
-      
-          signal.onabort = () => {
-            clearTimeout(timeout);
-            reject(new DOMException('aborted', 'AbortError'));
-          };
-        });
-    }
-
-    
-    function ServerDay(props) {
-        const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-      
-        const isSelected =
-          !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
-      
-        return (
-          <Badge
-            key={props.day.toString()}
-            overlap="circular"
-            badgeContent={isSelected ? <i style={{color:"#990000", fontSize:14}} class="fa-solid fa-x"></i> : undefined}
-          >
-            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-          </Badge>
-        );
-      }
-
-    const fetchHighlightedDays = (date) => {
-        const controller = new AbortController();
-        fakeFetch(date, {
-        signal: controller.signal,
-        })
-        .then(({ daysToHighlight }) => {
-            setHighlightedDays(daysToHighlight);
-            setIsLoading(false);
-        })
-        .catch((error) => {
-            if (error.name !== 'AbortError') {
-            throw error;
-            }
-        });
-
-        requestAbortController.current = controller;
-    };
-
-    React.useEffect(() => {
-        fetchHighlightedDays(initialValue);
-        return () => requestAbortController.current?.abort();
-    }, []);
-
-    const handleMonthChange = (date) => {
-        if (requestAbortController.current) {
-        requestAbortController.current.abort();
-        }
-        setIsLoading(true);
-        setHighlightedDays([]);
-        fetchHighlightedDays(date);
-    };
-
-    const [fornecedor, setFornecedor] = useState("");
-    const [fornecedorV, setFornecedorV] = useState(fornecedores[0].informacoesLegais[0]);
-    
     const tiposDeCarga = ["Frios", "Granel", "Carnes", "Descartáveis", "Conservas", "Materiais de limpeza"];
-    const [carga, setCarga] = useState("");
-    const [cargaV, setCargaV] = useState(tiposDeCarga[0])
-
     const tiposDeDescarga = ["Manual", "Paletizada"];
-    const [descarga, setDescarga] = useState("");
-    const [descargaV, setDescargaV] = useState(tiposDeDescarga[0])
-
     const recorrencias = ["Única", "Diária", "Semanal", "Mensal", "Trimestral", "Semestral", "Anual"];
-    const [recorrencia, setRecorrencia] = useState("");
+    const [idAgendamento, setIdAgendamento] = useState(generateId())
+    const [fornecedorV, setFornecedorV] = useState(fornecedores[0].informacoesLegais[0]);
+    const [cargaV, setCargaV] = useState(tiposDeCarga[0])
+    const [descargaV, setDescargaV] = useState(tiposDeDescarga[0])
     const [recorrenciaV, setRecorrenciaV] = useState(recorrencias[0])
+    const [obsV, setObsV] = useState("")
 
-    // let minTime, maxTime;
+    const [minTime, setMinTime] = useState();
+    const [maxTime, setMaxTime] = useState('19:00');
+    const today = new Date().getMonth() < 9 ? (new Date().getFullYear() + '-0' + (new Date().getMonth()+1) + '-' + new Date().getDate()) : new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
+    const [diff, setDiff] = useState();
+    
     const [selectedDay, setSelectedDay] = useState();
-    useEffect(() => {
-        
-        console.log(selectedDay)
-    }, [selectedDay])
-    const [timeValue, setTimeValue] = useState(dayjs());
-    return(
-        <div className="container h-auto m-auto mt-5 criar-form-container">
-            <div className="row my-5 header">
-                CRIAR NOVO AGENDAMENTO
-            </div>
-            <div className="row m-auto">
-                
-                <div className="col-lg-3 me-lg-5">
-                    <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} defaultValue={"124534"}  />
-                    <FormInputField type={"autocomplete"} label={"FORNECEDOR"}disabled={false} id={"fornecedores"} value={fornecedorV}
-                        setArrayV={setFornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} array={fornecedor}
-                        setArray={setFornecedor}
-                    />
-                   <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} setArrayV={setCargaV}
-                        options={tiposDeCarga} array={carga} setArray={setCarga}
-                    />
-                   <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV}
-                        setArrayV={setDescargaV} options={tiposDeDescarga} array={descarga} setArray={setDescarga}
-                    />
-                    <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV}
-                        setArrayV={setRecorrenciaV} options={recorrencias} array={recorrencia} setArray={setRecorrencia}
-                    />
-                    <FormInputField id={"observacoes"} label={"OBSERVAÇÕES"} type={"paragraph"}/>
-                </div>
-                
-                <div className="col-lg-8 ms-lg-5" >
-                    <div className="row">
-                        <div className="col-lg-9">
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Stack>
-                                    <DateCalendar
-                                        loading={isLoading}
-                                        onMonthChange={handleMonthChange}
-                                        renderLoading={() => <DayCalendarSkeleton />}
-                                        slots={{
-                                            day: ServerDay,
-                                        }}
-                                        slotProps={{
-                                            day: {
-                                                highlightedDays,
-                                            },
-                                        }}
-                                        disablePast /*{setSelectedDay(value.$y + "-" + (value.$M < 9 ? "0"+(value.$M+1) : value.$M+1) + "-" + value.$D)}}*/
-                                        onChange={(value, selectionState)=>{setSelectedDay(value)}}
-                                    />
-                                    <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
-                                        <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
-                                    </Typography>
-                                </Stack>
-                            </LocalizationProvider>
-                        </div>
+    const [selectedTime, setSelectedTime] = useState();
 
-                        <div className="col-lg-3">
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <Stack>
-                                    <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="text-end" >
-                                        Horários disponíveis
-                                    </Typography>
-                                    <DigitalClock sx={{width:"70%"}} className="me-0" value={timeValue} onChange={(value, selectionState) => setTimeValue(value)}  skipDisabled />
-                                </Stack>
-                            </LocalizationProvider>
-                        </div>
-                        <div className="col text-end">
-                            <button className="entrar-btn btn btn-lg px-5 py-1  dark-blue-bg" >
-                                AGENDAR
-                            </button>
+    const [agendamentos, setAgendamentos] = useState([]);
+
+    const [isSubmitted, setIsSubmitted] = useState();
+    
+    // when the subtab is loaded
+    useEffect(() => {
+        if(localStorage.getItem("agendamentos") === null || localStorage.getItem("agendamentos") === undefined ){ //check if there's a local storage for these items
+            localStorage.setItem("agendamentos", []) //sets the local storage if it doesn't already exist
+        }else{ //if it already exists
+            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //adds to the local usestate variable the local storage content
+        }
+    }, [])
+
+    //when the selected day is altered
+    useEffect(() => {
+        setDiff(dayjs(today).diff(selectedDay, 'hour')) //the difference in hours between today and the selected day
+
+        diff < 24 ? setMinTime('09:00') : setMinTime(dayjs().hour()+":"+dayjs().minute()) // if in the future, the min time is 9am, otherwise it's the nearest future time 
+    }, [selectedDay])   
+
+    //when agendamentos is altered
+    useEffect(() => {
+        localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
+    }, [agendamentos])
+
+    function handleSubmit(){ // when form is submitted
+        
+        //checks if all the fields are filled
+        if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
+            //adds the new item to local agendamentos usestate variable
+            setAgendamentos(prev => {
+                return [...prev, createAgendamento(idAgendamento, fornecedorV, "pendente", dayjs(selectedDay).date()+"/"+dayjs(selectedDay).month()+"/"+dayjs(selectedDay).year(), 
+                    selectedTime, cargaV, descargaV, recorrenciaV, obsV, false
+                )]
+            })
+            // indicates the form was submitted
+            setIsSubmitted(true)
+        }
+
+        
+    }
+    return(
+        //if the form wasn't submitted yet => show the form
+        !isSubmitted ? (
+            <div className="container h-auto m-auto mt-5 criar-form-container">
+                <div className="row my-5 header">CRIAR NOVO AGENDAMENTO</div>
+                <div className="row m-auto">
+                    <div className="col-lg-3 me-lg-5">
+                        <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} value={idAgendamento}  />
+                        <FormInputField type={"autocomplete"} label={"FORNECEDOR"} disabled={false} id={"fornecedores"} value={fornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} setValue={setFornecedorV} />
+                        <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} options={tiposDeCarga} value={cargaV} setValue={setCargaV}/>
+                        <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV} options={tiposDeDescarga} setValue={setDescargaV}/>
+                        <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV} options={recorrencias} setValue={setRecorrenciaV}/>
+                        <FormInputField type={"paragraph"} id={"observacoes"} value={obsV} setValue={setObsV} label={"OBSERVAÇÕES"}/>
+                    </div>
+                    
+                    <div className="col-lg-8 ms-lg-5" >
+                        <div className="row">
+                            <div className="col-lg-8">
+                                <Calendar setSelectedDay={setSelectedDay} />
+                            </div>
+
+                            <div className="col-lg-4">
+                                {selectedDay !== undefined ? (
+                                    diff < 0 ? <DigitalTimePicker setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} maxTime={maxTime} /> 
+                                    : <h3 className="text-center" style={{color: "#A09F9F"}}>Nenhum horário disponível. Selecione outra data!</h3>
+                                ) : <h3 className="text-center" style={{color: "#A09F9F"}}>Selecione uma data para ver os horários disponíveis!</h3>}
+                            </div>
+                            
+                            <div className="col text-end">
+                                <button onClick={() => handleSubmit()} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg" >
+                                    AGENDAR
+                                </button>
+                            </div>
                         </div>
                     </div>
-
-                    
+            
+            </div>
+        </div>) : ( //if the form was submitted => show submission message ### CHANGE TO A DIALOG AS IN THE FIGMA PROTOTYPE!!! ###
+            <div className="container w-50 criar-form-container position-relative" style={{marginTop: "25vh"}}>
+                <div className="row my-5 header justify-content-center text-center">AGENDAMENTO CRIADO COM SUCESSO!</div>
+                <div className="col text-center">
+                    <button onClick={() => {setIdAgendamento(generateId());setIsSubmitted(false)}} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg" >
+                        CRIAR OUTRO
+                    </button>
                 </div>
             </div>
-        </div>
-    )
+        ))
+    
 }
 
 export default CriarForm;

@@ -11,8 +11,9 @@ function SolicitacoesLista(){
         return setFiltro(e.target.value)
     }
     let [localSolicitacoes, setLocalSolicitacoes] = useState([]);
-
+    
     useEffect(()=>{
+        
         (localStorage.getItem("solicitacoes", JSON.stringify(localSolicitacoes)));
     }, [localSolicitacoes])
 
@@ -56,7 +57,7 @@ function SolicitacoesLista(){
             return(
                     <div className="row text-center mt-5">
                         <h2 className="subheader">Não há solicitações no momento.</h2>
-                        <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh"}}></i>
+                        <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
                     </div>
             );
         }

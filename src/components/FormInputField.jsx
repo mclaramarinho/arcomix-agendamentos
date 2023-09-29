@@ -5,6 +5,7 @@ function FormInputField(props){
     const id = props.id;
     const label = props.label;
     const disabled = props.disabled;
+
     if(type === "text"){
         return(
             <div className="row mb-4">
@@ -12,7 +13,7 @@ function FormInputField(props){
                 <TextField 
                     disabled={disabled}
                     id={id}
-                    defaultValue={`#${props.defaultValue}`} 
+                    defaultValue={props.value} 
                     variant="outlined"
                     size="small"
                 />
@@ -27,6 +28,8 @@ function FormInputField(props){
                     placeholder="Escreva aqui"
                     multiline
                     maxRows={3}
+                    value={props.value}
+                    onChange={(e) => props.setValue(e.target.value)}
                 />
             </div>
         )
@@ -36,15 +39,16 @@ function FormInputField(props){
                 <label htmlFor={id} style={{fontSize: 14, padding: 0}} className="subheader">{label}</label>
                 <Autocomplete 
                     id={id}
-                    value={props.arrayV}
+                    value={props.value}
                     onChange={(e, newValue) => {
-                        props.setArrayV(newValue);
+                        props.setValue(newValue);
                     }}
                     options={props.options}
                     renderInput={(params) => <TextField {...params} />}
-                    inputValue={props.array}
+
+                    inputValue={props.value}
                     onInputChange={(e, newValue) => {
-                        props.setArray(newValue);
+                        props.setValue(newValue);
                     }}
                     size="small"
                     sx={{padding: 0}}

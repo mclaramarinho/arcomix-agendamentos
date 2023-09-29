@@ -170,7 +170,7 @@ body{
 .MuiOutlinedInput-input::-webkit-scrollbar{
     display: none !important;
 }
-.MuiAutocomplete-option, .MuiPickersDay-root, .MuiPickersCalendarHeader-labelContainer, .MuiDayCalendar-weekDayLabel{
+.MuiAutocomplete-option, .MuiPickersDay-root, .MuiPickersCalendarHeader-labelContainer, .MuiDayCalendar-weekDayLabel, .MuiDigitalClock-item{
     font-size: 14px !important;
 }
 .criar-form-container{

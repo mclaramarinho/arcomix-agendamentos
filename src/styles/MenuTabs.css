@@ -4,7 +4,6 @@
     --main-black: #343232;
     --dark-gray: #A09F9F;
     --lighter-gray: #DBDBDB;
-    font-size: 10px !important;
 }
 
 .nav-tabs{
@@ -25,8 +24,6 @@
 
 /* MOBILE */
 @media (max-width: 345px){
-    .nav-item{
-    }
     .tab{
         padding: 1vh 0;
     }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
-import FormInputField from "./FormInputField";
+import FormInputField from "./Form/FormInputField";
 import dayjs from 'dayjs';
-import Calendar from "./Calendar";
-import DigitalTimePicker from "./DigitalTimePicker";
+import Calendar from "./Form/Calendar";
+import DigitalTimePicker from "./Form/DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
 
 

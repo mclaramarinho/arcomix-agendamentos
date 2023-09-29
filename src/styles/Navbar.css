@@ -1,8 +1,6 @@
 :root{
     --sky-blue: #8AD3ED;
     --dark-blue: #087BBF;
-    font-size: 10px;
-    font-family: 'Martel Sans' !important;
 }
 
 .blue-bg{
@@ -26,7 +24,7 @@
 
 .avatar-icon, .avatar-icon:active{
     font-size: 4rem !important;
-    color: #087BBF !important;
+    color: var(--dark-blue) !important;
     cursor: pointer;
 }
 .avatar-icon:hover{

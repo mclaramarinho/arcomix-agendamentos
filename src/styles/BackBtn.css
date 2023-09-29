@@ -1,15 +1,16 @@
 :root{
-    font-family: 'Martel Sans' !important;
+    --main-black: #343232;
+    --faded-black: #343232b3;
 }
 .back-btn{
     font-size: 2rem;    
     font-weight: 700;
     outline: none !important;
     border: none !important;
-    color: #343232 !important;
+    color: var(--main-black) !important;
 }
 .back-btn:hover, .back-btn:active{
     outline: none !important;
     border: none !important;
-    color: #343232b3 !important;
+    color: var(--faded-black) !important;
 }

@@ -1,9 +1,4 @@
 :root{
-    
-    font-size: 10px;
-
-    font-family: 'Martel Sans' !important;
-
     /* COLORS */
     --sky-blue: #8AD3ED;
     --dark-blue: #087BBF;
@@ -69,7 +64,7 @@
 
 
 .login-right-side{
-    background-color: #8AD3ED;
+    background-color: var(--sky-blue);
 }
 .login-right-side, .login-left-side{
     overflow: clip;

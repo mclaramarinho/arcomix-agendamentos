@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import StartColab from './pages/StartColab'
 import StartForn from './pages/StartForn'
 import { createBrowserRouter, RouterProvider, useParams} from 'react-router-dom';
+import './styles/index.css'
 import './styles/login.css'
 import './styles/Navbar.css'
 import './styles/BackBtn.css'

@@ -6,7 +6,6 @@
     --dark-blue: #087BBF;
     --main-red: #DD3F3F;
     --peach-red: #d76767;
-    font-size: 10px !important;
 }
 
 
@@ -57,7 +56,6 @@
         font-size: 1.2rem;
     }
 }
-
 @media (min-width: 992px) {
     .tab-btn{
         width: 85%;
@@ -98,7 +96,6 @@
 }
 
 body{
-    font-family: 'Martel Sans';
     color: var(--main-black);
 }
 .header{

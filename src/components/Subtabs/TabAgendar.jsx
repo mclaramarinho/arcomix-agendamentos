@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TabBtn from "./TabBtn";
-import SolicitacoesLista from "./SolicitacoesLista";
-import CriarForm from "./CriarForm";
+import TabBtn from "../Buttons/TabBtn";
+import SolicitacoesLista from "../Lists_and_cards/SolicitacoesLista";
+import CriarForm from "../CriarForm";
 
 function TabAgendar(props){
 

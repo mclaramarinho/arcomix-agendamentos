@@ -3,15 +3,19 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import colaboradores from "../users/colaboradores";
 
-import BackBtn from "../components/BackBtn";
-import ProfileInfo from "../components/ProfileInfo";
-import MsgAlterarInfo from "../components/MsgAlterarInfo";
-import ProfilePic from "../components/ProfilePic";
-import LogoutBtn from "../components/LogoutBtn";
+import BackBtn from "../components/Buttons/BackBtn";
+import ProfileInfo from "../components/Profile/ProfileInfo";
+import MsgAlterarInfo from "../components/Profile/MsgAlterarInfo";
+import ProfilePic from "../components/Profile/ProfilePic";
+import LogoutBtn from "../components/Buttons/LogoutBtn";
+
 import runAuth from "../utils/runAuth";
 
 
 function PerfilColab(){
+
+    // ### MAKE A HOOK UNDER THE FOLDER HOOKS TO SAVE AUTH AND PROFILE INFO ###
+
     let {id} = useParams();
     let profileInfo;
     
@@ -49,7 +53,7 @@ function PerfilColab(){
                             <MsgAlterarInfo />
                         </div>
 
-                        {/* NOT FINISHED */}
+                        {/* ######## NOT FINISHED ######## */}
                         <div className="col-lg-7 col-xl-7 login-left-side">
                             <h2 className="row m-auto mt-5" style={{width:"fit-content", fontWeight:700, color:"#343232"}}>ALTERAR SENHA</h2>
 
@@ -80,11 +84,12 @@ function PerfilColab(){
                                         style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", fontWeight:700, fontFamily:"Martel Sans", border:"1px solid #343232 !important"}}
                                 />
                             </div>   
-                            {/* NOT FUNCTIONAL YET */}
+                            
                             <div className="row w-25 m-auto">
                                 <button className="btn btn-lg m-auto" style={{backgroundColor:"#087BBF", borderRadius:"100vw", color:"#ffff", fontWeight:700}} type="submit">PROSSEGUIR</button>
                             </div>
                         </div>
+                        {/* ######## NOT FUNCTIONAL YET ######## */}
                     </div>
                 </div>
                 

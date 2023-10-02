@@ -93,7 +93,7 @@ function Calendar(props){
                             highlightedDays,
                         },
                     }}
-                    disablePast /*{setSelectedDay(value.$y + "-" + (value.$M < 9 ? "0"+(value.$M+1) : value.$M+1) + "-" + value.$D)}}*/
+                    disablePast
                     onChange={(value, selectionState)=>{props.setSelectedDay(value.$y + "-" + (value.$M < 9 ? "0"+(value.$M+1) : value.$M+1) + "-" + value.$D)}}
                 />
                 <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">

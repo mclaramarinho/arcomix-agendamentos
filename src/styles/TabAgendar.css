@@ -1,14 +1,3 @@
-:root{
-    --main-black: #343232;
-    --dark-gray: #A09F9F;
-    --lighter-gray: #DBDBDB;
-    --sky-blue: #8AD3ED;
-    --dark-blue: #087BBF;
-    --main-red: #DD3F3F;
-    --peach-red: #d76767;
-}
-
-
 @media (max-width: 426px) {
     .solicitacao-card{
         width: 90% !important;
@@ -36,9 +25,6 @@
     .solicitacao-card, .lista-container{
         width: 60% !important;
     }
-    .lista-container{
-        height: 75%;
-    }   
 }
 @media (max-width: 992px) {
     .button-row{
@@ -69,7 +55,6 @@
         margin-bottom: 3vh;
     }   
     .lista-container{
-        height: 65%;
         margin-top: 10vh !important;
     } 
 }
@@ -95,66 +80,24 @@
     }
 }
 
-body{
-    color: var(--main-black);
-}
-.header{
-    font-weight: 900;
-}
-.subheader{
-    font-weight: 700;
-}
-.selected-tab-btn, .selected-tab-btn:active, .selected-tab-btn:hover{
-    background-color: var(--sky-blue) !important;
-    color: white !important;
-    border-color: var(--dark-blue) !important;
-}
-
-.unselected-tab-btn, .unselected-tab-btn:active{
-    background-color: var(--lighter-gray) !important;
-    color:  #343232b3 !important;
-    border-color: var(--main-black) !important;
-}
-.unselected-tab-btn:hover{
-    background-color: white !important;
-    color: var(--main-black) !important;
-    border-color: var(--main-black) !important;
-}
-
-
 .solic-btn, .solic-btn:hover{
     color: white;
-    font-weight: 700;
+    margin-bottom: 1vh;
+    border-radius: 1vh;
 }
-.red-bg{
-    background-color: var(--main-red);
+
+.lista-container{
+    max-height: 65vh !important;
 }
-.green-bg{
-    background-color: #68B644;
-}
-.red-bg:hover{
-    background-color: var(--peach-red);
-}
-.green-bg:hover{
-    background-color: #68b644a8;
-}
-.lista-container, .criar-form-container{
-    box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.284);
-    border-radius: 3vh;
-    overflow-y: scroll;
-}
-.lista-container::-webkit-scrollbar, .criar-form-container::-webkit-scrollbar{
-    display: none;
-}
-body{
-    overflow-y: hidden;
-}
+    
 .solicitacao-card{
     padding: 1vh 0 !important;
+    border: 1px solid #343232;
+    box-sizing: border-box !important;
 }
+
 .tab-btn{
     padding: 1vh 0;
-    font-weight: 700;
     border-width: 2px;
     border-style: solid;
 }
@@ -173,3 +116,4 @@ body{
 .criar-form-container{
     padding: 2vh 4vh 2vh 6vh;
 }
+

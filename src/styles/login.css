@@ -1,16 +1,5 @@
-:root{
-    /* COLORS */
-    --sky-blue: #8AD3ED;
-    --dark-blue: #087BBF;
-    --main-red: #DD3F3F;
-    --peach-red: #d76767;
-    --main-black: #343232;
-    --dark-gray: #A09F9F;
-}
-
 .container-login{
     border-radius: 5vh;
-    overflow: clip;
     box-shadow: 15px 10px 40px 10px rgba(0, 0, 0, 0.185);
 }
 
@@ -63,21 +52,14 @@
 }
 
 
-.login-right-side{
-    background-color: var(--sky-blue);
-}
-.login-right-side, .login-left-side{
-    overflow: clip;
-}
 .actor{
     font-size: 3rem;
     color: white;
-    font-weight: 700;
 }
+
 .swap-btn, .swap-btn:active{
     padding: 1vh !important;
     font-size: 1.5rem !important;
-    width: fit-content;
     border-radius: 100%;
     background-color: var(--main-red) !important;
     border: var(--peach-red) !important;
@@ -88,14 +70,10 @@
 }
 
 .bem-vindo{
-    font-weight: 900;
     color: var(--main-black);
-    width: fit-content;
-    margin: 0 auto;
 }
 .auth-error{
     color: var(--main-red);
-    font-weight: 700;
 }
 .group-input{
     padding: 0;
@@ -105,9 +83,7 @@
     width: 55%;
     border-bottom: 1px solid var(--main-black);
 }
-.group-options{
-    border: none;
-}
+
 .input-icon{
     border-right: 1px solid var(--main-black);
 }
@@ -116,20 +92,11 @@
     color: var(--dark-gray);
 }
 .form-input{
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
     font-size: 1.5rem;
 }
 .entrar-btn, .entrar-btn:active{
     border-radius: 10vh;
-    width: fit-content;
-    background-color: var(--dark-blue) !important;
     color: white !important;
-    font-weight: 700;
     padding: 1vh 2vh;
     font-size: 1.5rem;
-}
-.entrar-btn:hover{
-    background-color: #429acc !important;
 }

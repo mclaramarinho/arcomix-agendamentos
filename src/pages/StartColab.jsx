@@ -5,6 +5,7 @@ import Navbar from "../components/Navs/Navbar";
 import runAuth from "../utils/runAuth";
 import MenuTabs from "../components/Navs/MenuTabs";
 import TabAgendar from "../components/Subtabs/TabAgendar";
+import TabAgendamentos from "../components/Subtabs/TabAgendamentos";
 
 function StartColab (){
     
@@ -55,7 +56,7 @@ function StartColab (){
                 <MenuTabs onTabClick={(e) => handleTabs(e)}/>
                 { //check which tab to display
                     currentTab.includes("AGENDAR") ? <TabAgendar /> 
-                    : currentTab.includes("AGENDAMENTOS") ? <h1>TAB DE AGENDAMENTOS</h1> 
+                    : currentTab.includes("AGENDAMENTOS") ? <TabAgendamentos /> 
                     : <h1>TAB DE FINALIZADOS</h1>
                 }
             </div>

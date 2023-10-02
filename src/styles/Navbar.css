@@ -1,25 +1,6 @@
-:root{
-    --sky-blue: #8AD3ED;
-    --dark-blue: #087BBF;
-}
-
-.blue-bg{
-    background-color: var(--sky-blue) !important;
-}
-.dark-blue-bg{
-    background-color: var(--dark-blue) !important;
-}
-
-.entrar-btn, .entrar-btn:active{
-    border-radius: 10vh;
-    background-color: var(--dark-blue) !important;
-    color: white !important;
-    font-weight: 700;
+.acessar-perfil, .acessar-perfil:active{
     font-size: 1.8rem;
     padding-top: 0.5vh !important;
-}
-.entrar-btn:hover{
-    background-color: #429acc !important;
 }
 
 .avatar-icon, .avatar-icon:active{

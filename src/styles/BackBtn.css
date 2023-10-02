@@ -1,16 +1,8 @@
-:root{
-    --main-black: #343232;
-    --faded-black: #343232b3;
-}
 .back-btn{
     font-size: 2rem;    
-    font-weight: 700;
-    outline: none !important;
-    border: none !important;
     color: var(--main-black) !important;
 }
 .back-btn:hover, .back-btn:active{
-    outline: none !important;
-    border: none !important;
+    
     color: var(--faded-black) !important;
 }

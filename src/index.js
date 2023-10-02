@@ -10,6 +10,10 @@ import './styles/Navbar.css'
 import './styles/BackBtn.css'
 import './styles/MenuTabs.css'
 import './styles/TabAgendar.css'
+import './styles/TabAgendamentos.css'
+import './styles/TabBtn.css'
+
+
 import PerfilColab from './pages/PerfilColab';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

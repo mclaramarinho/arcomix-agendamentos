@@ -1,11 +1,3 @@
-:root{
-    --main-red: #DD3F3F;
-    --peach-red: #d76767;
-    --main-black: #343232;
-    --dark-gray: #A09F9F;
-    --lighter-gray: #DBDBDB;
-}
-
 .nav-tabs{
     background-color: var(--lighter-gray);
 }
@@ -16,8 +8,6 @@
     --bs-nav-link-color: white !important;
     --bs-nav-link-hover-color: white !important;
     --bs-nav-tabs-link-active-color: var(--main-red);
-    font-weight: 700;
-    text-align: center;
     border-top-left-radius: 1vh;
     border-top-right-radius: 1vh;
 }

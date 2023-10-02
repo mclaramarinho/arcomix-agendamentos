@@ -50,10 +50,11 @@ function SolicitacoesLista(){
 
     //every time locaSolicitacoes changes
     useEffect(() =>{
+        
     }, [localSolicitacoes])
 
 
-
+    // ### NEEDS TO SHOW CONFIRMATION MSG ###
     function handleCardClick(e){
         const value = e.target.value;
         const id = e.target.getAttribute('id');
@@ -73,7 +74,6 @@ function SolicitacoesLista(){
             })
         }
 
-
         setLocalSolicitacoes(localSolicitacoes.filter(item => {
             if(item!==undefined){
                 return item
@@ -87,21 +87,26 @@ function SolicitacoesLista(){
         let control;
         //checks if the localSolicitacoes array contains only undefined items
         localSolicitacoes.map(item =>{
-            if(item === undefined){
-                return control = true;
-            }else{
-                return control = false;
-            }
+            return item.map(subItem => {
+                if(subItem === undefined){
+                    console.log(subItem, true)
+                    return control = true;
+                }else{
+                    console.log(subItem, true)
+                    return control = false;
+                }
+            })
         })
 
-
-        if((localSolicitacoes === undefined || localSolicitacoes.length === 0) || !control){
+        //if there are no requests at the moment
+        if(control === true){
             return(
                 <div className="row text-center mt-5">
-                    <h2 className="subheader">Não há solicitações no momento.</h2>
+                    <h2 className="bold">Não há solicitações no momento.</h2>
                     <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
                 </div>
             )
+            
         }else{
             return localSolicitacoes.map((item) => {
                 return item.map(subItem => {
@@ -123,14 +128,15 @@ function SolicitacoesLista(){
                 
             })
         }
+
         
     }
 
     return(
         
-        <div className='row lista-container position-relative m-auto' >
+        <div className='row lista-container large-container-shadow overflow-y-scroll hide-scrollbar position-relative m-auto' >
             <div className="col-12  text-center mt-5 ">
-                <h2 className="header">SOLICITAÇÕES DE AGENDAMENTO</h2>
+                <h2 className="bolder">SOLICITAÇÕES DE AGENDAMENTO</h2>
                 <hr className="w-50 m-auto" />
             </div>
             <div className="col-12 text-center">

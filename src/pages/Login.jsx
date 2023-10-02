@@ -49,16 +49,16 @@ function Login (){
     }
 
     return(
-        <div className="container container-login position-absolute top-50 start-50 translate-middle">
+        <div className="container container-login overflow-clip position-absolute top-50 start-50 translate-middle">
 
             <form onSubmit={(e)=>{setSubmit(true); onSubmit(actor, pswd, loginId); e.preventDefault()}} className="row">
-                <div className="col-lg-5 col-xl-5 login-right-side">
+                <div className="col-lg-5 col-xl-5 login-right-side overflow-clip sky-blue-bg">
                     <div className="row text-center my-5 mt-5 pt-5">
-                        <h1 className="actor">{actor}</h1>
+                        <h1 className="actor bold">{actor}</h1>
                     </div>
                     <div className="row position-relative mb-5">
                         <hr className="border border-light opacity-100 w-50 m-auto" />
-                        <i class="fa-solid fa-arrow-right-arrow-left btn btn-sm position-absolute start-50 translate-middle swap-btn"
+                        <i class="fa-solid fa-arrow-right-arrow-left btn btn-sm position-absolute start-50 translate-middle swap-btn width-fit"
                             onClick={() => {(actor==="Colaborador") ? setActor("Fornecedor") : setActor("Colaborador");}}
                         />
                     </div> 
@@ -67,15 +67,15 @@ function Login (){
                     </div>
                 </div>
 
-                <div className="col-lg-7 col-xl-7 login-left-side">
+                <div className="col-lg-7 col-xl-7 login-left-side overflow-clip">
 
                     <div className="mt-5 pt-5">
                         <div className="row text-center">
-                            <h1 className="bem-vindo">Bem vindo</h1>
+                            <h1 className="bem-vindo bolder width-fit m-auto">Bem vindo</h1>
                         </div>
                         <div className="row text-center mt-3">
                             {   (submit && !auth) && 
-                                <p className="auth-error">Alguma informação está incorreta. Verifique-as e tente novamente!</p>
+                                <p className="auth-error bold">Alguma informação está incorreta. Verifique-as e tente novamente!</p>
                             }
                         </div>
                         <div className="row mt-5">
@@ -83,7 +83,7 @@ function Login (){
                                 <div className="col-2 input-icon text-center pt-1 p-0">
                                     <i class="fa-regular fa-user"></i>
                                 </div>
-                                <input type="text" class="form-input form-control col text-center"
+                                <input type="text" class="form-input no-outline no-box-shadow form-control col text-center"
                                     placeholder={(actor==="Colaborador") ? "Matrícula" : "ID Login"}
                                     value={loginId}
                                     onChange={(e) => setLoginId(e.target.value)}
@@ -93,11 +93,11 @@ function Login (){
                                 <div className="col-2 input-icon text-center pt-1 p-0">
                                     <i class="fa-solid fa-lock mt-2"></i>
                                 </div>
-                                <input type="password" class="form-input form-control col text-center" placeholder="Senha" value={pswd}
+                                <input type="password" class="form-input no-outline no-box-shadow form-control col text-center" placeholder="Senha" value={pswd}
                                     onChange={(e) => setPswd(e.target.value)}
                                 />
                             </div>
-                            <div className="group-input group-options row m-auto mb-5 mt-1 px-0">
+                            <div className="group-input group-options no-outline row m-auto mb-5 mt-1 px-0">
                                 <div className="col-7 p-0">
                                     <span>
                                         <input className="align-middle me-2" type="checkbox" name="lembrar" id="lembrar" onChange={()=>setLembrar(!lembrar)}/>
@@ -112,7 +112,7 @@ function Login (){
                     </div>
 
                     <div className="row">
-                        <button className="btn btn-lg entrar-btn m-auto" type="submit">ENTRAR</button>
+                        <button className="btn btn-lg entrar-btn m-auto width-fit bold dark-blue-bg" type="submit">ENTRAR</button>
                     </div>
                     
                 </div>

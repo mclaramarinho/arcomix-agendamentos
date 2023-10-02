@@ -70,7 +70,7 @@ function CriarForm(){
     return(
         //if the form wasn't submitted yet => show the form
         !isSubmitted ? (
-            <div className="container h-auto m-auto mt-5 criar-form-container">
+            <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
                 <div className="row my-5 header">CRIAR NOVO AGENDAMENTO</div>
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
@@ -104,7 +104,7 @@ function CriarForm(){
                     </div>
             
             </div>
-        </div>) : ( //if the form was submitted => show submission message ### CHANGE TO A DIALOG AS IN THE FIGMA PROTOTYPE!!! ###
+        </div>) : ( //if the form was submitted => show submission message                              ### CHANGE TO A DIALOG AS IN THE FIGMA PROTOTYPE!!! ###
             <div className="container w-50 criar-form-container position-relative" style={{marginTop: "25vh"}}>
                 <div className="row my-5 header justify-content-center text-center">AGENDAMENTO CRIADO COM SUCESSO!</div>
                 <div className="col text-center">

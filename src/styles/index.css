@@ -1,4 +1,74 @@
 :root{
     font-family: 'Martel Sans' !important;
     font-size: 10px !important;
+    --main-black: #343232;
+    --dark-gray: #A09F9F;
+    --lighter-gray: #DBDBDB;
+    --sky-blue: #8AD3ED;
+    --dark-blue: #087BBF;
+    --main-red: #DD3F3F;
+    --peach-red: #d76767;
+    --faded-black: #343232b3;
+}
+
+body{
+    color: var(--main-black) !important;
+    overflow-y: hidden !important;
+}
+
+.bold{
+    font-weight: 700 !important;
+}
+.bolder{
+    font-weight: 900 !important;
+}
+
+.red-bg{
+    background-color: var(--main-red) !important;
+}
+.green-bg{
+    background-color: #68B644 !important;
+}
+.red-bg:hover{
+    background-color: var(--peach-red) !important;
+}
+.green-bg:hover{
+    background-color: #68b644a8 !important;
+}
+.sky-blue-bg{
+    background-color: var(--sky-blue) !important;
+}
+.dark-blue-bg{
+    background-color: var(--dark-blue) !important;
+}
+.dark-blue-bg:hover{
+    background-color: #429acc !important;
+}
+
+.overflow-y-scroll{
+    overflow-y: scroll !important;
+}
+.overflow-clip{
+    overflow:clip !important;
+}
+.border-box{
+    box-sizing: border-box !important;
+}
+
+.large-container-shadow{
+    box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.284) !important;
+    border-radius: 3vh !important;
+}
+.no-outline{
+    outline: none !important;
+    border: none !important;
+}
+.width-fit{
+    width: fit-content !important;
+}
+.no-box-shadow{
+    box-shadow: none !important;
+}
+.hide-scrollbar::-webkit-scrollbar{
+    display: none !important;
 }

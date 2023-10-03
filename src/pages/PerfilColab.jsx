@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import colaboradores from "../users/colaboradores";
 
-import BackBtn from "../components/Buttons/BackBtn";
-import ProfileInfo from "../components/Profile/ProfileInfo";
-import MsgAlterarInfo from "../components/Profile/MsgAlterarInfo";
-import ProfilePic from "../components/Profile/ProfilePic";
-import LogoutBtn from "../components/Buttons/LogoutBtn";
+import BackBtn from "../components/BackBtn";
+import ProfileInfo from "../components/ProfileInfo";
+import MsgAlterarInfo from "../components/MsgAlterarInfo";
+import ProfilePic from "../components/ProfilePic";
+import LogoutBtn from "../components/LogoutBtn";
 
 import runAuth from "../utils/runAuth";
 

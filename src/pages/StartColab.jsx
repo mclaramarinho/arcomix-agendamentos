@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import colaboradores from "../users/colaboradores";
-import Navbar from "../components/Navs/Navbar";
+import Navbar from "../components/Navbar";
 import runAuth from "../utils/runAuth";
-import MenuTabs from "../components/Navs/MenuTabs";
-import TabAgendar from "../components/Subtabs/TabAgendar";
-import TabAgendamentos from "../components/Subtabs/TabAgendamentos";
+import MenuTabs from "../components/MenuTabs";
+import TabAgendar from "../tabs/TabAgendar";
+import TabAgendamentos from "../tabs/TabAgendamentos";
 
 function StartColab (){
     

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import TabBtn from "../Buttons/TabBtn";
-import AgendamentosLista from "../Lists_and_cards/AgendamentosLista";
-import AgendamentoDetails from "../Lists_and_cards/AgendamentoDetails";
+import TabBtn from "../components/TabBtn";
+import AgendamentosLista from "../components/AgendamentosLista";
+import AgendamentoDetails from '../components/AgendamentoDetails'
+import { getLocalStorage, getParsedLocalStorage } from "../utils/localStorage";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
     
     //checks if there's a local storage already
     useEffect(() => {
-        if(localStorage.getItem("agendamentos")!==null){ //if this local storage exists
-            setLocalAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
+        if(getLocalStorage("agendamentos")!==null){ //if this local storage exists
+            setLocalAgendamentos(getParsedLocalStorage("agendamentos")) //agendamentos will receive the items of this storage
         }
     }, [])
     const [selected, setSelected] = useState();
@@ -38,7 +39,6 @@ function TabAgendamentos (){
         if(subTab1){
             return <AgendamentosLista handleDetails={handleDetails}/>
         }else{
-            document.body.style.overflowY="auto";
             return <h1>Indisponivel no momento...</h1>
         }
     }
@@ -52,18 +52,19 @@ function TabAgendamentos (){
                 <div className={`col-lg-5 col`} style={{height: "100%"}}>
                     {tabContent()}
                 </div>
-                <div className="col-lg-5" style={{height: "100%"}}>
+                <div className="col-lg-5 border-box" style={{height: "100%"}}>
                     {/* if something is clicked, the info of the last card clicked will be displayed */}
                     {openDetails && (
                         <AgendamentoDetails
                             empresa={selected[0].id_fornecedor}
                             idAgendamento={selected[0].id_agendamento}
                             status={selected[0].status.toUpperCase()}
-                            data={selected[0].data}
+                            data={selected[0].data} 
                             hora={selected[0].hora}
                             tipoCarga={selected[0].tipo_carga}
                             tipoDescarga={selected[0].tipo_descarga}
                             recorrencia={selected[0].recorrencia}
+                            observacoes={selected[0].observacoes}
                         />)
                     } 
                 </div>

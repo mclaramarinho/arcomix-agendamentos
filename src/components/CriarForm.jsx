@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
-import FormInputField from "./Form/FormInputField";
+import FormInputField from "./FormInputField";
 import dayjs from 'dayjs';
-import Calendar from "./Form/Calendar";
-import DigitalTimePicker from "./Form/DigitalTimePicker";
+import Calendar from "./Calendar";
+import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
-
+import { getLocalStorage, setLocalStorage, getParsedLocalStorage } from "../utils/localStorage";
 
 function CriarForm(){
     const tiposDeCarga = ["Frios", "Granel", "Carnes", "Descartáveis", "Conservas", "Materiais de limpeza"];
     const tiposDeDescarga = ["Manual", "Paletizada"];
     const recorrencias = ["Única", "Diária", "Semanal", "Mensal", "Trimestral", "Semestral", "Anual"];
+
     const [idAgendamento, setIdAgendamento] = useState(generateId())
     const [fornecedorV, setFornecedorV] = useState("");
     const [cargaV, setCargaV] = useState("")
@@ -32,10 +33,10 @@ function CriarForm(){
     
     // when the subtab is loaded
     useEffect(() => {
-        if(localStorage.getItem("agendamentos") === null || localStorage.getItem("agendamentos") === undefined ){ //check if there's a local storage for these items
-            localStorage.setItem("agendamentos", []) //sets the local storage if it doesn't already exist
+        if(getLocalStorage("agendamentos") === null || getLocalStorage("agendamentos") === undefined ){ //check if there's a local storage for these items
+            setLocalStorage("agendamentos", []) //sets the local storage if it doesn't already exist
         }else{ //if it already exists
-            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //adds to the local usestate variable the local storage content
+            setAgendamentos(getParsedLocalStorage("agendamentos")) //adds to the local usestate variable the local storage content
         }
     }, [])
 
@@ -43,12 +44,12 @@ function CriarForm(){
     useEffect(() => {
         setDiff(dayjs(today).diff(selectedDay, 'hour')) //the difference in hours between today and the selected day
 
-        diff < 24 ? setMinTime('09:00') : setMinTime(dayjs().hour()+":"+dayjs().minute()) // if in the future, the min time is 9am, otherwise it's the nearest future time 
+        diff < 24 ? setMinTime('09:00') : setMinTime(dayjs().format("HH:mm")) // if in the future, the min time is 9am, otherwise it's the nearest future time 
     }, [selectedDay])   
 
     //when agendamentos is altered
     useEffect(() => {
-        localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
+        setLocalStorage("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
     }, [agendamentos])
 
     function handleSubmit(){ // when form is submitted
@@ -57,7 +58,7 @@ function CriarForm(){
         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
             //adds the new item to local agendamentos usestate variable
             setAgendamentos(prev => {
-                return [...prev, createAgendamento(idAgendamento, fornecedorV, "pendente", dayjs(selectedDay).date()+"/"+dayjs(selectedDay).month()+"/"+dayjs(selectedDay).year(), 
+                return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dayjs(selectedDay).format("MM/DD/YYYY"), 
                     selectedTime, cargaV, descargaV, recorrenciaV, obsV, false
                 )]
             })
@@ -71,7 +72,7 @@ function CriarForm(){
         //if the form wasn't submitted yet => show the form
         !isSubmitted ? (
             <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
-                <div className="row my-5 header">CRIAR NOVO AGENDAMENTO</div>
+                <div className="row my-5 bolder">CRIAR NOVO AGENDAMENTO</div>
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
                         <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} value={idAgendamento}  />
@@ -96,7 +97,7 @@ function CriarForm(){
                             </div>
                             
                             <div className="col text-end">
-                                <button onClick={() => handleSubmit()} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg" >
+                                <button onClick={() => handleSubmit()} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg bold" >
                                     AGENDAR
                                 </button>
                             </div>

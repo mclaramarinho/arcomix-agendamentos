@@ -13,7 +13,16 @@
 
 body{
     color: var(--main-black) !important;
-    overflow-y: hidden !important;
+}
+@media (min-width: 992px) {
+    body{
+        overflow-y: hidden !important;
+    }
+}
+@media (max-width: 992px) {
+    body{
+        overflow-y: scroll !important;
+    }
 }
 
 .bold{
@@ -54,7 +63,15 @@ body{
 .border-box{
     box-sizing: border-box !important;
 }
-
+.content-box{
+    box-sizing: content-box !important;
+}
+.reset-format{
+    appearance: none !important;
+}
+.no-resizer::-webkit-resizer{
+    display: none;
+}
 .large-container-shadow{
     box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.284) !important;
     border-radius: 3vh !important;
@@ -71,4 +88,7 @@ body{
 }
 .hide-scrollbar::-webkit-scrollbar{
     display: none !important;
+}
+.gutter-x-0{
+    --bs-gutter-x: 0 !important;
 }

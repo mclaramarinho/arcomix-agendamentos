@@ -18,7 +18,7 @@ function DigitalTimePicker(props){
                     minTime={dayjs(selectedDay+'T'+minTime)} maxTime={dayjs(selectedDay+'T'+maxTime)}
                     ampm={false} skipDisabled
                     value={props.value}
-                    onChange={(value, selectionState)=>props.setValue(value.$H+":"+value.$m)}
+                    onChange={(value, selectionState)=>props.setValue(dayjs(value).format("HH:mm"))}
                 />
             </Stack>
         </LocalizationProvider>

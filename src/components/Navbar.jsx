@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from '@mui/material/Container';
 import { AccountCircle } from "@mui/icons-material";
 
-import navLogo from './logo-navbar.png'
+import navLogo from '../assets/logo-navbar.png'
 
 function Navbar(props){
     const handleProfile = () => props.handleProfile;

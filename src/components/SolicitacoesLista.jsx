@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import SolicitacaoCard from "./SolicitacaoCard";
+import { setLocalStorage } from "../utils/localStorage";
 
 function SolicitacoesLista(){
     //controls the value of what's typed in the filter field
@@ -24,6 +25,8 @@ function SolicitacoesLista(){
         if(localStorage.getItem("agendamentos")!==null){ //if this local storage exists
             setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
             
+        }else{
+            localStorage.setItem("agendamentos", JSON.stringify(agendamentos))
         }
         
     }, [])
@@ -79,7 +82,7 @@ function SolicitacoesLista(){
                 return item
             }
         }))
-        localStorage.setItem("agendamentos", JSON.stringify(agendamentos))
+        setLocalStorage("agendamentos", JSON.stringify(agendamentos))
     }
 
 
@@ -89,19 +92,20 @@ function SolicitacoesLista(){
         localSolicitacoes.map(item =>{
             return item.map(subItem => {
                 if(subItem === undefined){
-                    console.log(subItem, true)
                     return control = true;
                 }else{
-                    console.log(subItem, true)
                     return control = false;
                 }
             })
         })
+        if(localSolicitacoes.length===0){
+            control = true;
+        }
 
         //if there are no requests at the moment
         if(control === true){
             return(
-                <div className="row text-center mt-5">
+                <div className="row h-25 p-0 text-center mt-5 mb-5 ">
                     <h2 className="bold">Não há solicitações no momento.</h2>
                     <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
                 </div>
@@ -134,13 +138,13 @@ function SolicitacoesLista(){
 
     return(
         
-        <div className='row lista-container large-container-shadow overflow-y-scroll hide-scrollbar position-relative m-auto' >
-            <div className="col-12  text-center mt-5 ">
+        <div className='container lista-container large-container-shadow overflow-y-scroll hide-scrollbar position-relative m-auto' >
+            <div className="row h-25 p-0 text-center mt-5 mb-5 ">
                 <h2 className="bolder">SOLICITAÇÕES DE AGENDAMENTO</h2>
                 <hr className="w-50 m-auto" />
             </div>
-            <div className="col-12 text-center">
-                <Paper className="m-auto mt-5" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
+            <div className="row h-25 text-center mb-5">
+                <Paper className="m-auto" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
                     
                     <InputBase
                         sx={{ ml: 1, flex: 1}}
@@ -154,7 +158,7 @@ function SolicitacoesLista(){
                     
                 </Paper>
             </div>
-            <div className="col-12 solicitacoes-container">
+            <div className="row h-25 solicitacoes-container m-auto">
                 {showLista(localSolicitacoes)}
                 
             </div>

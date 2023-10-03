@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import TabBtn from "../Buttons/TabBtn";
-import SolicitacoesLista from "../Lists_and_cards/SolicitacoesLista";
-import CriarForm from "../CriarForm";
+import TabBtn from "../components/TabBtn";
+import SolicitacoesLista from "../components/SolicitacoesLista";
+import CriarForm from "../components/CriarForm";
 
-function TabAgendar(props){
+function TabAgendar(){
 
     const [subTab1, setSubTab1] = useState(true);
     const [width, setWidth] = useState(window.innerWidth);
@@ -14,7 +14,7 @@ function TabAgendar(props){
         setColSize(subTab1 ? 5 : 10);
     },[subTab1])
 
-    setInterval(( )=>{
+    setInterval(()=>{
         setWidth(window.innerWidth);
     }, [100])
     
@@ -22,7 +22,6 @@ function TabAgendar(props){
         if(subTab1){
             return <SolicitacoesLista />
         }else{
-            document.body.style.overflowY="auto";
             return <CriarForm />
         }
     }

@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import SolicitacaoCard from "./SolicitacaoCard";
-import { setLocalStorage } from "../utils/localStorage";
 
 function SolicitacoesLista(){
     //controls the value of what's typed in the filter field
@@ -26,7 +25,7 @@ function SolicitacoesLista(){
             setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
             
         }else{
-            localStorage.setItem("agendamentos", JSON.stringify(agendamentos))
+            localStorage.setItem("agendamentos", JSON.stringify([]))
         }
         
     }, [])
@@ -82,7 +81,8 @@ function SolicitacoesLista(){
                 return item
             }
         }))
-        setLocalStorage("agendamentos", JSON.stringify(agendamentos))
+        localStorage.setItem("agendamentos", JSON.stringify(agendamentos))
+
     }
 
 

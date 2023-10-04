@@ -1,8 +1,8 @@
-function getTempLoginInfo(key){
+function getTempLoginInfo(){
     return localStorage.getItem("tempLoginInfo");
 }
 
-function getParsedTempLoginInfo(key){
+function getParsedTempLoginInfo(){
     return JSON.parse(sessionStorage.getItem("tempLoginInfo"))
 }
 

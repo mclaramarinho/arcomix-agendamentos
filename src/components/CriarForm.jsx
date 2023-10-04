@@ -5,8 +5,7 @@ import dayjs from 'dayjs';
 import Calendar from "./Calendar";
 import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
-import { getLocalStorage, setLocalStorage, getParsedLocalStorage } from "../utils/localStorage";
-
+    
 function CriarForm(){
     const tiposDeCarga = ["Frios", "Granel", "Carnes", "Descartáveis", "Conservas", "Materiais de limpeza"];
     const tiposDeDescarga = ["Manual", "Paletizada"];
@@ -33,10 +32,10 @@ function CriarForm(){
     
     // when the subtab is loaded
     useEffect(() => {
-        if(getLocalStorage("agendamentos") === null || getLocalStorage("agendamentos") === undefined ){ //check if there's a local storage for these items
-            setLocalStorage("agendamentos", []) //sets the local storage if it doesn't already exist
+        if(localStorage.getItem("agendamentos") === null || localStorage.getItem("agendamentos") === undefined ){ //check if there's a local storage for these items
+            localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //sets the local storage if it doesn't already exist
         }else{ //if it already exists
-            setAgendamentos(getParsedLocalStorage("agendamentos")) //adds to the local usestate variable the local storage content
+            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //adds to the local usestate variable the local storage content
         }
     }, [])
 
@@ -49,7 +48,7 @@ function CriarForm(){
 
     //when agendamentos is altered
     useEffect(() => {
-        setLocalStorage("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
+        localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
     }, [agendamentos])
 
     function handleSubmit(){ // when form is submitted

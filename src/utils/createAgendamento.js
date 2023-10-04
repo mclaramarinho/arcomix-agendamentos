@@ -1,7 +1,8 @@
 import fornecedores from "../users/fornecedores";
 
-const agendamentos = localStorage.getItem("agendamentos") !== undefined && JSON.parse(localStorage.getItem("agendamentos"))
-const idExistentes = agendamentos !== undefined && agendamentos !== null ? agendamentos.map(item => item.id_agendamento) : 0
+let agendamentos = (localStorage.getItem("agendamentos") !== undefined) && JSON.parse(localStorage.getItem("agendamentos"))
+
+const idExistentes = (agendamentos !== undefined && agendamentos !== null && agendamentos.length > 1) ? agendamentos.map(item => item.id_agendamento) : 0
 
 function generateId(){
     let existe;
@@ -20,6 +21,7 @@ function generateId(){
     return newId;
 }
 function createAgendamento(idAgendamento, idFornecedor, status, data, hora, tipoCarga, tipoDescarga, recorrencia, observacoes, isEntregue){
+    
     let nomeFantasia = fornecedores.filter(item =>{
         if(item.informacoesLegais[0] === idFornecedor){
             return item.informacoesLegais[1];

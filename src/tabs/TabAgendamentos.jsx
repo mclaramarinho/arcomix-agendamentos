@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import TabBtn from "../components/TabBtn";
 import AgendamentosLista from "../components/AgendamentosLista";
 import AgendamentoDetails from '../components/AgendamentoDetails'
-import { getLocalStorage, getParsedLocalStorage } from "../utils/localStorage";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
     
     //checks if there's a local storage already
     useEffect(() => {
-        if(getLocalStorage("agendamentos")!==null){ //if this local storage exists
-            setLocalAgendamentos(getParsedLocalStorage("agendamentos")) //agendamentos will receive the items of this storage
+        if((localStorage.getItem("agendamentos"))!==null){ //if this local storage exists
+            setLocalAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
         }
     }, [])
     const [selected, setSelected] = useState();

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/big_logo.png'
 import runAuth from "../utils/runAuth";
+import { getParsedTempLoginInfo, getTempLoginInfo } from "../utils/tempLoginInfo";
 
 function Login (){
     const navigate = useNavigate();
@@ -19,8 +20,8 @@ function Login (){
     //To login automatically if info are saved
     useEffect(() => {
         //To prevent getting back to the login screen if already logged in
-        if(sessionStorage.getItem('tempLoginInfo')!==null && sessionStorage.getItem('tempLoginInfo').length > 2){
-            const authInfo = JSON.parse(sessionStorage.getItem('tempLoginInfo'));
+        if(getTempLoginInfo()!==null && getTempLoginInfo().length > 2){
+            const authInfo = getParsedTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
         }else if(localStorage.getItem('loginInfo') !== null && localStorage.getItem('loginInfo').length>1){
             const storedInfo = JSON.parse(localStorage.getItem('loginInfo'));
@@ -97,7 +98,7 @@ function Login (){
                                     onChange={(e) => setPswd(e.target.value)}
                                 />
                             </div>
-                            <div className="group-input group-options no-outline row m-auto mb-5 mt-1 px-0">
+                            <div className="group-input group-options no-outline row m-auto mb-5 mt-0 px-0">
                                 <div className="col-7 p-0">
                                     <span>
                                         <input className="align-middle me-2" type="checkbox" name="lembrar" id="lembrar" onChange={()=>setLembrar(!lembrar)}/>
@@ -111,7 +112,7 @@ function Login (){
                         </div>
                     </div>
 
-                    <div className="row">
+                    <div className="row m-auto">
                         <button className="btn btn-lg entrar-btn m-auto width-fit bold dark-blue-bg" type="submit">ENTRAR</button>
                     </div>
                     

@@ -1,6 +1,6 @@
 .details-container{
     width: 65%;
-    margin-top: 15% !important;
+    /* margin-top: 20vh !important; */
 }
 
 .agendamentos-container{
@@ -14,19 +14,62 @@
 .info-content{
     font-size: 1.3rem;
 }
+@media (max-width: 476px) {
+    .agendamentos-container{
+        width: 95% !important;
+    }  
+}
+
+@media (min-width: 476px) and (max-width: 769px) {
+    .agendamentos-container{
+        width: 65% !important;
+    }   
+}
+
+@media (max-width: 769px){
+    .agendamentos-container{
+        height: 60% ;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px){
+    .agendamentos-container{
+        width: 60% !important;
+    }
+}
+@media (min-width: 992px) {
+    .agendamentos-container{
+        margin-top: 5vh !important;
+    } 
+    .details-container{
+        margin-top: 15vh !important;
+    }
+}
+@media (min-width: 992px) and (max-width: 1300px){
+    .agendamentos-container{
+        width: 80%;
+    } 
+}
+@media (min-width: 1300px){
+    .agendamentos-container{
+        width: 60%;
+    } 
+}
+
 @media (max-width: 475px) {
-    .agendamentos-container, .details-container{
-        width: 85% !important;
+     .details-container{
+        width: 95% !important;
     }
     
 }
 @media (min-width: 475px) and (max-width: 992px) {
-    .agendamentos-container, .details-container{
+    .details-container{
         width: 70% !important;
     }
 }
 @media (max-width: 992px) {
-    .agendamentos-container, .details-container{
+    .agendamentos-container,
+    .details-container{
         margin: 0 auto !important;
     }
     .details-container{
@@ -40,16 +83,6 @@
     }   
 }
 
-@media (min-width: 992px) and (max-width: 1300px) {
-    .agendamentos-container{
-        width: 85% !important;
-    }   
-}
-@media (min-width: 1300px) {
-    .agendamentos-container{
-        width: 75% !important;
-    }   
-}
 
 @media (min-width: 992px) and (max-width: 1400px) {
     .details-container{

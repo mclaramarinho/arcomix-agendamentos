@@ -12,9 +12,18 @@ function Calendar(props){
     const requestAbortController = React.useRef(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const [highlightedDays, setHighlightedDays] = React.useState([]);
+    let agendamentos = props.agendamentos;
+    agendamentos = agendamentos.map(item => {
+      if(item.status === 'agendado'){
+        return item
+      }
+    })
 
+    
     function fakeFetch(date, { signal }) {
+      
         return new Promise((resolve, reject) => {
+
           const timeout = setTimeout(() => {
             const daysToHighlight = [1, 2, 3];
       

@@ -11,10 +11,10 @@ function DigitalTimePicker(props){
     return(
         <LocalizationProvider dateAdapter={AdapterDayjs} >
             <Stack>
-                <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="text-end" >
+                <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="digitalClockText" >
                     Horários disponíveis
                 </Typography>
-                <DigitalClock sx={{width:"40%"}} className="me-0"
+                <DigitalClock sx={{width:"40%"}} className="digitalClock"
                     minTime={dayjs(selectedDay+'T'+minTime)} maxTime={dayjs(selectedDay+'T'+maxTime)}
                     ampm={false} skipDisabled
                     value={props.value}

@@ -3,8 +3,6 @@ import dayjs from "dayjs";
 function AgendamentoCard(props){
     const date = dayjs(props.dataAgendamento);
     const fDate = date.format('DD/MM/YYYY')
-    const time = props.horaAgendamento;
-    console.log(time)
     return(
         <div className="row mb-5 p-4 solicitacao-card m-auto">
                 <div className="row m-auto">

@@ -44,6 +44,25 @@
     .lista-container{
         margin: 0 auto !important;
     }
+    .digitalClock{
+        justify-self: center !important;
+    }
+    .digitalClockText{
+        padding-top: 3vh;
+        padding-bottom: 3vh;
+        text-align: center !important;
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+    }
+    .MuiDigitalClock-item{
+        justify-content: center !important;
+    }
+    .MuiDigitalClock-root{
+        width: fit-content !important;
+    }
+    .form-header{
+        justify-content: center !important;
+    }
 }
 @media (min-width: 992px) {
     .tab-btn{
@@ -60,6 +79,26 @@
     .lista-container{
         margin-top: 8vh !important;
     } 
+    .criar-form-container{
+        min-height: 70vh;
+        max-height: 70vh;
+    }
+    .MuiStack-root{
+        display: grid !important;
+    }
+    .digitalClock{
+        margin: 0 !important;
+        justify-self: end !important;
+    }   
+    .digitalClockText{
+        text-align: end !important;
+    }
+    .agendamento-criado{
+        width: fit-content;
+        position: fixed;
+        top: 50vh;
+        left: 40vw;
+    }
 }
 @media (min-width: 992px) and (max-width: 1300px){
     .solicitacao-card{
@@ -122,3 +161,10 @@
     padding: 2vh 4vh 2vh 6vh;
 }
 
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+    --bs-heading-color: var(--main-black);
+    width: 50vh;
+    height: 40vh;
+    border-radius: 2vh !important;
+    color: var(--main-black);
+}

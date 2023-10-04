@@ -5,7 +5,14 @@ import dayjs from 'dayjs';
 import Calendar from "./Calendar";
 import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
-    
+import {Button} from '@mui/material';
+import {Dialog} from '@mui/material';
+import {DialogActions} from '@mui/material';
+import {DialogContent} from '@mui/material';
+import {DialogContentText} from '@mui/material';
+import {DialogTitle} from '@mui/material';
+
+
 function CriarForm(){
     const tiposDeCarga = ["Frios", "Granel", "Carnes", "Descartáveis", "Conservas", "Materiais de limpeza"];
     const tiposDeDescarga = ["Manual", "Paletizada"];
@@ -29,7 +36,8 @@ function CriarForm(){
     const [agendamentos, setAgendamentos] = useState([]);
 
     const [isSubmitted, setIsSubmitted] = useState();
-    
+    const [openDialog, setOpenDialog] = useState(false);
+
     // when the subtab is loaded
     useEffect(() => {
         if(localStorage.getItem("agendamentos") === null || localStorage.getItem("agendamentos") === undefined ){ //check if there's a local storage for these items
@@ -51,8 +59,9 @@ function CriarForm(){
         localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
     }, [agendamentos])
 
+
     function handleSubmit(){ // when form is submitted
-        
+        setOpenDialog(false)
         //checks if all the fields are filled
         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
             //adds the new item to local agendamentos usestate variable
@@ -64,14 +73,63 @@ function CriarForm(){
             // indicates the form was submitted
             setIsSubmitted(true)
         }
-
-        
     }
+    
     return(
         //if the form wasn't submitted yet => show the form
         !isSubmitted ? (
             <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
-                <div className="row my-5 bolder">CRIAR NOVO AGENDAMENTO</div>
+                 <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+                    <DialogTitle style={{fontSize: 18}} id="alert-dialog-title" className="text-center bolder">CONFIRMAR AGENDAMENTO</DialogTitle>
+                    <hr className="w-50 m-auto" />
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description" className="text-center" style={{fontSize: 14}}>
+                            Verifique as informações do agendamento para prosseguir.
+                        </DialogContentText>
+                        <div className="container p-0 m-auto mt-5" style={{fontSize: 12}}>
+                            <div className="row m-auto">
+                                <div className="col-6">
+                                    <div className="row">
+                                        <div className="col-5 text-start bold">DATA: </div>
+                                        <div className="col-7">{dayjs(selectedDay).format("DD/MM/YYYY")}</div>
+                                    </div>
+                                </div>
+                                <div className="col-6">
+                                    <div className="row">
+                                        <div className="col-5 text-end bold">HORA: </div>
+                                        <div className="col-7">{selectedTime}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row m-auto mt-3">
+                                    <div className="col-4 text-start bold">FORNECEDOR: </div>
+                                    <div className="col-8">{fornecedorV}</div>
+                            </div>
+                            <div className="row m-auto mt-3">
+                                    <div className="col-4 text-start bold">TIPO DE CARGA: </div>
+                                    <div className="col-8">{cargaV}</div>
+                            </div>
+                            <div className="row m-auto mt-3">
+                                    <div className="col-4 text-start bold">DESCARGA: </div>
+                                    <div className="col-8">{descargaV}</div>
+                            </div>
+                            <div className="row m-auto mt-3">
+                                    <div className="col-4 text-start bold">RECORRÊNCIA: </div>
+                                    <div className="col-8">{recorrenciaV}</div>
+                            </div>
+                        </div>
+                    </DialogContent>
+                    <div className="row w-75 m-auto text-center">
+                        <div className="col-6">
+                            <button  onMouseUp={() => {setOpenDialog(false)}} className="btn solic-btn bold w-75 red-bg mt-2">Alterar</button>
+                        </div>
+                        <div className="col-6">
+                            <button  onMouseUp={() =>  {setOpenDialog(false); handleSubmit()}} className="btn solic-btn bold w-75 green-bg mt-2">Agendar</button>
+                        </div>
+                    </div>
+                </Dialog>  
+                
+                <div className="row my-5 bolder h2 form-header">CRIAR NOVO AGENDAMENTO</div>
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
                         <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} value={idAgendamento}  />
@@ -85,7 +143,7 @@ function CriarForm(){
                     <div className="col-lg-8 ms-lg-5" >
                         <div className="row">
                             <div className="col-lg-8">
-                                <Calendar setSelectedDay={setSelectedDay} />
+                                <Calendar agendamentos={agendamentos} setSelectedDay={setSelectedDay} />
                             </div>
 
                             <div className="col-lg-4">
@@ -96,22 +154,31 @@ function CriarForm(){
                             </div>
                             
                             <div className="col text-end">
-                                <button onClick={() => handleSubmit()} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg bold" >
+                                <button
+                                    onClick={() => {
+                                        if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
+                                            setOpenDialog(true)
+                                        }
+                                        
+                                    }} 
+                                    className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg bold" >
                                     AGENDAR
                                 </button>
                             </div>
                         </div>
                     </div>
-            
-            </div>
-        </div>) : ( //if the form was submitted => show submission message                              ### CHANGE TO A DIALOG AS IN THE FIGMA PROTOTYPE!!! ###
-            <div className="container w-50 criar-form-container position-relative" style={{marginTop: "25vh"}}>
-                <div className="row my-5 header justify-content-center text-center">AGENDAMENTO CRIADO COM SUCESSO!</div>
-                <div className="col text-center">
-                    <button onClick={() => {setIdAgendamento(generateId());setIsSubmitted(false)}} className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg" >
-                        CRIAR OUTRO
-                    </button>
+            </div>  
+        </div>) : ( //if the form was submitted => show submission message                              
+            <div className="container criar-form-container position-relative" >
+                <div className="row agendamento-criado">
+                    <div className="col-12 mb-5 bolder h2 text-center ">AGENDAMENTO CRIADO COM SUCESSO!</div>
+                    <div className="col-12 text-center">
+                        <button onClick={() => {setIdAgendamento(generateId());setIsSubmitted(false)}} className="entrar-btn btn btn-lg px-5 py-1 pt-2 dark-blue-bg bold" >
+                            CRIAR OUTRO
+                        </button>
+                    </div>
                 </div>
+                
             </div>
         ))
     

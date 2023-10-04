@@ -25,6 +25,18 @@ function PerfilColab(){
 
     const [auth,setAuth] = useState(false);
 
+    const [width, setWidth] = useState(window.innerWidth);
+    const [position, setPosition] = useState();
+    setInterval(()=>{
+        setWidth(window.innerWidth);
+    }, [100])
+    useEffect(() =>{
+        if(width > 992){
+            setPosition("top-50 start-50 translate-middle")
+        }else{
+            setPosition("")
+        }
+    }, [width])
     useEffect(() =>{
         getAuth();
     }, [])
@@ -40,9 +52,9 @@ function PerfilColab(){
         return (
             <div>
                 <BackBtn />
-                <div className="container container-login position-absolute top-50 start-50 translate-middle">
+                <div className={`container container-login ${position}`}>
                     <div className="row">
-                        <div className="col-lg-5 col-xl-5 login-right-side position-relative">
+                        <div className="col-12 col-lg-5 col-xl-5 login-right-side sky-blue-bg position-relative ">
                             <LogoutBtn />
                             <ProfilePic src={"https://this-person-does-not-exist.com/img/avatar-gen995b349e71b0e38e624db05f5360bba5.jpg"} />
                             
@@ -54,39 +66,39 @@ function PerfilColab(){
                         </div>
 
                         {/* ######## NOT FINISHED ######## */}
-                        <div className="col-lg-7 col-xl-7 login-left-side">
-                            <h2 className="row m-auto mt-5" style={{width:"fit-content", fontWeight:700, color:"#343232"}}>ALTERAR SENHA</h2>
+                        <div className="col-12 col-lg-7 col-xl-7 login-left-side">
+                            <h2 className="row m-auto mt-5 bold justify-content-center">ALTERAR SENHA</h2>
 
-                            <div className="row m-auto w-50 mb-3">
-                                <h3 className="row m-auto mt-5" style={{width:"fit-content", fontWeight: 700, fontFamily:"Martel Sans", color: "#343232"}}>
+                            <div className="row m-auto mb-3">
+                                <h3 className="row m-auto mt-5 bold" style={{width:"fit-content", color: "#343232"}}>
                                     SENHA ATUAL
                                 </h3>
                                 <input type="password"
-                                        className="form-control text-center py-2 pt-3"
-                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", fontWeight:700, fontFamily:"Martel Sans", border:"1px solid #343232 !important"}}
+                                        className="form-control text-center py-2 bold pt-3"
+                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", border:"1px solid #343232 !important"}}
                                 />
                             </div>
-                            <div className="row m-auto w-50 mb-3">
-                                <h3 className="row m-auto mt-5" style={{width:"fit-content", fontWeight: 700, fontFamily:"Martel Sans", color: "#343232"}}>
+                            <div className="row m-auto mb-3">
+                                <h3 className="row m-auto bold mt-5" style={{width:"fit-content", color: "#343232"}}>
                                     NOVA SENHA
                                 </h3>
                                 <input type="password"
-                                        className="form-control text-center py-2 pt-3"
-                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", fontWeight:700, fontFamily:"Martel Sans", border:"1px solid #343232 !important"}}
+                                        className="form-control bold text-center py-2 pt-3"
+                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", border:"1px solid #343232 !important"}}
                                 />
                             </div>
-                            <div className="row m-auto w-50 mb-5">
-                                <h3 className="row m-auto mt-5" style={{width:"fit-content", fontWeight: 700, fontFamily:"Martel Sans", color: "#343232"}}>
+                            <div className="row m-auto mb-5">
+                                <h3 className="row m-auto bold mt-5" style={{width:"fit-content", color: "#343232"}}>
                                     REPITA A SENHA
                                 </h3>
                                 <input type="password"
-                                        className="form-control text-center py-2 pt-3"
-                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", fontWeight:700, fontFamily:"Martel Sans", border:"1px solid #343232 !important"}}
+                                        className="form-control bold text-center py-2 pt-3"
+                                        style={{borderRadius:"100vw", fontSize:"12px", color: "#A09F9F", border:"1px solid #343232 !important"}}
                                 />
                             </div>   
                             
-                            <div className="row w-25 m-auto">
-                                <button className="btn btn-lg m-auto" style={{backgroundColor:"#087BBF", borderRadius:"100vw", color:"#ffff", fontWeight:700}} type="submit">PROSSEGUIR</button>
+                            <div className="row m-auto">
+                                <button className="btn btn-lg m-auto bold dark-blue-bg perfil-btn" type="submit">PROSSEGUIR</button>
                             </div>
                         </div>
                         {/* ######## NOT FUNCTIONAL YET ######## */}

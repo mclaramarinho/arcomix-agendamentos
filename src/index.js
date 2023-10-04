@@ -12,7 +12,7 @@ import './styles/MenuTabs.css'
 import './styles/TabAgendar.css'
 import './styles/TabAgendamentos.css'
 import './styles/TabBtn.css'
-
+import './styles/PerfilColab.css'
 
 import PerfilColab from './pages/PerfilColab';
 

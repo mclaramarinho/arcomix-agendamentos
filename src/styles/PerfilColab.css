@@ -1,0 +1,95 @@
+.perfil-btn{
+    border-radius: 100vw;
+    color: white;
+}
+
+
+@media (min-width: 1300px) {
+    .perfil-btn{
+        width: 60% !important;
+    }
+    .login-left-side > .row{
+        width: 50% !important;
+        text-align: center;
+    }
+}
+
+@media (min-width: 780px) and (max-width: 1300px) {
+    .perfil-btn{
+        min-width: 45% !important;
+        max-width: 50% !important;
+    }
+    .login-left-side > .row{
+        width: 75% !important;
+        text-align: center;
+    }
+}
+
+@media (min-width: 1000px) {
+    .container-login{
+        width: 50% !important;
+    }
+    .login-left-side, .login-right-side{
+        padding: 2vh;
+    }
+}
+@media (min-width: 992px) {
+    .container-login{
+        position: absolute;
+        width: 50% !important;
+    }
+}
+@media (max-width: 992px) {
+    .container-login{
+        margin-top: 5vh;
+    }
+}
+@media (max-width: 500px) {
+    .container-login{
+        position: relative;
+        width: 80% !important;
+    }
+    .perfil-btn{
+        width: 60% !important;
+    }
+    .login-left-side > .row{
+        width: 75% !important;
+        text-align: center;
+    }
+    .login-left-side, .login-right-side{
+        padding: 2vh;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 992px) {
+    .container-login{
+        position: relative;
+        width: 60% !important;
+    }
+    .perfil-btn{
+        width: 60% !important;
+    }
+    .login-left-side > .row{
+        width: 75% !important;
+        text-align: center;
+    }
+    .login-left-side, .login-right-side{
+        padding: 2vh;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1000px) {
+    .container-login{
+        width: 90% !important;
+    }
+}
+@media (min-width: 780px) and (max-width: 992px){
+    .perfil-btn{
+        width: 60% !important;
+    }
+    .login-left-side > .row{
+        width: 75% !important;
+        text-align: center;
+    }
+
+}

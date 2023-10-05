@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import colaboradores from "../users/colaboradores";
 import Navbar from "../components/Navbar";
 import runAuth from "../utils/runAuth";
 import MenuTabs from "../components/MenuTabs";
 import TabAgendar from "../tabs/TabAgendar";
 import TabAgendamentos from "../tabs/TabAgendamentos";
+import { getTempLoginInfo } from "../utils/tempLoginInfo";
 
 function StartColab (){
     
@@ -13,12 +13,11 @@ function StartColab (){
 
     const navigate = useNavigate();
 
-    const authInfo = JSON.parse(sessionStorage.getItem('tempLoginInfo')); //gets the login info saved for the current session
+    const authInfo = getTempLoginInfo(); //gets the login info saved for the current session
 
     const [auth, setAuth] = useState();
 
 
-    let profileInfo;
     useEffect(() => {
         getAuth() //checks if user is authorized
     }, []);
@@ -49,7 +48,6 @@ function StartColab (){
     }
 
     if(auth){ //authorized
-        profileInfo = colaboradores.filter(item => item.matricula === id)[0]; //get the info of the authorized profile
         return(
             <div>
                 <Navbar handleProfile={()=>handleProfile()} />

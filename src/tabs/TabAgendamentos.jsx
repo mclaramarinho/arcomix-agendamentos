@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import TabBtn from "../components/TabBtn";
 import AgendamentosLista from "../components/AgendamentosLista";
 import AgendamentoDetails from '../components/AgendamentoDetails'
+import { getAgendamentosLS } from "../utils/agendamentosLS";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
     
     //checks if there's a local storage already
     useEffect(() => {
-        if((localStorage.getItem("agendamentos"))!==null){ //if this local storage exists
-            setLocalAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
+        if(getAgendamentosLS()!==null){ //if this local storage exists
+            setLocalAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
         }
     }, [])
     const [selected, setSelected] = useState();
@@ -18,9 +19,6 @@ function TabAgendamentos (){
 
     const [openDetails, setOpenDetails] = useState(false);
 
-    useEffect(() => {
-        console.log(selected)
-    }, [selected])
 
     //everytime the card inside the list container is clicked
     function handleDetails(e){

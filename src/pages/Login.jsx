@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/big_logo.png'
 import runAuth from "../utils/runAuth";
-import { getParsedTempLoginInfo, getTempLoginInfo } from "../utils/tempLoginInfo";
+import { getTempLoginInfo, setTempLoginInfo } from "../utils/tempLoginInfo";
+import { getLoginInfoLS, setLoginInfoLS } from "../utils/loginInfoLS";
 
 function Login (){
     const navigate = useNavigate();
@@ -21,16 +22,16 @@ function Login (){
     useEffect(() => {
         //To prevent getting back to the login screen if already logged in
         if(getTempLoginInfo()!==null && getTempLoginInfo().length > 2){
-            const authInfo = getParsedTempLoginInfo();
+            const authInfo = getTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
-        }else if(localStorage.getItem('loginInfo') !== null && localStorage.getItem('loginInfo').length>1){
-            const storedInfo = JSON.parse(localStorage.getItem('loginInfo'));
+        }else if(getLoginInfoLS() !== null && getLoginInfoLS().length>1){
+            const storedInfo = getLoginInfoLS();
             getResult(storedInfo)
         }
         async function getResult(storedInfo) {
             const result = await runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id);
             setAuth(result);
-            return (result === true) && sessionStorage.setItem('tempLoginInfo', JSON.stringify({id: storedInfo.id, senha: storedInfo.senha, actor: storedInfo.actor})) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
+            return (result === true) && setTempLoginInfo({id: storedInfo.id, senha: storedInfo.senha, actor: storedInfo.actor}) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
         }
     })
 
@@ -42,9 +43,9 @@ function Login (){
     
     async function onSubmit(actor, pswd, loginId){
         const result = await runAuth(actor, pswd, loginId);
-        result && sessionStorage.setItem('tempLoginInfo', JSON.stringify({id: loginId, senha: pswd, actor: actor}));
+        result && setTempLoginInfo({id: loginId, senha: pswd, actor: actor});
         if(result && lembrar){
-            localStorage.setItem('loginInfo', JSON.stringify({id: loginId, senha: pswd, actor: actor}));
+            setLoginInfoLS({id: loginId, senha: pswd, actor: actor})
         }
         return setAuth(result);
     }

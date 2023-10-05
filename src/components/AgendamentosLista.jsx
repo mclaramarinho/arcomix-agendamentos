@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import AgendamentoCard from "./AgendamentoCard";
-
+import { getAgendamentosLS } from "../utils/agendamentosLS";
 function AgendamentosLista(props){
     //controls the value of what's typed in the filter field
     const [filtro, setFiltro] = useState("");
@@ -20,8 +20,8 @@ function AgendamentosLista(props){
 
     //runs everytime the page is loaded
     useEffect(() => {
-        if(localStorage.getItem("agendamentos")!==null){ //if this local storage exists
-            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //agendamentos will receive the items of this storage
+        if(getAgendamentosLS()!==null){ //if this local storage exists
+            setAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
         }
     }, [])
     //every time agendamentos changes
@@ -43,10 +43,6 @@ function AgendamentosLista(props){
             
         }
     }, [agendamentos]) 
-
-
-   
-
     
     function showLista(localAgendamentos){ 
         if(localAgendamentos.length === 0 ){

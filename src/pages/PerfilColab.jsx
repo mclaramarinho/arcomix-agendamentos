@@ -8,7 +8,7 @@ import ProfileInfo from "../components/ProfileInfo";
 import MsgAlterarInfo from "../components/MsgAlterarInfo";
 import ProfilePic from "../components/ProfilePic";
 import LogoutBtn from "../components/LogoutBtn";
-
+import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import runAuth from "../utils/runAuth";
 
 
@@ -21,7 +21,7 @@ function PerfilColab(){
     
     const navigate = useNavigate();
 
-    const authInfo = JSON.parse(sessionStorage.getItem('tempLoginInfo'));
+    const authInfo = getTempLoginInfo();
 
     const [auth,setAuth] = useState(false);
 

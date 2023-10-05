@@ -1,6 +1,7 @@
 import fornecedores from "../users/fornecedores";
+import { getAgendamentosLS } from "./agendamentosLS";
 
-let agendamentos = (localStorage.getItem("agendamentos") !== undefined) && JSON.parse(localStorage.getItem("agendamentos"))
+let agendamentos = (getAgendamentosLS() !== undefined) && getAgendamentosLS()
 
 const idExistentes = (agendamentos !== undefined && agendamentos !== null && agendamentos.length > 1) ? agendamentos.map(item => item.id_agendamento) : 0
 

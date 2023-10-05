@@ -11,6 +11,7 @@ import {DialogActions} from '@mui/material';
 import {DialogContent} from '@mui/material';
 import {DialogContentText} from '@mui/material';
 import {DialogTitle} from '@mui/material';
+import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
 
 
 function CriarForm(){
@@ -40,10 +41,10 @@ function CriarForm(){
 
     // when the subtab is loaded
     useEffect(() => {
-        if(localStorage.getItem("agendamentos") === null || localStorage.getItem("agendamentos") === undefined ){ //check if there's a local storage for these items
-            localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //sets the local storage if it doesn't already exist
+        if(getAgendamentosLS() === null || getAgendamentosLS() === undefined ){ //check if there's a local storage for these items
+            setAgendamentosLS(agendamentos) //sets the local storage if it doesn't already exist
         }else{ //if it already exists
-            setAgendamentos(JSON.parse(localStorage.getItem("agendamentos"))) //adds to the local usestate variable the local storage content
+            setAgendamentos(getAgendamentosLS()) //adds to the local usestate variable the local storage content
         }
     }, [])
 
@@ -56,7 +57,7 @@ function CriarForm(){
 
     //when agendamentos is altered
     useEffect(() => {
-        localStorage.setItem("agendamentos", JSON.stringify(agendamentos)) //adds the new values to the local storage
+        setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
 

@@ -12,6 +12,7 @@ function Calendar(props){
     const [isLoading, setIsLoading] = useState(false);
     const [highlightedDays, setHighlightedDays] = useState([]);
     const [firstRender, setFirstRender] = useState(false);
+    const [dinamicDays, setDinamicDays] = useState()
 
     let agendamentos = props.agendamentos;
     agendamentos = agendamentos.map(item => {
@@ -59,7 +60,7 @@ function Calendar(props){
 
           setTimeout(() => {
             const daysToHighlight = diasLotados;
-      
+            setDinamicDays(daysToHighlight)
             resolve({ daysToHighlight });
           }, 500);
       
@@ -95,12 +96,31 @@ function Calendar(props){
         setHighlightedDays([]);
         fetchHighlightedDays(date);
     };
-
+    function shouldDisableDate(date, view){
+      const currentDate = date.date();
+      const dayOfWeek = date.day();
+      let control = false;
+      //disables if the day is on the weekend
+      if(dayOfWeek===0 || dayOfWeek === 6){
+        control = true;
+        return control;
+      }else{ //if not, checks if the day is already full and unavailable
+        dinamicDays.map(item =>{
+          if(item === currentDate){
+            control=true;
+            return;
+          }
+        })
+        return control
+      }
+      
+    }
     return(
         <LocalizationProvider dateAdapter={AdapterDayjs} >
             <Stack>
                 <DateCalendar
                     loading={isLoading}
+                    shouldDisableDate={shouldDisableDate}
                     onMonthChange={handleMonthChange}
                     renderLoading={() => <DayCalendarSkeleton />}
                     slots={{

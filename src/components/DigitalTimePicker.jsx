@@ -6,8 +6,19 @@ import dayjs from 'dayjs';
 
 function DigitalTimePicker(props){
     const minTime = props.minTime;
-    const maxTime = props.maxTime;
-    const selectedDay = props.selectedDay;
+    
+    function shouldDisableTime(value, view){
+        if(view==="hours"){
+            let control = false;
+            props.disabledTimes.map(item => {
+                if(value.hour()===item){
+                    control = true;
+                    return;
+                }
+            })
+            return control;
+        }
+    }
     return(
         <LocalizationProvider dateAdapter={AdapterDayjs} >
             <Stack>
@@ -15,10 +26,16 @@ function DigitalTimePicker(props){
                     Horários disponíveis
                 </Typography>
                 <DigitalClock sx={{width:"40%"}} className="digitalClock"
-                    minTime={dayjs(selectedDay+'T'+minTime)} maxTime={dayjs(selectedDay+'T'+maxTime)}
-                    ampm={false} skipDisabled
+                    minTime={dayjs().set('hour', minTime).startOf('hour')} maxTime={dayjs().set('hour', 19).startOf('hour')}
+                    ampm={false} 
+                    skipDisabled
                     value={props.value}
-                    onChange={(value, selectionState)=>props.setValue(dayjs(value).format("HH:mm"))}
+                    timeStep={60}
+                    shouldDisableTime={shouldDisableTime}
+                    onChange={async (value, selectionState)=>{
+                        props.setValue(dayjs(value).format("HH:mm"));
+                        await props.setDateHour(value.$H, value.$m)
+                    }}
                 />
             </Stack>
         </LocalizationProvider>

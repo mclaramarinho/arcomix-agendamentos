@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
 import FormInputField from "./FormInputField";
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import Calendar from "./Calendar";
 import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
-import {Button} from '@mui/material';
-import {Dialog} from '@mui/material';
-import {DialogActions} from '@mui/material';
-import {DialogContent} from '@mui/material';
-import {DialogContentText} from '@mui/material';
-import {DialogTitle} from '@mui/material';
 import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
+import DialogCriar from "./DialogCriar";
 
 
 function CriarForm(){
@@ -27,7 +22,6 @@ function CriarForm(){
     const [obsV, setObsV] = useState("")
 
     const [minTime, setMinTime] = useState();
-    const [maxTime, setMaxTime] = useState('19:00');
     const today = new Date().getMonth() < 9 ? (new Date().getFullYear() + '-0' + (new Date().getMonth()+1) + '-' + new Date().getDate()) : new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
     const [diff, setDiff] = useState();
     
@@ -36,9 +30,14 @@ function CriarForm(){
 
     const [agendamentos, setAgendamentos] = useState([]);
 
-    const [isSubmitted, setIsSubmitted] = useState();
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
+    
+    let [dateObj, setDateObj] = useState();
+    const [disabledTimes, setDisabledTimes] = useState([]);
 
+    
+    
     // when the subtab is loaded
     useEffect(() => {
         if(getAgendamentosLS() === null || getAgendamentosLS() === undefined ){ //check if there's a local storage for these items
@@ -47,12 +46,12 @@ function CriarForm(){
             setAgendamentos(getAgendamentosLS()) //adds to the local usestate variable the local storage content
         }
     }, [])
-
+    
     //when the selected day is altered
     useEffect(() => {
         setDiff(dayjs(today).diff(selectedDay, 'hour')) //the difference in hours between today and the selected day
-
-        diff < 24 ? setMinTime('09:00') : setMinTime(dayjs().format("HH:mm")) // if in the future, the min time is 9am, otherwise it's the nearest future time 
+        diff < 24 ? setMinTime(9) : setMinTime(dayjs().format("HH")) // if in the future, the min time is 9am, otherwise it's the nearest future time 
+        checkAvailableTime() 
     }, [selectedDay])   
 
     //when agendamentos is altered
@@ -60,75 +59,51 @@ function CriarForm(){
         setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
-
+    function setHour(h,m){ //sets the time of the dateObj
+        return new Promise((resolve, reject) => {
+            resolve(setDateObj(dateObj.set('hour', h).set('minute', m)))
+        }) 
+    }
+    
+    function checkAvailableTime(){ //checks the available times of the selected day
+        const localSelectedDay = dayjs(selectedDay).format("DD/MM/YYYY").toString();
+        let agendamentosConfirmados = agendamentos.map(item => {
+            if(item.status === "agendado" && dayjs(item.data).format("DD/MM/YYYY")===localSelectedDay){
+                return item;
+            }
+        }).filter(item => item!==undefined) //makes sure to return only the items which are not undefined
+        setDisabledTimes(() =>{
+            return agendamentosConfirmados.map(item => dayjs(item.data).hour())
+        })
+    }
+  
     function handleSubmit(){ // when form is submitted
         setOpenDialog(false)
         //checks if all the fields are filled
         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
             //adds the new item to local agendamentos usestate variable
             setAgendamentos(prev => {
-                return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dayjs(selectedDay).format("MM/DD/YYYY"), 
-                    selectedTime, cargaV, descargaV, recorrenciaV, obsV, false
-                )]
+                return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dateObj, cargaV, descargaV, recorrenciaV, obsV, false)]
             })
             // indicates the form was submitted
-            setIsSubmitted(true)
+            setIsSubmitted(true);setFornecedorV("");setCargaV("");setDescargaV("");setRecorrenciaV("");setObsV("");setSelectedDay();setSelectedTime();
         }
     }
     
+    //checks some conditions to display a digital clock or a message
+    function displayClock(){
+        return (selectedDay !== undefined ? (
+                    (diff < 0 && disabledTimes.length < 11) ? 
+                        <DigitalTimePicker disabledTimes={disabledTimes} setDateHour={setHour} setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} /> 
+                        : <h3 className="text-center" style={{color: "#A09F9F"}}>Nenhum horário disponível. Selecione outra data!</h3>
+                ) : <h3 className="text-center" style={{color: "#A09F9F"}}>Selecione uma data para ver os horários disponíveis!</h3>
+        )
+    }
     return(
         //if the form wasn't submitted yet => show the form
         !isSubmitted ? (
             <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
-                 <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-                    <DialogTitle style={{fontSize: 18}} id="alert-dialog-title" className="text-center bolder">CONFIRMAR AGENDAMENTO</DialogTitle>
-                    <hr className="w-50 m-auto" />
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description" className="text-center" style={{fontSize: 14}}>
-                            Verifique as informações do agendamento para prosseguir.
-                        </DialogContentText>
-                        <div className="container p-0 m-auto mt-5" style={{fontSize: 12}}>
-                            <div className="row m-auto">
-                                <div className="col-6">
-                                    <div className="row">
-                                        <div className="col-5 text-start bold">DATA: </div>
-                                        <div className="col-7">{dayjs(selectedDay).format("DD/MM/YYYY")}</div>
-                                    </div>
-                                </div>
-                                <div className="col-6">
-                                    <div className="row">
-                                        <div className="col-5 text-end bold">HORA: </div>
-                                        <div className="col-7">{selectedTime}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row m-auto mt-3">
-                                    <div className="col-4 text-start bold">FORNECEDOR: </div>
-                                    <div className="col-8">{fornecedorV}</div>
-                            </div>
-                            <div className="row m-auto mt-3">
-                                    <div className="col-4 text-start bold">TIPO DE CARGA: </div>
-                                    <div className="col-8">{cargaV}</div>
-                            </div>
-                            <div className="row m-auto mt-3">
-                                    <div className="col-4 text-start bold">DESCARGA: </div>
-                                    <div className="col-8">{descargaV}</div>
-                            </div>
-                            <div className="row m-auto mt-3">
-                                    <div className="col-4 text-start bold">RECORRÊNCIA: </div>
-                                    <div className="col-8">{recorrenciaV}</div>
-                            </div>
-                        </div>
-                    </DialogContent>
-                    <div className="row w-75 m-auto text-center">
-                        <div className="col-6">
-                            <button  onMouseUp={() => {setOpenDialog(false)}} className="btn solic-btn bold w-75 red-bg mt-2">Alterar</button>
-                        </div>
-                        <div className="col-6">
-                            <button  onMouseUp={() =>  {setOpenDialog(false); handleSubmit()}} className="btn solic-btn bold w-75 green-bg mt-2">Agendar</button>
-                        </div>
-                    </div>
-                </Dialog>  
+                <DialogCriar handleSubmit={handleSubmit} handleControl={setOpenDialog} control={openDialog} data={dayjs(dateObj).format("DD/MM/YYYY")} hora={dayjs(dateObj).format("HH:mm")} fornecedor={fornecedorV} carga={cargaV} descarga={descargaV} recorrencia={recorrenciaV} />
                 
                 <div className="row my-5 bolder h2 form-header">CRIAR NOVO AGENDAMENTO</div>
                 <div className="row m-auto">
@@ -144,14 +119,11 @@ function CriarForm(){
                     <div className="col-lg-8 ms-lg-5" >
                         <div className="row">
                             <div className="col-lg-8">
-                                <Calendar agendamentos={agendamentos} setSelectedDay={setSelectedDay} />
+                                <Calendar dateObject={dateObj} setDateObject={setDateObj} agendamentos={agendamentos} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
                             </div>
 
                             <div className="col-lg-4">
-                                {selectedDay !== undefined ? (
-                                    diff < 0 ? <DigitalTimePicker setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} maxTime={maxTime} /> 
-                                    : <h3 className="text-center" style={{color: "#A09F9F"}}>Nenhum horário disponível. Selecione outra data!</h3>
-                                ) : <h3 className="text-center" style={{color: "#A09F9F"}}>Selecione uma data para ver os horários disponíveis!</h3>}
+                                {displayClock()}
                             </div>
                             
                             <div className="col text-end">
@@ -160,7 +132,6 @@ function CriarForm(){
                                         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
                                             setOpenDialog(true)
                                         }
-                                        
                                     }} 
                                     className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg bold" >
                                     AGENDAR

@@ -31,7 +31,7 @@ function Login (){
         async function getResult(storedInfo) {
             const result = await runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id);
             setAuth(result);
-            return (result === true) && setTempLoginInfo({id: storedInfo.id, senha: storedInfo.senha, actor: storedInfo.actor}) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
+            return (result === true) && setTempLoginInfo(storedInfo.id, storedInfo.senha, storedInfo.actor) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
         }
     })
 
@@ -43,9 +43,9 @@ function Login (){
     
     async function onSubmit(actor, pswd, loginId){
         const result = await runAuth(actor, pswd, loginId);
-        result && setTempLoginInfo({id: loginId, senha: pswd, actor: actor});
+        result && setTempLoginInfo(loginId, pswd, actor);
         if(result && lembrar){
-            setLoginInfoLS({id: loginId, senha: pswd, actor: actor})
+            setLoginInfoLS(loginId, pswd, actor)
         }
         return setAuth(result);
     }

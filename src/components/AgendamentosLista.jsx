@@ -4,7 +4,13 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import AgendamentoCard from "./AgendamentoCard";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { getAgendamentosLS } from "../utils/agendamentosLS";
+import dayjs from "dayjs";
 function AgendamentosLista(props){
     //controls the value of what's typed in the filter field
     const [filtro, setFiltro] = useState("");
@@ -56,12 +62,11 @@ function AgendamentosLista(props){
             return localAgendamentos.map((item) => {
                 return item.map(subitem => {
                     return subitem!==undefined && (
-                        
                         <AgendamentoCard 
                             empresa={subitem.id_fornecedor}
                             idAgendamento={subitem.id_agendamento}
-                            dataAgendamento={subitem.data}
-                            horaAgendamento={subitem.hora}
+                            dataAgendamento={dayjs(subitem.data).format('DD/MM/YYYY')}
+                            horaAgendamento={dayjs(subitem.data).format('HH:mm')}
                             tipoCarga={subitem.tipo_carga}
                             tipoDescarga={subitem.tipo_descarga}
                             recorrencia={subitem.recorrencia}
@@ -72,13 +77,11 @@ function AgendamentosLista(props){
                 
             })
         }
-    
-        
     }
 
     return(
         
-        <div className='container  agendamentos-container overflow-y-scroll position-relative m-auto hide-scrollbar mt-5 large-container-shadow' >
+        <div className='container  agendamentos-container  overflow-y-scroll position-relative m-auto hide-scrollbar mt-5 large-container-shadow' >
             <div className="row h-25  text-center mt-5 mb-5">
                 <h2 className="bolder">TODOS OS AGENDAMENTOS</h2>
                 <hr className="w-50 m-auto" />
@@ -98,8 +101,33 @@ function AgendamentosLista(props){
                     
                 </Paper>
             </div>
-            <div className="row h-25 mb-5">
-                {/* ### FILTRO DE PERIODO + IMPRIMIR RELATORIO ### */}
+            <div className="row h-25 mb-5 w-75 m-auto">
+                <div className="col-8">
+                    <Box sx={{ padding: 'none', width: `100%`, margin: '0 auto'}}>
+                        <FormControl fullWidth variant="standard" sx={{backgroundColor: "transparent"}}>
+                            <Select
+                            id="demo-simple-select"
+                            // value={age}
+                            // label="Age"
+                            renderValue={(selected) => {
+                                if (selected === undefined || selected.length === 0) {
+                                  return <em>Filtrar por período</em>;
+                                }
+                                return selected;
+                              }}
+                            displayEmpty
+                            // onChange={handleChange}
+                            >
+                            <MenuItem value={1}>Todos</MenuItem>
+                            <MenuItem value={2}>Hoje</MenuItem>
+                            <MenuItem value={3}>Essa Semana</MenuItem>
+                            <MenuItem value={3}>Esse Mês</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </div>
+                <div className="col-4"><button className="btn font-12 bold"><i class="fa-solid fa-print"/> Relatório</button></div>
+
             </div>
 
             <div className="row h-25 mt-5 solicitacoes-container">

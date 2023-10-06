@@ -103,7 +103,10 @@ function Calendar(props){
                         },
                     }}
                     disablePast
-                    onChange={(value, selectionState)=>{props.setSelectedDay(value.$y + "-" + (value.$M < 9 ? "0"+(value.$M+1) : value.$M+1) + "-" + value.$D)}}
+                    onChange={(value, selectionState)=>{
+                      props.setDateObject(dayjs(value))
+                      props.setSelectedDay(dayjs(value).format('MM/DD/YYYY'));
+                    }}
                 />
                 <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
                     <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis

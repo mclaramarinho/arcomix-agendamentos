@@ -1,8 +1,5 @@
 import React from "react";
-import dayjs from "dayjs";
 function AgendamentoCard(props){
-    const date = dayjs(props.dataAgendamento);
-    const fDate = date.format('DD/MM/YYYY')
     return(
         <div className="row mb-5 p-4 solicitacao-card m-auto">
                 <div className="row m-auto">
@@ -10,7 +7,7 @@ function AgendamentoCard(props){
                 </div>
                 <div className="row m-auto">
                     <div className="col col-12 col-md-8 info-row info-content">
-                        <h5 className=" info-content"><b>Data - </b>{fDate}</h5>
+                        <h5 className=" info-content"><b>Data - </b>{props.dataAgendamento}</h5>
                         <h5 className=" info-content"><b>Hora - </b>{props.horaAgendamento}</h5>
                         <h5 className=" info-content"><b>Tipo de carga - </b>{props.tipoCarga}</h5>
                         <h5 className=" info-content"><b>Descarga - </b>{props.tipoDescarga}</h5>

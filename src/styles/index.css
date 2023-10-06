@@ -94,3 +94,15 @@ body{
 .gutter-x-0{
     --bs-gutter-x: 0 !important;
 }
+.font-18{
+    font-size: 1.8rem !important;
+}
+.font-14{
+    font-size: 1.4rem !important;
+}
+.font-13{
+    font-size: 1.3rem !important;
+}
+.font-12{
+    font-size: 1.2rem !important;
+}

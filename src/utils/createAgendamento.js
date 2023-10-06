@@ -21,7 +21,7 @@ function generateId(){
 
     return newId;
 }
-function createAgendamento(idAgendamento, idFornecedor, status, data, hora, tipoCarga, tipoDescarga, recorrencia, observacoes, isEntregue){
+function createAgendamento(idAgendamento, idFornecedor, status, data, tipoCarga, tipoDescarga, recorrencia, observacoes, isEntregue){
     
     let nomeFantasia = fornecedores.filter(item =>{
         if(item.informacoesLegais[0] === idFornecedor){
@@ -34,7 +34,6 @@ function createAgendamento(idAgendamento, idFornecedor, status, data, hora, tipo
         id_fornecedor: nomeFantasia,
         status: status,
         data: data,
-        hora: hora,
         tipo_carga: tipoCarga,
         tipo_descarga: tipoDescarga,
         recorrencia: recorrencia,

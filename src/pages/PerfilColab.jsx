@@ -5,7 +5,6 @@ import colaboradores from "../users/colaboradores";
 
 import BackBtn from "../components/BackBtn";
 import ProfileInfo from "../components/ProfileInfo";
-import MsgAlterarInfo from "../components/MsgAlterarInfo";
 import ProfilePic from "../components/ProfilePic";
 import LogoutBtn from "../components/LogoutBtn";
 import {getTempLoginInfo} from '../utils/tempLoginInfo'
@@ -14,7 +13,6 @@ import runAuth from "../utils/runAuth";
 
 function PerfilColab(){
 
-    // ### MAKE A HOOK UNDER THE FOLDER HOOKS TO SAVE AUTH AND PROFILE INFO ###
 
     let {id} = useParams();
     let profileInfo;
@@ -34,7 +32,7 @@ function PerfilColab(){
         if(width > 992){
             setPosition("top-50 start-50 translate-middle")
         }else{
-            setPosition("")
+            setPosition("") 
         }
     }, [width])
     useEffect(() =>{
@@ -62,7 +60,9 @@ function PerfilColab(){
                             <ProfileInfo label={"MATRÍCULA"} value={profileInfo.matricula} />
                             <ProfileInfo label={"E-MAIL"} value={profileInfo.informacoes.email} />
                             
-                            <MsgAlterarInfo />
+                            <p className="row m-auto text-center mt-5 mx-4" style={{color: "#ffff", fontWeight:700, fontFamily:"Martel Sans", fontSize: 12}}>
+                                Para alteração dessas informações, por favor, entre em contato com a Arcomix.
+                            </p> 
                         </div>
 
                         {/* ######## NOT FINISHED ######## */}

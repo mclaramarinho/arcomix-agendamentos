@@ -5,7 +5,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import AgendamentoCard from "./AgendamentoCard";
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -78,7 +77,7 @@ function AgendamentosLista(props){
             })
         }
     }
-
+    const periodo = ['Todos', 'Hoje', 'Essa Semana', 'Esse Mês']
     return(
         
         <div className='container  agendamentos-container  overflow-y-scroll position-relative m-auto hide-scrollbar mt-5 large-container-shadow' >
@@ -90,6 +89,7 @@ function AgendamentosLista(props){
                 <Paper className="m-auto" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
                     
                     <InputBase
+                        className="color-black font-12"
                         sx={{ ml: 1, flex: 1}}
                         placeholder="Nome da empresa..."
                         value={filtro}
@@ -104,29 +104,29 @@ function AgendamentosLista(props){
             <div className="row h-25 mb-5 w-75 m-auto">
                 <div className="col-8">
                     <Box sx={{ padding: 'none', width: `100%`, margin: '0 auto'}}>
-                        <FormControl fullWidth variant="standard" sx={{backgroundColor: "transparent"}}>
+                        <FormControl fullWidth variant="standard">
                             <Select
                             id="demo-simple-select"
                             // value={age}
                             // label="Age"
                             renderValue={(selected) => {
                                 if (selected === undefined || selected.length === 0) {
-                                  return <em>Filtrar por período</em>;
+                                  return <em className="color-faded-black font-12">Filtrar por período</em>;
                                 }
                                 return selected;
                               }}
+                              className="font-12"
                             displayEmpty
                             // onChange={handleChange}
                             >
-                            <MenuItem value={1}>Todos</MenuItem>
-                            <MenuItem value={2}>Hoje</MenuItem>
-                            <MenuItem value={3}>Essa Semana</MenuItem>
-                            <MenuItem value={3}>Esse Mês</MenuItem>
+                            {periodo.map((item, index) => {
+                                return <MenuItem className="color-black font-12" value={item}>{item}</MenuItem>
+                            })}
                             </Select>
                         </FormControl>
                     </Box>
                 </div>
-                <div className="col-4"><button className="btn font-12 bold"><i class="fa-solid fa-print"/> Relatório</button></div>
+                <div className="col-4"><button className="btn font-14 bold"><i class="fa-solid fa-print"/> Relatório</button></div>
 
             </div>
 

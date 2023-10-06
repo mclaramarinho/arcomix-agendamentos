@@ -1,5 +1,5 @@
-import React from "react";
-import { DigitalClock, LocalizationProvider } from "@mui/x-date-pickers";
+import React, { useEffect, useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -8,39 +8,67 @@ import { Badge, Stack, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 
 function Calendar(props){
-    const initialValue = dayjs(new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate());
-    const requestAbortController = React.useRef(null);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [highlightedDays, setHighlightedDays] = React.useState([]);
+    const initialValue = dayjs(dayjs().format('YYYY-MM-DD'));
+    const [isLoading, setIsLoading] = useState(false);
+    const [highlightedDays, setHighlightedDays] = useState([]);
+    const [firstRender, setFirstRender] = useState(false);
+
     let agendamentos = props.agendamentos;
     agendamentos = agendamentos.map(item => {
       if(item.status === 'agendado'){
         return item
       }
     })
-
     
-    function fakeFetch(date, { signal }) {
-      
+    useEffect(() => {
+        setFirstRender(true)
+        fetchHighlightedDays(initialValue);
+    }, []);
+    useEffect(() =>{
+      fetchHighlightedDays(initialValue);
+    }, [firstRender])
+
+    let agendamentosDoMes = [];
+    
+    function fakeFetch(date) {
+        
+        agendamentosDoMes = agendamentos.map(item => {
+          if(dayjs(item.data).month() === date.month()){
+            return item.data;
+          }
+        }).filter(item => item!==undefined)
+        
+        let diasLotados = [];
+
+        for(let i = 0; i < agendamentosDoMes.length; i++){
+          let count = 1;
+          for(let j = 0; j < agendamentosDoMes.length; j++){
+            if(j !== i){
+              if(dayjs(agendamentosDoMes[i]).date() === dayjs(agendamentosDoMes[j]).date()){
+                count++;
+              }
+            }
+          }
+          if(count===11){
+            if(!diasLotados.includes(dayjs(agendamentosDoMes[i]).date())){
+              diasLotados.push(dayjs(agendamentosDoMes[i]).date());
+            }
+          }
+        }
         return new Promise((resolve, reject) => {
 
-          const timeout = setTimeout(() => {
-            const daysToHighlight = [1, 2, 3];
+          setTimeout(() => {
+            const daysToHighlight = diasLotados;
       
             resolve({ daysToHighlight });
           }, 500);
       
-          signal.onabort = () => {
-            clearTimeout(timeout);
-            reject(new DOMException('aborted', 'AbortError'));
-          };
         });
     }
-
     
     function ServerDay(props) {
         const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-      
+
         const isSelected =
           !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
       
@@ -55,33 +83,14 @@ function Calendar(props){
         );
       }
 
-    const fetchHighlightedDays = (date) => {
-        const controller = new AbortController();
-        fakeFetch(date, {
-        signal: controller.signal,
-        })
-        .then(({ daysToHighlight }) => {
+    async function fetchHighlightedDays (date){
+        await fakeFetch(date).then(({ daysToHighlight }) => {
             setHighlightedDays(daysToHighlight);
             setIsLoading(false);
         })
-        .catch((error) => {
-            if (error.name !== 'AbortError') {
-            throw error;
-            }
-        });
-
-        requestAbortController.current = controller;
     };
 
-    React.useEffect(() => {
-        fetchHighlightedDays(initialValue);
-        return () => requestAbortController.current?.abort();
-    }, []);
-
-    const handleMonthChange = (date) => {
-        if (requestAbortController.current) {
-        requestAbortController.current.abort();
-        }
+    async function handleMonthChange (date){
         setIsLoading(true);
         setHighlightedDays([]);
         fetchHighlightedDays(date);

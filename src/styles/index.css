@@ -106,3 +106,18 @@ body{
 .font-12{
     font-size: 1.2rem !important;
 }
+.color-faded-black{
+    color: var(--faded-black) !important;
+}
+.color-red{
+    color: var(--main-red) !important;
+}
+.color-peach{
+    color: var(--peach-red) !important;
+}
+.color-white{
+    color: white !important;
+}
+.color-black{
+    color: var(--main-black) !important;
+}

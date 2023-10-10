@@ -53,10 +53,10 @@ function DialogCriar(props){
             </DialogContent>
             <div className="row w-75 m-auto text-center">
                 <div className="col-6">
-                    <button  onMouseUp={() => {handleControl(false)}} className="btn font-14 pt-3 solic-btn bold w-75 red-bg mt-2">Alterar</button>
+                    <button  onMouseUp={() => {handleControl(false)}} className="btn font-14 pt-2 solic-btn bold w-75 red-bg mt-2">Alterar</button>
                 </div>
                 <div className="col-6">
-                    <button  onMouseUp={() =>  {handleControl(false); handleSubmit()}} className="btn font-14 pt-3 solic-btn bold w-75 green-bg mt-2">Agendar</button>
+                    <button  onMouseUp={() =>  {handleControl(false); handleSubmit()}} className="btn font-14 pt-2 solic-btn bold w-75 green-bg mt-2">Agendar</button>
                 </div>
             </div>
         </Dialog>  

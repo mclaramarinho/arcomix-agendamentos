@@ -20,13 +20,14 @@ function Calendar(props){
         return item
       }
     })
-    
+  
     useEffect(() => {
         setFirstRender(true)
         fetchHighlightedDays(initialValue);
     }, []);
     useEffect(() =>{
-      fetchHighlightedDays(initialValue);
+        fetchHighlightedDays(initialValue);
+      
     }, [firstRender])
 
     let agendamentosDoMes = [];
@@ -113,14 +114,22 @@ function Calendar(props){
         })
         return control
       }
-      
+    }
+
+    function disableWeekendsOnly(date, view){
+      const dayOfWeek = date.day();
+      let control = false;
+      if(dayOfWeek===0 || dayOfWeek===6){
+        control = true;
+      }
+      return control;
     }
     return(
         <LocalizationProvider dateAdapter={AdapterDayjs} >
             <Stack>
                 <DateCalendar
                     loading={isLoading}
-                    shouldDisableDate={shouldDisableDate}
+                    shouldDisableDate={(agendamentos !== undefined && agendamentos.length > 0 && dinamicDays !== undefined && dinamicDays.length > 0 &&  dinamicDays !== null) ? shouldDisableDate : disableWeekendsOnly}
                     onMonthChange={handleMonthChange}
                     renderLoading={() => <DayCalendarSkeleton />}
                     slots={{

@@ -121,3 +121,6 @@ body{
 .color-black{
     color: var(--main-black) !important;
 }
+.hide{
+    display: none !important;
+}

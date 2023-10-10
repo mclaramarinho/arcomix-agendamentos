@@ -168,3 +168,8 @@
     border-radius: 2vh !important;
     color: var(--main-black);
 }
+
+.disabled-time{
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}

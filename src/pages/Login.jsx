@@ -21,7 +21,7 @@ function Login (){
     //To login automatically if info are saved
     useEffect(() => {
         //To prevent getting back to the login screen if already logged in
-        if(getTempLoginInfo()!==null && getTempLoginInfo().length > 2){
+        if(getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){
             const authInfo = getTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
         }else if(getLoginInfoLS() !== null && getLoginInfoLS().length>1){

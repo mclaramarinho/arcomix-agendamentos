@@ -1,5 +1,5 @@
 import React from "react";
-
+import ActionBtn from './ActionBtn'
 function SolicitacaoCard(props){
     
     return(
@@ -16,8 +16,8 @@ function SolicitacaoCard(props){
                         <h5><b>Recorrência - </b>{props.recorrencia}</h5>
                     </div>
                     <div className="col col-12 col-md-4 solic-btn-container info-row">
-                        <button value="accept" id={props.idAgendamento} onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn bold green-bg w-100 mt-2">Aceitar</button>
-                        <button value="reject" id={props.idAgendamento} onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn bold red-bg w-100">Recusar</button>
+                        <ActionBtn value={"accept"} label={"Aceitar"} id={props.idAgendamento} handler={props.handleCardClick} color={'green'} classes={"btn solic-btn bold green-bg w-100 mt-2"}/>
+                        <ActionBtn value={"reject"} label={"Recusar"} id={props.idAgendamento} handler={props.handleCardClick} color={'green'} classes={"btn solic-btn bold green-bg w-100"}/>
                     </div>
                 </div>
             </div>

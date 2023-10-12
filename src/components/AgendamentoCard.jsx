@@ -1,4 +1,5 @@
 import React from "react";
+import ActionBtn from "./ActionBtn";
 function AgendamentoCard(props){
     return(
         <div className="row mb-5 p-4 solicitacao-card m-auto">
@@ -14,7 +15,7 @@ function AgendamentoCard(props){
                         <h5 className=" info-content"><b>Recorrência - </b>{props.recorrencia}</h5>
                     </div>
                     <div className="col col-12 col-md-4 solic-btn-container info-row d-flex align-items-end">
-                        <button value="details" id={props.idAgendamento} style={{color:"#343232", border: "1px solid #343232"}} onMouseUp={(e) => props.handleCardClick(e)} className="btn solic-btn w-100">Detalhes</button>
+                        <ActionBtn value={"details"} label={'Detalhes'} id={props.idAgendamento} handler={props.handleCardClick} classes={"btn solic-btn w-100 bold pt-2 color-black thin-black-border"} /> 
                     </div>
                 </div>
             </div>

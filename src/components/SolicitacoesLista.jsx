@@ -151,6 +151,7 @@ function SolicitacoesLista(){
                         placeholder="Nome da empresa..."
                         value={filtro}
                         onChange={(e) => handleFiltro(e)}
+                        className={'font-13'}
                     />
                     <IconButton type="button" sx={{ p: '5px' }} aria-label="search">
                         <SearchIcon />
@@ -160,7 +161,6 @@ function SolicitacoesLista(){
             </div>
             <div className="row h-25 solicitacoes-container m-auto">
                 {showLista(localSolicitacoes)}
-                
             </div>
          </div>
     )

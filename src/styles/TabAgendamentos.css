@@ -119,3 +119,6 @@
     border: 0px !important;
     outline: none !important;
 }
+.MuiInputBase-input{
+    pointer-events: none !important;
+}

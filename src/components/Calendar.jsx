@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -8,6 +8,7 @@ import { Badge, Stack, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 
 function Calendar(props){
+    const pickerType = props.pickerType;
     const initialValue = dayjs(dayjs().format('YYYY-MM-DD'));
     const [isLoading, setIsLoading] = useState(false);
     const [highlightedDays, setHighlightedDays] = useState([]);
@@ -19,7 +20,7 @@ function Calendar(props){
       if(item.status === 'agendado'){
         return item
       }
-    })
+    }).filter(item => item!==undefined)
   
     useEffect(() => {
         setFirstRender(true)
@@ -33,7 +34,6 @@ function Calendar(props){
     let agendamentosDoMes = [];
     
     function fakeFetch(date) {
-        
         agendamentosDoMes = agendamentos.map(item => {
           if(dayjs(item.data).month() === date.month()){
             return item.data;
@@ -66,6 +66,7 @@ function Calendar(props){
           }, 500);
       
         });
+
     }
     
     function ServerDay(props) {
@@ -124,34 +125,62 @@ function Calendar(props){
       }
       return control;
     }
-    return(
-        <LocalizationProvider dateAdapter={AdapterDayjs} >
-            <Stack>
-                <DateCalendar
-                    loading={isLoading}
-                    shouldDisableDate={(agendamentos !== undefined && agendamentos.length > 0 && dinamicDays !== undefined && dinamicDays.length > 0 &&  dinamicDays !== null) ? shouldDisableDate : disableWeekendsOnly}
-                    onMonthChange={handleMonthChange}
-                    renderLoading={() => <DayCalendarSkeleton />}
-                    slots={{
-                        day: ServerDay,
-                    }}
-                    slotProps={{
-                        day: {
-                            highlightedDays,
-                        },
-                    }}
-                    disablePast
-                    onChange={(value, selectionState)=>{
-                      props.setDateObject(dayjs(value))
-                      props.setSelectedDay(dayjs(value).format('MM/DD/YYYY'));
-                    }}
-                />
-                <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
-                    <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
-                </Typography>
-            </Stack>
-        </LocalizationProvider>
-    )
+
+    if(pickerType === "standard"){
+      return(
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+              <Stack>
+                  <DateCalendar
+                      loading={isLoading}
+                      shouldDisableDate={(agendamentos !== undefined && agendamentos.length > 0 && dinamicDays !== undefined && dinamicDays.length > 0 &&  dinamicDays !== null) ? shouldDisableDate : disableWeekendsOnly}
+                      onMonthChange={handleMonthChange}
+                      renderLoading={() => <DayCalendarSkeleton />}
+                      slots={{
+                          day: ServerDay,
+                      }}
+                      disablePast
+                      slotProps={{
+                          day: {
+                              highlightedDays,
+                          },
+                      }}
+                      onChange={(value, selectionState)=>{
+                        
+                        props.setDateObject(dayjs(value))
+                        props.setSelectedDay(dayjs(value).format('MM/DD/YYYY'));
+                      }}
+                  />
+                  <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
+                      <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
+                  </Typography>
+              </Stack>
+          </LocalizationProvider>
+      )
+    }else{
+      return(
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker 
+                shouldDisableDate={(agendamentos !== undefined && agendamentos.length > 0 && dinamicDays !== undefined && dinamicDays.length > 0 &&  dinamicDays !== null) ? shouldDisableDate : disableWeekendsOnly}
+                slots={{
+                    day: ServerDay,
+                }}
+                
+                slotProps={
+                  {
+                    day: { highlightedDays },
+                    textField: { disabled: true, size: "small" } 
+                  }
+                }
+                disablePast
+                format="DD/MM/YYYY"
+                onChange={(value, context) => {
+                  props.setDateObject(dayjs(value))
+                }}
+                
+              />
+          </LocalizationProvider>
+      )
+    }
 }
 
 export default Calendar;

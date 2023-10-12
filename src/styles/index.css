@@ -106,6 +106,9 @@ body{
 .font-12{
     font-size: 1.2rem !important;
 }
+.font-11{
+    font-size: 1.1rem !important;
+}
 .color-faded-black{
     color: var(--faded-black) !important;
 }
@@ -121,6 +124,12 @@ body{
 .color-black{
     color: var(--main-black) !important;
 }
+.color-gray{
+    color: var(--dark-gray) !important;
+}
 .hide{
     display: none !important;
+}
+.thin-black-border{
+    border: 1px solid var(--main-black) !important;
 }

@@ -1,36 +1,42 @@
-import React from "react";
-import { DigitalClock, LocalizationProvider, TimeIcon } from "@mui/x-date-pickers";
+import React, { useEffect, useState } from "react";
+import { DigitalClock, LocalizationProvider, TimeIcon, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MenuItem, Stack, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 
 function DigitalTimePicker(props){
-    const minTime = props.minTime;
-
+    const [timePickerItems, setTimePickerItems] = useState([]);
+    
+    useEffect(() => {
+       setTimePickerItems([document.getElementsByClassName('MuiDigitalClock-item')].map(item => item))
+    }, [])
+    
     function shouldDisableTime(value, view){
         let control = false;
-        const currentElement = (document.getElementsByClassName('MuiDigitalClock-item')[value.hour()])
-        
-        if(value.hour()<9 || value.hour() > 19){
-            currentElement.classList.add('hide')
-            control = true;
-        }else{
-            props.disabledTimes.map(item => {
-                if(value.hour()===item){
-                    currentElement.classList.add('disabled-time')
-                    return;
+        const items = timePickerItems[0]
+        console.log(items)
+        if(items !== undefined){
+            const currentElement = items[value.hour()];
+            currentElement.classList.contains("disabled-time") &&  currentElement.classList.remove("disabled-time") 
+            if(props.disabledTimes !== undefined && props.disabledTimes.length > 0){
+                if((value.hour()<9 || value.hour() > 19)){
+                    currentElement.classList.add("hide")
+                }else if((value.hour()>=9 && value.hour() <= 19)){
+                    props.disabledTimes.map(item => {
+                        if(value.hour()===item){
+                            currentElement.classList.add('disabled-time')
+                            return;
+                        }
+                    })
                 }
-            })
+            }else{
+                if((value.hour()<9 || value.hour() > 19)){
+                    currentElement.classList.add("hide")
+                }
+            }
         }
+        
         return control;
-    }
-    function workingHoursOnly(value, view){
-        let control = false;
-        if(value.hour()<9 || value.hour() > 19){
-            control = true;
-        }
-        return control;
-
     }
 
     return(
@@ -43,15 +49,19 @@ function DigitalTimePicker(props){
                     ampm={false} 
                     value={props.value}
                     timeStep={60}
-                    shouldDisableTime={(props.disabledTimes !== undefined && props.disabledTimes.length > 0) ? shouldDisableTime : workingHoursOnly}
+                    shouldDisableTime={shouldDisableTime}
                     onChange={async (value, selectionState)=>{
                         props.setValue(dayjs(value).format("HH:mm"));
                         await props.setDateHour(value.$H, value.$m)
                     }}
+                    
                 />
+                
             </Stack>
         </LocalizationProvider>
     )
+
+    
 }
 
 export default DigitalTimePicker;

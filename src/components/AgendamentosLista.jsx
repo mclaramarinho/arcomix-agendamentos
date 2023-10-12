@@ -34,7 +34,7 @@ function AgendamentosLista(props){
         let agend;
         if( agendamentos !== undefined && agendamentos !== null && agendamentos.length > 0 ){
             agend = agendamentos.map(item => {
-                if(item.status !== "pendente" && item.status !== "recusado" && item.status !== "finalizado" && item !== undefined){
+                if(item.status !== "pendente" && item.status !== "recusado" && item.status !== "finalizado" && item !== undefined && item.status !== "cancelado"){
                     return item;
                 }
             }) 

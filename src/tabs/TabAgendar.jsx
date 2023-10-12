@@ -29,7 +29,7 @@ function TabAgendar(){
         <div className="container-fluid tab-container">
             <div className="row">
                 <div className="col-lg-2 btn-container">
-                    <TabBtn isSelected={subTab1} key="solicitacao" id="solicitacao" label="SOLICITAÇÃO" handleClick={() => !subTab1 && setSubTab1(true)} />      
+                    <TabBtn isSelected={subTab1} key="solicitacao" id="solicitacao" label="SOLICITAÇÕES" handleClick={() => !subTab1 && setSubTab1(true)} />      
                     <TabBtn isSelected={!subTab1} key="criar" id="criar" label="CRIAR" handleClick={() => subTab1 && setSubTab1(false)} />              
                 </div>
                 <div className={`col-lg-${colSize} col`} style={{height: "100%"}}>

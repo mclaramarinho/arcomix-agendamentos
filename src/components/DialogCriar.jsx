@@ -5,6 +5,7 @@ import {Dialog} from '@mui/material';
 import {DialogContent} from '@mui/material';
 import {DialogContentText} from '@mui/material';
 import {DialogTitle} from '@mui/material';
+import ActionBtn from "./ActionBtn";
 function DialogCriar(props){
     const handleControl = props.handleControl;
     const control = props.control;
@@ -52,11 +53,12 @@ function DialogCriar(props){
                 </div>
             </DialogContent>
             <div className="row w-75 m-auto text-center">
+                
                 <div className="col-6">
-                    <button  onMouseUp={() => {handleControl(false)}} className="btn font-14 pt-2 solic-btn bold w-75 red-bg mt-2">Alterar</button>
+                    <ActionBtn handler={() => {handleControl(false)}} color={'red'} label={"Alterar"} />
                 </div>
                 <div className="col-6">
-                    <button  onMouseUp={() =>  {handleControl(false); handleSubmit()}} className="btn font-14 pt-2 solic-btn bold w-75 green-bg mt-2">Agendar</button>
+                    <ActionBtn handler={() => {handleControl(false); handleSubmit()}} color={'green'} label={"Agendar"} />
                 </div>
             </div>
         </Dialog>  

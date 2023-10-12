@@ -9,7 +9,7 @@ function FormInputField(props){
     if(type === "text"){
         return(
             <div className="row mb-4">
-                <label htmlFor={id} style={{fontSize: 14, padding: 0}} className="bold">{label}</label>
+                <label htmlFor={id} className="bold font-14 p-0">{label}</label>
                 <TextField 
                     disabled={disabled}
                     id={id}
@@ -21,8 +21,8 @@ function FormInputField(props){
         )
     }else if(type === "paragraph"){
         return(
-            <div className="row mb-4">
-                <label htmlFor={id} style={{fontSize: 14, padding: 0}} className="bold">{label}</label>
+            <div className="row mb-4 gutter-x-0">
+                <label htmlFor={id} className="bold font-14 p-0">{label}</label>
                 <TextField
                     id={id}
                     placeholder="Escreva aqui"
@@ -35,8 +35,8 @@ function FormInputField(props){
         )
     }else if(type === "autocomplete"){
         return(
-            <div className="row mb-4">
-                <label htmlFor={id} style={{fontSize: 14, padding: 0}} className="bold">{label}</label>
+            <div className="row mb-4 gutter-x-0">
+                <label htmlFor={id} className="bold font-14 p-0 text-start">{label}</label>
                 <Autocomplete 
                     id={id}
                     value={props.value}

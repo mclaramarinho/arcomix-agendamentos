@@ -7,6 +7,8 @@ import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
 import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
 import DialogCriar from "./DialogCriar";
+import ActionBtn from "./ActionBtn";
+import { Action } from "@remix-run/router";
 
 
 function CriarForm(){
@@ -59,6 +61,9 @@ function CriarForm(){
         setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
+    useEffect(() => {
+        console.log(disabledTimes)
+    }, [disabledTimes])
     function setHour(h,m){ //sets the time of the dateObj
         return new Promise((resolve, reject) => {
             resolve(setDateObj(dateObj.set('hour', h).set('minute', m)))
@@ -66,15 +71,13 @@ function CriarForm(){
     }
     
     function checkAvailableTime(){ //checks the available times of the selected day
-        const localSelectedDay = dayjs(selectedDay).format("DD/MM/YYYY").toString();
+        const localSelectedDay = dayjs(selectedDay).format("DD/MM/YYYY");
         let agendamentosConfirmados = agendamentos.map(item => {
             if(item.status === "agendado" && dayjs(item.data).format("DD/MM/YYYY")===localSelectedDay){
                 return item;
             }
         }).filter(item => item!==undefined) //makes sure to return only the items which are not undefined
-        setDisabledTimes(() =>{
-            return agendamentosConfirmados.map(item => dayjs(item.data).hour())
-        })
+        agendamentosConfirmados.length > 0 ? setDisabledTimes(agendamentosConfirmados.map(item => dayjs(item.data).hour())) : setDisabledTimes([])
     }
   
     function handleSubmit(){ // when form is submitted
@@ -92,9 +95,10 @@ function CriarForm(){
     
     //checks some conditions to display a digital clock or a message
     function displayClock(){
+        
         return (selectedDay !== undefined ? (
-                    (diff < 0 && disabledTimes.length < 11) ? 
-                        <DigitalTimePicker disabledTimes={disabledTimes} setDateHour={setHour} setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} /> 
+                    (diff < 0 && disabledTimes.length < 11) ? <DigitalTimePicker disabledTimes={disabledTimes} setDateHour={setHour} setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} /> 
+                
                         : <h3 className="text-center" style={{color: "#A09F9F"}}>Nenhum horário disponível. Selecione outra data!</h3>
                 ) : <h3 className="text-center" style={{color: "#A09F9F"}}>Selecione uma data para ver os horários disponíveis!</h3>
         )
@@ -104,7 +108,6 @@ function CriarForm(){
         !isSubmitted ? (
             <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
                 <DialogCriar handleSubmit={handleSubmit} handleControl={setOpenDialog} control={openDialog} data={dayjs(dateObj).format("DD/MM/YYYY")} hora={dayjs(dateObj).format("HH:mm")} fornecedor={fornecedorV} carga={cargaV} descarga={descargaV} recorrencia={recorrenciaV} />
-                
                 <div className="row my-5 bolder h2 form-header">CRIAR NOVO AGENDAMENTO</div>
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
@@ -119,7 +122,7 @@ function CriarForm(){
                     <div className="col-lg-8 ms-lg-5" >
                         <div className="row">
                             <div className="col-lg-8">
-                                <Calendar dateObject={dateObj} setDateObject={setDateObj} agendamentos={agendamentos} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+                                <Calendar pickerType="standard" dateObject={dateObj} setDateObject={setDateObj} agendamentos={agendamentos} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
                             </div>
 
                             <div className="col-lg-4">
@@ -127,15 +130,13 @@ function CriarForm(){
                             </div>
                             
                             <div className="col text-end">
-                                <button
-                                    onClick={() => {
+                                <ActionBtn label={'AGENDAR'}
+                                    handler={() => {
                                         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
                                             setOpenDialog(true)
                                         }
                                     }} 
-                                    className="entrar-btn btn btn-lg px-5 py-1 dark-blue-bg bold" >
-                                    AGENDAR
-                                </button>
+                                />
                             </div>
                         </div>
                     </div>
@@ -145,9 +146,7 @@ function CriarForm(){
                 <div className="row agendamento-criado">
                     <div className="col-12 mb-5 bolder h2 text-center ">AGENDAMENTO CRIADO COM SUCESSO!</div>
                     <div className="col-12 text-center">
-                        <button onClick={() => {setIdAgendamento(generateId());setIsSubmitted(false)}} className="entrar-btn btn btn-lg px-5 py-1 pt-2 dark-blue-bg bold" >
-                            CRIAR OUTRO
-                        </button>
+                        <ActionBtn label={"CRIAR OUTRO"} handler={() => {setIdAgendamento(generateId());setIsSubmitted(false)}}  />
                     </div>
                 </div>
                 

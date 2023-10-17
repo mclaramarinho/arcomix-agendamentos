@@ -12,7 +12,7 @@ function TabFinalizados(){
     const [all, setAll] = useState([]);
     const [displayError, setDisplayError] = useState(false)
     useEffect(() =>{
-        if(getAgendamentosLS() !== null && getAgendamentosLS() !== undefined){
+        if(getAgendamentosLS() !== undefined && getAgendamentosLS() !== null){
             const finalizados = getAgendamentosLS().map(item => {
                 if(item !== undefined && (item.status === "cancelado" || item.status === "finalizado" || item.isEntregue === true)){
                     return item

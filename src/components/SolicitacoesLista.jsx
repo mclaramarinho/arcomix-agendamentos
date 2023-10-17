@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {getAgendamentosLS, setAgendamentosLS} from '../utils/agendamentosLS'
 import Container from "./Container";
+import { getList } from "../utils/listContent";
 
 function SolicitacoesLista(){
     const [filtro, setFiltro] = useState("");
@@ -13,35 +14,20 @@ function SolicitacoesLista(){
 
     //runs everytime the page is loaded
     useEffect(() => {
-        if(getAgendamentosLS()!==null){ //if this local storage exists
-            setAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
-            
-        }else{
-            setAgendamentosLS([])
-        }
+        setAgendamentos(getAgendamentosLS() || [])
+        getList("solicitacoes").then((value) => {
+            console.log(value);
+            setLocalSolicitacoes(value)
+        })
         
     }, [])
 
-    //every time agendamentos changes
-    useEffect(()=>{
-        let solicit;
-        if( agendamentos !== undefined && agendamentos !== null && agendamentos.length > 0 ){
-            solicit = agendamentos.map(item => {
-                if(item.status === "pendente"){
-                    return item
-                }
-            }) 
-            setLocalSolicitacoes(() => {
-                return [solicit.map(item=>{
-                    if(item !== undefined){
-                        return item
-                    }
-                })]
-            }) 
-            
-        }
-    }, [agendamentos]) 
+    useEffect(() => {
+        setAgendamentosLS(agendamentos)
+    }, [agendamentos])
 
+    //every time agendamentos changes
+   
 
     // ### NEEDS TO SHOW CONFIRMATION MSG ###
     function handleCardClick(e){

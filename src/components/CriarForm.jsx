@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import fornecedores from "../users/fornecedores";
 import FormInputField from "./FormInputField";
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import Calendar from "./Calendar";
 import DigitalTimePicker from "./DigitalTimePicker";
 import {createAgendamento, generateId} from "../utils/createAgendamento";
 import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
 import DialogCriar from "./DialogCriar";
 import ActionBtn from "./ActionBtn";
-import { Action } from "@remix-run/router";
+import checkAvailableTime from "../utils/checkAvailableTime";
 
 
 function CriarForm(){
@@ -53,7 +53,7 @@ function CriarForm(){
     useEffect(() => {
         setDiff(dayjs(today).diff(selectedDay, 'hour')) //the difference in hours between today and the selected day
         diff < 24 ? setMinTime(9) : setMinTime(dayjs().format("HH")) // if in the future, the min time is 9am, otherwise it's the nearest future time 
-        checkAvailableTime() 
+        getAvailableTimes() 
     }, [selectedDay])   
 
     //when agendamentos is altered
@@ -61,23 +61,18 @@ function CriarForm(){
         setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
-    useEffect(() => {
-        console.log(disabledTimes)
-    }, [disabledTimes])
+
+
     function setHour(h,m){ //sets the time of the dateObj
         return new Promise((resolve, reject) => {
             resolve(setDateObj(dateObj.set('hour', h).set('minute', m)))
         }) 
     }
     
-    function checkAvailableTime(){ //checks the available times of the selected day
-        const localSelectedDay = dayjs(selectedDay).format("DD/MM/YYYY");
-        let agendamentosConfirmados = agendamentos.map(item => {
-            if(item.status === "agendado" && dayjs(item.data).format("DD/MM/YYYY")===localSelectedDay){
-                return item;
-            }
-        }).filter(item => item!==undefined) //makes sure to return only the items which are not undefined
-        agendamentosConfirmados.length > 0 ? setDisabledTimes(agendamentosConfirmados.map(item => dayjs(item.data).hour())) : setDisabledTimes([])
+    async function getAvailableTimes(){ //checks the available times of the selected day
+        await checkAvailableTime(selectedDay, agendamentos, "").then((value) => {
+            setDisabledTimes(value)
+        })
     }
   
     function handleSubmit(){ // when form is submitted
@@ -129,7 +124,7 @@ function CriarForm(){
                                 {displayClock()}
                             </div>
                             
-                            <div className="col text-end">
+                            <div className="col text-lg-end text-center">
                                 <ActionBtn label={'AGENDAR'}
                                     handler={() => {
                                         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){

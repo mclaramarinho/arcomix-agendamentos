@@ -14,7 +14,6 @@ function Calendar(props){
     const [highlightedDays, setHighlightedDays] = useState([]);
     const [firstRender, setFirstRender] = useState(false);
     const [dinamicDays, setDinamicDays] = useState()
-
     let agendamentos = props.agendamentos;
     agendamentos = agendamentos.map(item => {
       if(item.status === 'agendado'){
@@ -149,6 +148,7 @@ function Calendar(props){
                         props.setDateObject(dayjs(value))
                         props.setSelectedDay(dayjs(value).format('MM/DD/YYYY'));
                       }}
+                      sx={{width: 'fit-content', margin:'0 auto'}}
                   />
                   <Typography fontWeight={"400"} color={"GrayText"} fontSize={16} variant="h5" className="m-auto">
                       <i style={{color:"#990000", fontSize:18}} class="fa-solid fa-x"></i> Dias indisponíveis
@@ -168,15 +168,17 @@ function Calendar(props){
                 slotProps={
                   {
                     day: { highlightedDays },
-                    textField: { disabled: true, size: "small" } 
+                    textField: { disabled: true, size: "small", placeholder: dayjs(props.initialValue).format("DD/MM/YYYY")} 
                   }
                 }
-                disablePast
+                disableFuture = {props.disableFuture === undefined ? false : props.disableFuture}
+                disablePast={props.disablePast === undefined ? true : props.disablePast}
                 format="DD/MM/YYYY"
                 onChange={(value, context) => {
                   props.setDateObject(dayjs(value))
                 }}
                 
+                className="row"
               />
           </LocalizationProvider>
       )

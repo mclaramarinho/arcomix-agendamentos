@@ -3,16 +3,10 @@ import TabBtn from "../components/TabBtn";
 import AgendamentosLista from "../components/AgendamentosLista";
 import AgendamentoDetails from '../components/AgendamentoDetails'
 import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
-import { Alert, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import dayjs from "dayjs";
-import FormInputField from "../components/FormInputField";
-import { DatePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Calendar from "../components/Calendar";
-import DigitalTimePicker from "../components/DigitalTimePicker";
-import { getTiposDeCarga, getRecorrencias, getTiposDeDescarga } from "../utils/formFieldOptions";
-import CollapsedTimePicker from "../components/CollapsedTimePicker";
 import DialogAlterar from "../components/DialogAlterar";
+import checkAvailableTime from "../utils/checkAvailableTime";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
@@ -21,6 +15,7 @@ function TabAgendamentos (){
     const [cargaV, setCargaV] = useState('')
     const [descargaV, setDescargaV] = useState('')
     const [recorrenciaV, setRecorrenciaV] = useState('')
+    const [isEntregueV, setIsEntregueV] = useState(false);
     const [selected, setSelected] = useState();
 
     const [subTab1, setSubTab1] = useState(true);
@@ -35,13 +30,14 @@ function TabAgendamentos (){
     //checks if there's a local storage already
     useEffect(() => {
         if(getAgendamentosLS()!==null){ //if this local storage exists
-            setLocalAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
+            return setLocalAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
         }
     }, [])
     useEffect(()=>{
-        checkAvailableTime()
+        checkAvailableTime(dateObj, localAgendamentos, "collapsed").then((value) => {
+            setDisabledTimes(value)
+        })
     }, [dateObj])
-
 
     //everytime the card inside the list container is clicked
     function handleDetails(e){
@@ -62,22 +58,7 @@ function TabAgendamentos (){
             return <h1>Indisponivel no momento...</h1>
         }
     }
-    function checkAvailableTime(){ //checks the available times of the selected day
-        const localSelectedDay = dayjs(dateObj).format("DD/MM/YYYY");
-        if(localSelectedDay === dayjs().format("DD/MM/YYYY")){
-            return setDisabledTimes([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
-        }else{
-            let agendamentosConfirmados = localAgendamentos.map(item => {
-                if(item.status === "agendado" && dayjs(item.data).format("DD/MM/YYYY")===localSelectedDay){
-                    return item;
-                }
-            }).filter(item => item!==undefined) //makes sure to return only the items which are not undefined
-            return setDisabledTimes(() =>{
-                return agendamentosConfirmados.map(item => dayjs(item.data).hour())
-            })
-        }
 
-    }
     const [openSnackBar, setOpenSnackBar] = useState(false);
     function handleAlterar (e){
         setCargaV('')
@@ -104,10 +85,14 @@ function TabAgendamentos (){
         if(dateObj !== undefined){
             (localAgendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
-                    item.data = dayjs(dateObj).toISOString();
+                    if(dayjs(dateObj).hour()===0){
+                        return 
+                    }else{
+                        item.data = dayjs(dateObj).toISOString();
+                        setIsAltered(true);
+                    }
                 }
             }))
-            setIsAltered(true);
         }
         if(cargaV.length > 0){
             (localAgendamentos.map(item => {
@@ -141,6 +126,14 @@ function TabAgendamentos (){
             }))
             setIsAltered(true);
         }
+        localAgendamentos.map(item => {
+            if(item.id_agendamento === selected[0].id_agendamento){
+                if(item.isEntregue !== isEntregueV){
+                    item.isEntregue = isEntregueV;
+                    setIsAltered(true)
+                }
+            }
+        })
         setAgendamentosLS(localAgendamentos)
     }
 
@@ -181,6 +174,7 @@ function TabAgendamentos (){
                             descargaV={descargaV} setDescargaV={setDescargaV}
                             recorrenciaV={recorrenciaV} setRecorrenciaV={setRecorrenciaV}
                             observacoesV={observacoesV} setObservacoesV={setObservacoesV}
+                            setIsEntregue={setIsEntregueV}
                             handleAlterar={onAlterarSubmit}
                         />
                     ) : (openAlterar && isAltered===true) && (

@@ -6,8 +6,8 @@ function ActionBtn(props){
     const id = props.id || "";
     const handler = props.handler;
     const bg = props.bg;
-    const bgClass = bg==="red" ? "red-bg" : bg==="green" ? "green-bg" : "dark-blue-bg";
-    const classes = props.classes || `btn col-5 solic-btn agend-btn pt-2 font-14 bold ${bgClass} m-auto`;
+    const bgClass = bg==="red" ? "red-bg" : bg==="green" ? "green-bg" : bg==='gray' ? 'gray-bg' : "dark-blue-bg";
+    let classes = props.classes || `btn col-5 solic-btn agend-btn pt-2 font-14 bold ${bgClass} m-auto ${props.addClass}`;
     const sx = props.sx;
     return (
         <button 

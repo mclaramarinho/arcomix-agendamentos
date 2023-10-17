@@ -50,6 +50,10 @@ function DialogAlterar(props){
                     <div className="row mt-3 font-14 m-auto">
                         <FormInputField type={"paragraph"} label={"OBSERVAÇÕES"} disabled={false} id={"observacoes"} value={observacoesV || ''} setValue={props.setObservacoesV} />
                     </div>
+                    <div className="row mt-3 font-14 m-auto">
+                        <input type="checkbox" name="concluida" id="concluida" className=" width-fit align-self-center col-3 justify-content-start" onChange={(e) => props.setIsEntregue(e.target.checked)} />
+                        <label htmlFor="concluida" className=" col bold" >Marcar entrega como concluída</label>
+                    </div>
                 </DialogContent>
                 <DialogActions>
                     <button onClick={() => {handleAlterar()}} className="entrar-btn btn btn-lg px-5 py-1 m-auto dark-blue-bg bold" >AGENDAR</button>

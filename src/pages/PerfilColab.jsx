@@ -54,7 +54,7 @@ function PerfilColab(){
                     <div className="row">
                         <div className="col-12 col-lg-5 col-xl-5 login-right-side sky-blue-bg position-relative ">
                             <LogoutBtn />
-                            <ProfilePic src={"https://this-person-does-not-exist.com/img/avatar-gen995b349e71b0e38e624db05f5360bba5.jpg"} />
+                            <ProfilePic src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8xMl9waG90b19vZl9nb2xkZW5fcmV0cmlldmVyX3B1cHB5X2p1bXBpbmdfaXNvbF83MTM2NGE2OS1kZTM0LTQzMWEtYWRkZS04ZTdmZWQ0ZGFiOTIucG5n.png" />
                             
                             <ProfileInfo label={"NOME"} value={profileInfo.informacoes.nome.toUpperCase()} />
                             <ProfileInfo label={"MATRÍCULA"} value={profileInfo.matricula} />

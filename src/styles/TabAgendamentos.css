@@ -2,18 +2,13 @@
     width: 65%;
 } */
 
-.agendamentos-container{
-    min-height: 70vh !important;
-    max-height: 70vh !important;
-}
+
 
 .info-content{
     font-size: 1.3rem;
 }
 @media (max-width: 476px) {
-    .agendamentos-container{
-        width: 95% !important;
-    }  
+  
     .details-container{
         width: 95% !important;
     }
@@ -26,9 +21,7 @@
 }
 
 @media (min-width: 476px) and (max-width: 769px) {
-    .agendamentos-container{
-        width: 65% !important;
-    }   
+ 
 }
 @media (min-width: 475px) and (max-width: 992px) {
     .details-container{
@@ -49,15 +42,12 @@
     }
 }
 @media (min-width: 769px) and (max-width: 992px){
-    .agendamentos-container{
-        width: 60% !important;
-    }
+  
     .details-info{
         width: 50%;
     }
 }
 @media (max-width: 992px) {
-    .agendamentos-container,
     .details-container{
         margin: 0 auto !important;
     }
@@ -78,9 +68,7 @@
     }
 }
 @media (min-width: 992px) and (max-width: 1300px){
-    .agendamentos-container{
-        width: 80%;
-    } 
+ 
 }
 @media (min-width: 992px) and (max-width: 1400px) {
     .details-container{
@@ -88,10 +76,7 @@
     }   
 }
 @media (min-width: 992px) {
-    .agendamentos-container{
-        margin-top: 5vh !important;
-        margin-right: 0 !important;
-    } 
+ 
     .details-container{
         margin-top: 15vh !important;
     }
@@ -106,9 +91,7 @@
     }
 }
 @media (min-width: 1300px){
-    .agendamentos-container{
-        width: 65%;
-    } 
+    
     .details-container{
         width: 65%;
     }

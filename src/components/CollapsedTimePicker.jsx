@@ -19,14 +19,12 @@ function CollapsedTimePicker(props){
     function shouldDisableTime(value, view){
         props.disabledTimes.map(item => {
             if(dayjs(pickerValue).hour() === item){
-                console.log('invalid hour')
                 setPickerValue('')
                 return
             }
         })
         let control = false;
         const items = timePickerItems[0]
-        console.log(items)
         if(items !== undefined){
             const currentElement = items[value.hour()];
             currentElement.classList.contains("disabled-time") &&  currentElement.classList.remove("disabled-time") 
@@ -63,14 +61,11 @@ function CollapsedTimePicker(props){
                     views={["hours"]}
                     minutesStep={60}
                     
-                    value={pickerValue}
-
                     onOpen={() => setOpen(true)}
                     onClose={() => {setOpen(false)}}
                     shouldDisableTime={shouldDisableTime}
                     onChange={(value) => {
                         props.setDateObject(dayjs(props.dateObject).set('h', value.$H))
-                        setPickerValue(value)
                     }}
                     
                     slotProps={

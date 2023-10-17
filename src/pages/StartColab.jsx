@@ -6,6 +6,7 @@ import MenuTabs from "../components/MenuTabs";
 import TabAgendar from "../tabs/TabAgendar";
 import TabAgendamentos from "../tabs/TabAgendamentos";
 import { getTempLoginInfo } from "../utils/tempLoginInfo";
+import TabFinalizados from "../tabs/TabFinalizados";
 
 function StartColab (){
     
@@ -55,7 +56,7 @@ function StartColab (){
                 { //check which tab to display
                     currentTab.includes("AGENDAR") ? <TabAgendar /> 
                     : currentTab.includes("AGENDAMENTOS") ? <TabAgendamentos /> 
-                    : <h1>TAB DE FINALIZADOS</h1>
+                    : <TabFinalizados />
                 }
             </div>
         )

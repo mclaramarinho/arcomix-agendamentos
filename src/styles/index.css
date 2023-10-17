@@ -55,6 +55,12 @@ body{
 .dark-blue-bg:hover{
     background-color: #429acc !important;
 }
+.gray-bg{
+    background-color: var(--lighter-gray) !important;
+}
+.gray-bg:hover{
+    background-color: #dbdbdbaf !important;
+}
 
 .overflow-y-scroll{
     overflow-y: scroll !important;
@@ -93,6 +99,9 @@ body{
 }
 .gutter-x-0{
     --bs-gutter-x: 0 !important;
+}
+.font-25{
+    font-size: 2.5rem !important;
 }
 .font-18{
     font-size: 1.8rem !important;

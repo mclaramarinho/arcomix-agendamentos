@@ -35,30 +35,30 @@ function DialogCriar(props){
                         </div>
                     </div>
                     <div className="row m-auto mt-3">
-                            <div className="col-4 text-start bold">FORNECEDOR: </div>
-                            <div className="col-8">{props.fornecedor}</div>
+                            <div className="col-5 col-md-4 text-start bold">FORNECEDOR: </div>
+                            <div className="col-7 col-md-8">{props.fornecedor}</div>
                     </div>
                     <div className="row m-auto mt-3">
-                            <div className="col-4 text-start bold">TIPO DE CARGA: </div>
-                            <div className="col-8">{props.carga}</div>
+                            <div className="col-5 col-md-4 text-start bold">TIPO DE CARGA: </div>
+                            <div className="col-7 col-md-8">{props.carga}</div>
                     </div>
                     <div className="row m-auto mt-3">
-                            <div className="col-4 text-start bold">DESCARGA: </div>
-                            <div className="col-8">{props.descarga}</div>
+                            <div className="col-5 col-md-4 text-start bold">DESCARGA: </div>
+                            <div className="col-7 col-md-8">{props.descarga}</div>
                     </div>
                     <div className="row m-auto mt-3">
-                            <div className="col-4 text-start bold">RECORRÊNCIA: </div>
-                            <div className="col-8">{props.recorrencia}</div>
+                            <div className="col-5 col-md-4 text-start bold">RECORRÊNCIA: </div>
+                            <div className="col-7 col-md-8"> {props.recorrencia}</div>
                     </div>
                 </div>
             </DialogContent>
-            <div className="row w-75 m-auto text-center">
+            <div className="row w-75 m-auto text-center pb-4">
                 
                 <div className="col-6">
-                    <ActionBtn handler={() => {handleControl(false)}} color={'red'} label={"Alterar"} />
+                    <ActionBtn handler={() => {handleControl(false)}} bg={'red'} label={"Alterar"} addClass={`w-100`} />
                 </div>
                 <div className="col-6">
-                    <ActionBtn handler={() => {handleControl(false); handleSubmit()}} color={'green'} label={"Agendar"} />
+                    <ActionBtn handler={() => {handleControl(false); handleSubmit()}} bg={'green'} label={"Agendar"} addClass={`w-100`}/>
                 </div>
             </div>
         </Dialog>  

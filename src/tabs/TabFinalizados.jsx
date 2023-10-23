@@ -12,7 +12,9 @@ function TabFinalizados(){
     const [resultado, setResultado] = useState([]);
     const [all, setAll] = useState([]);
     const [displayError, setDisplayError] = useState(false)
-    
+    const [clear, setClear] = useState(false);
+    const [emptySearch, setEmptySearch] = useState(false);
+
     useEffect(() =>{
         updateAgendamentosLS()
         getList("finalizados").then((value) => setAll(value))
@@ -22,6 +24,12 @@ function TabFinalizados(){
         const action = e.target.value;
         
         if(action === "pesquisar"){
+            if(startDate===undefined || finalDate === undefined){
+                setEmptySearch(true);
+                setDisplayError(false);
+                return;
+            }
+            setEmptySearch(false)
             const start = dayjs(startDate)
             const end = dayjs(finalDate)
             const diffYear = end.year() - start.year() 
@@ -57,6 +65,8 @@ function TabFinalizados(){
                 }
             }).filter(item => item !== undefined)
             return setResultado(res), setIsEmpty(false)
+        }else{
+            return setClear(true), setStartDate(), setFinalDate(), setEmptySearch(false), setDisplayError(false);
         }
     }
 
@@ -69,19 +79,21 @@ function TabFinalizados(){
                         <div className="row gutter-x-0 text-center mt-5 mb-5">
                             <div className="col-md-6 col-12">
                                 <label htmlFor="" className="font-14 bolder row gutter-x-0 justify-content-center">INÍCIO</label> <br />
-                                <Calendar disablePast={false} disableFuture={true} agendamentos={[]} setDateObject={setStartDate} />
-                                {displayError===true && <p>The start date cannot be greater than the end date</p>}
+                                <Calendar clear={clear} setClear={setClear} disablePast={false} disableFuture={true} agendamentos={[]} setDateObject={setStartDate} placeholder={'none'} />
+                                
                             </div>
                             <div className="col-md-6 col-12 me-auto">
                                 <label htmlFor="" className="font-14 bolder row gutter-x-0 justify-content-center mt-md-0 mt-5">FIM</label> <br />
-                                <Calendar disablePast={false} disableFuture={true} agendamentos={[]} setDateObject={setFinalDate} />
+                                <Calendar clear={clear} setClear={setClear} disablePast={false} disableFuture={true} agendamentos={[]} setDateObject={setFinalDate} placeholder={'none'}/>
                             </div>
+                            {emptySearch===true && <p className="color-red mt-5 font-12 bold">Você precisa preencher ambas as datas para pesquisar.</p>}
+                            {displayError===true && <p className="color-red mt-5 font-12 bold">A data inicial não pode ser maior do que a data final.</p>}
                         </div>
                         <div className="row gutter-x-0 mt-5">
                             <ActionBtn handler={handlePesquisa} value='pesquisar' label='PESQUISAR' addClass='w-25'/>
                         </div>
                         <div className="row gutter-x-0 mt-5">
-                            <ActionBtn handler={handlePesquisa} value='limpar' label='LIMPAR SELEÇÃO' bg={'gray'} addClass='w-25 color-red'/>
+                            <ActionBtn handler={handlePesquisa} value='limpar' label='LIMPAR SELEÇÃO' bg={'gray'} color={"red"} addClass='w-25 color-red'/>
                         </div>
                     </div>
                 </div>

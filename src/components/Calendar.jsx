@@ -14,6 +14,9 @@ function Calendar(props){
     const [highlightedDays, setHighlightedDays] = useState([]);
     const [firstRender, setFirstRender] = useState(false);
     const [dinamicDays, setDinamicDays] = useState()
+    const [value, setValue] = useState();
+  
+
     let agendamentos = props.agendamentos;
     agendamentos = agendamentos.map(item => {
       if(item.status === 'agendado'){
@@ -164,18 +167,21 @@ function Calendar(props){
                 slots={{
                     day: ServerDay,
                 }}
-                
                 slotProps={
                   {
                     day: { highlightedDays },
-                    textField: { disabled: true, size: "small", placeholder: dayjs(props.initialValue).format("DD/MM/YYYY")} 
+                    textField: { disabled: true, size: "small", placeholder: props.placeholder !== "none" ? dayjs(props.initialValue).format("DD/MM/YYYY") : "DD/MM/YYYY"} 
                   }
                 }
+                value={props.clear===true ? "" : value}
+                
                 disableFuture = {props.disableFuture === undefined ? false : props.disableFuture}
                 disablePast={props.disablePast === undefined ? true : props.disablePast}
                 format="DD/MM/YYYY"
                 onChange={(value, context) => {
                   props.setDateObject(dayjs(value))
+                  setValue(value)
+                  props.setClear(false)
                 }}
                 
                 className="row"

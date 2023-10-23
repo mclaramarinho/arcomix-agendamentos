@@ -40,9 +40,7 @@ function FormInputField(props){
                 <Autocomplete 
                     id={id}
                     value={props.value}
-                    onChange={(e, newValue) => {
-                        props.setValue(newValue);
-                    }}
+                    
                     options={props.options}
                     renderInput={(params) => <TextField {...params} />}
 

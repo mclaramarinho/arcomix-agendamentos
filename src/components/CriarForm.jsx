@@ -9,15 +9,20 @@ import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
 import DialogCriar from "./DialogCriar";
 import ActionBtn from "./ActionBtn";
 import checkAvailableTime from "../utils/checkAvailableTime";
+import { getTempLoginInfo } from "../utils/tempLoginInfo";
+import { getRecorrencias, getTiposDeCarga, getTiposDeDescarga } from "../utils/formFieldOptions";
 
 
 function CriarForm(){
-    const tiposDeCarga = ["Frios", "Granel", "Carnes", "Descartáveis", "Conservas", "Materiais de limpeza"];
-    const tiposDeDescarga = ["Manual", "Paletizada"];
-    const recorrencias = ["Única", "Diária", "Semanal", "Mensal", "Trimestral", "Semestral", "Anual"];
+    const authInfo = getTempLoginInfo();
+    const fornecedor = fornecedores.map(item => {
+        if(item.id_fornecedor === authInfo.id){
+            return item.informacoesLegais[0]
+        }
+    }).filter(item => item !== undefined)
 
     const [idAgendamento, setIdAgendamento] = useState(generateId())
-    const [fornecedorV, setFornecedorV] = useState("");
+    const [fornecedorV, setFornecedorV] = useState(fornecedor || "");
     const [cargaV, setCargaV] = useState("")
     const [descargaV, setDescargaV] = useState("")
     const [recorrenciaV, setRecorrenciaV] = useState("")
@@ -37,8 +42,6 @@ function CriarForm(){
     
     let [dateObj, setDateObj] = useState();
     const [disabledTimes, setDisabledTimes] = useState([]);
-
-    
     
     // when the subtab is loaded
     useEffect(() => {
@@ -53,7 +56,7 @@ function CriarForm(){
     useEffect(() => {
         setDiff(dayjs(today).diff(selectedDay, 'hour')) //the difference in hours between today and the selected day
         diff < 24 ? setMinTime(9) : setMinTime(dayjs().format("HH")) // if in the future, the min time is 9am, otherwise it's the nearest future time 
-        getAvailableTimes() 
+        checkAvailableTime(selectedDay, agendamentos, "").then((value) => setDisabledTimes(value))
     }, [selectedDay])   
 
     //when agendamentos is altered
@@ -61,6 +64,9 @@ function CriarForm(){
         setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
+    useEffect(() => {
+        console.log(openDialog)
+    }, [openDialog])
 
 
     function setHour(h,m){ //sets the time of the dateObj
@@ -69,20 +75,17 @@ function CriarForm(){
         }) 
     }
     
-    async function getAvailableTimes(){ //checks the available times of the selected day
-        await checkAvailableTime(selectedDay, agendamentos, "").then((value) => {
-            setDisabledTimes(value)
-        })
-    }
   
     function handleSubmit(){ // when form is submitted
         setOpenDialog(false)
+
         //checks if all the fields are filled
         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
             //adds the new item to local agendamentos usestate variable
-            setAgendamentos(prev => {
-                return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dateObj, cargaV, descargaV, recorrenciaV, obsV, false)]
-            })
+           
+                setAgendamentos(prev => {
+                    return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dateObj, cargaV, descargaV, recorrenciaV, obsV, false)]
+                })
             // indicates the form was submitted
             setIsSubmitted(true);setFornecedorV("");setCargaV("");setDescargaV("");setRecorrenciaV("");setObsV("");setSelectedDay();setSelectedTime();
         }
@@ -90,7 +93,6 @@ function CriarForm(){
     
     //checks some conditions to display a digital clock or a message
     function displayClock(){
-        
         return (selectedDay !== undefined ? (
                     (diff < 0 && disabledTimes.length < 11) ? <DigitalTimePicker disabledTimes={disabledTimes} setDateHour={setHour} setValue={setSelectedTime} selectedDay={selectedDay} minTime={minTime} /> 
                 
@@ -98,6 +100,8 @@ function CriarForm(){
                 ) : <h3 className="text-center" style={{color: "#A09F9F"}}>Selecione uma data para ver os horários disponíveis!</h3>
         )
     }
+
+
     return(
         //if the form wasn't submitted yet => show the form
         !isSubmitted ? (
@@ -107,10 +111,13 @@ function CriarForm(){
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
                         <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} value={idAgendamento}  />
-                        <FormInputField type={"autocomplete"} label={"FORNECEDOR"} disabled={false} id={"fornecedores"} value={fornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} setValue={setFornecedorV} />
-                        <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} options={tiposDeCarga} value={cargaV} setValue={setCargaV}/>
-                        <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV} options={tiposDeDescarga} setValue={setDescargaV}/>
-                        <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV} options={recorrencias} setValue={setRecorrenciaV}/>
+                        {authInfo.actor==="Colaborador" ? 
+                            <FormInputField type={"autocomplete"} label={"FORNECEDOR"} disabled={false} id={"fornecedores"} value={fornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} setValue={setFornecedorV} />
+                            : <FormInputField type={"text"} disabled={true} label={"FORNECEDOR"} id={"fornecedores"} value={fornecedorV} />
+                        }
+                        <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} options={getTiposDeCarga()} setValue={setCargaV}/>
+                        <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV} options={getTiposDeDescarga()} setValue={setDescargaV}/>
+                        <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV} options={getRecorrencias()} setValue={setRecorrenciaV}/>
                         <FormInputField type={"paragraph"} id={"observacoes"} value={obsV} setValue={setObsV} label={"OBSERVAÇÕES"}/>
                     </div>
                     

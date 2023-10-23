@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Login from './pages/Login';
-import StartColab from './pages/StartColab'
-import StartForn from './pages/StartForn'
+import Start from './pages/Start'
 import { createBrowserRouter, RouterProvider, useParams} from 'react-router-dom';
 import './styles/index.css'
 import './styles/login.css'
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/colaborador/:id/',
-    element: <StartColab  />
+    element: <Start />
   },  
   {
     path: "/colaborador/:id/perfil",
@@ -40,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/fornecedor/:id',
-    element: <StartForn  />
+    element: <Start />
   },
 ])
 

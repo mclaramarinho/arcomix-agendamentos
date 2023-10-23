@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 function getAgendamentosLS(){
     return JSON.parse(localStorage.getItem("agendamentos"));
 }
@@ -5,5 +7,30 @@ function getAgendamentosLS(){
 function setAgendamentosLS(value){
     return localStorage.setItem("agendamentos", JSON.stringify(value))
 }
+function updateAgendamentosLS(){
+    const prev = getAgendamentosLS();
+    const today = dayjs();
+    if(prev !== undefined && prev.length > 0){
+        
 
-export {getAgendamentosLS, setAgendamentosLS}
+        const updated = prev.map(item => {
+
+            const date = dayjs(item.data);
+            if(item.isEntregue===true && item.status === "agendado"){
+                item.status = "finalizado"
+            }else if(item.status !== "finalizado" && item.status !== "cancelado"){
+                if(date.year() < today.year()){
+                    item.status = "finalizado";
+                }else if(date.year() === today.year() && date.month() < today.month()){
+                    item.status = "finalizado"
+                }else if(date.year() === today.year() && date.month() === today.month() && date.date() < today.date()){
+                    item.status = "finalizado"
+                }
+            }
+            return item;
+        })
+        
+        setAgendamentosLS(updated)
+    }
+}
+export {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS}

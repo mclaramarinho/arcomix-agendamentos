@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {getAgendamentosLS, setAgendamentosLS} from '../utils/agendamentosLS'
+import {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS} from '../utils/agendamentosLS'
 import Container from "./Container";
 import { getList } from "../utils/listContent";
 
@@ -14,9 +14,9 @@ function SolicitacoesLista(){
 
     //runs everytime the page is loaded
     useEffect(() => {
+        updateAgendamentosLS()
         setAgendamentos(getAgendamentosLS() || [])
         getList("solicitacoes").then((value) => {
-            console.log(value);
             setLocalSolicitacoes(value)
         })
         

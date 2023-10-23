@@ -10,6 +10,7 @@ function TabAgendar(){
     
     const [colSize, setColSize] = useState();
 
+    
     useEffect(() => {
         setColSize(subTab1 ? 5 : 10);
     },[subTab1])

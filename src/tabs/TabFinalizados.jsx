@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
 import ActionBtn from "../components/ActionBtn";
 import Container from '../components/Container'
-import {getAgendamentosLS, setAgendamentosLS} from '../utils/agendamentosLS'
+import {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS} from '../utils/agendamentosLS'
 import dayjs from "dayjs";
 import { getList } from "../utils/listContent";
 function TabFinalizados(){
@@ -14,6 +14,7 @@ function TabFinalizados(){
     const [displayError, setDisplayError] = useState(false)
     
     useEffect(() =>{
+        updateAgendamentosLS()
         getList("finalizados").then((value) => setAll(value))
     }, [])
 

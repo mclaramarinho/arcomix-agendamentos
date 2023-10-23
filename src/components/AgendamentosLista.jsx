@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAgendamentosLS } from "../utils/agendamentosLS";
+import { getAgendamentosLS, updateAgendamentosLS } from "../utils/agendamentosLS";
 import Container from "./Container";
 import dayjs from "dayjs";
 import { getList } from "../utils/listContent";
@@ -18,9 +18,11 @@ function AgendamentosLista(props){
 
     //runs everytime the page is loaded
     useEffect(() => {
-        getList('agendamentos').then((value) => setLocalAgendamentos(value))
+        updateAgendamentosLS();
+        getList('agendamentos').then((value) => {
+            setLocalAgendamentos(value)
+        })
     }, [])
-
 
     function showLista(){ 
         let control=false;;

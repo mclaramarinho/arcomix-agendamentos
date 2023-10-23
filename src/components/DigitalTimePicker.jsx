@@ -14,7 +14,6 @@ function DigitalTimePicker(props){
     function shouldDisableTime(value, view){
         let control = false;
         const items = timePickerItems[0]
-        console.log(items)
         if(items !== undefined){
             const currentElement = items[value.hour()];
             currentElement.classList.contains("disabled-time") &&  currentElement.classList.remove("disabled-time") 

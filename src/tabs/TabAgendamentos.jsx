@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TabBtn from "../components/TabBtn";
 import AgendamentosLista from "../components/AgendamentosLista";
 import AgendamentoDetails from '../components/AgendamentoDetails'
-import { getAgendamentosLS, setAgendamentosLS } from "../utils/agendamentosLS";
+import { getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS } from "../utils/agendamentosLS";
 import { Alert, Snackbar } from "@mui/material";
 import dayjs from "dayjs";
 import DialogAlterar from "../components/DialogAlterar";
@@ -83,7 +83,7 @@ function TabAgendamentos (){
     const [isAltered, setIsAltered] = useState(false);
     function onAlterarSubmit(){
         if(dateObj !== undefined){
-            (localAgendamentos.map(item => {
+            localAgendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     if(dayjs(dateObj).hour()===0){
                         return 
@@ -92,7 +92,7 @@ function TabAgendamentos (){
                         setIsAltered(true);
                     }
                 }
-            }))
+            })
         }
         if(cargaV.length > 0){
             (localAgendamentos.map(item => {
@@ -134,6 +134,7 @@ function TabAgendamentos (){
                 }
             }
         })
+        updateAgendamentosLS();
         setAgendamentosLS(localAgendamentos)
     }
 

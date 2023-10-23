@@ -20,18 +20,17 @@ function Login (){
     
     //To login automatically if info are saved
     useEffect(() => {
+
         //To prevent getting back to the login screen if already logged in
         if(getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){
             const authInfo = getTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
         }else if(getLoginInfoLS() !== null && getLoginInfoLS().length>1){
             const storedInfo = getLoginInfoLS();
-            getResult(storedInfo)
-        }
-        async function getResult(storedInfo) {
-            const result = await runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id);
-            setAuth(result);
-            return (result === true) && setTempLoginInfo(storedInfo.id, storedInfo.senha, storedInfo.actor) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
+            runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id).then((value) => {
+                setAuth(value)
+                (value === true) && setTempLoginInfo(storedInfo.id, storedInfo.senha, storedInfo.actor) && navigate(`/${storedInfo.actor.toLowerCase()}/${storedInfo.id}`);
+            })
         }
     })
 

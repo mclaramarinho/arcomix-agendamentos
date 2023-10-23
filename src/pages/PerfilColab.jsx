@@ -9,25 +9,25 @@ import ProfilePic from "../components/ProfilePic";
 import LogoutBtn from "../components/LogoutBtn";
 import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import runAuth from "../utils/runAuth";
+import fornecedores from "../users/fornecedores";
 
 
 function PerfilColab(){
-
-
-    let {id} = useParams();
-    let profileInfo;
-    
     const navigate = useNavigate();
-
+    let {id} = useParams();
     const authInfo = getTempLoginInfo();
 
+    let profileInfo;
+    
     const [auth,setAuth] = useState(false);
 
     const [width, setWidth] = useState(window.innerWidth);
     const [position, setPosition] = useState();
+    
     setInterval(()=>{
         setWidth(window.innerWidth);
     }, [100])
+   
     useEffect(() =>{
         if(width > 992){
             setPosition("top-50 start-50 translate-middle")
@@ -35,18 +35,14 @@ function PerfilColab(){
             setPosition("") 
         }
     }, [width])
-    useEffect(() =>{
-        getAuth();
-    }, [])
-    
-    async function getAuth () {
-        let result = await runAuth(authInfo.actor, authInfo.senha, authInfo.id);
-        return setAuth(result);
-    }
 
+    useEffect(() =>{
+        runAuth(authInfo.actor, authInfo.senha, authInfo.id).then((value) => setAuth(value));
+    }, [])
 
     if(auth){
-        profileInfo = colaboradores.filter(item => item.matricula === id)[0];
+        profileInfo = authInfo.actor === "Colaborador" ? colaboradores.filter(item => item.matricula === id)[0] : fornecedores.filter(item => item.id_fornecedor === id)[0];
+
         return (
             <div>
                 <BackBtn />
@@ -54,12 +50,22 @@ function PerfilColab(){
                     <div className="row">
                         <div className="col-12 col-lg-5 col-xl-5 login-right-side sky-blue-bg position-relative ">
                             <LogoutBtn />
-                            <ProfilePic src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8xMl9waG90b19vZl9nb2xkZW5fcmV0cmlldmVyX3B1cHB5X2p1bXBpbmdfaXNvbF83MTM2NGE2OS1kZTM0LTQzMWEtYWRkZS04ZTdmZWQ0ZGFiOTIucG5n.png" />
-                            
-                            <ProfileInfo label={"NOME"} value={profileInfo.informacoes.nome.toUpperCase()} />
-                            <ProfileInfo label={"MATRÍCULA"} value={profileInfo.matricula} />
-                            <ProfileInfo label={"E-MAIL"} value={profileInfo.informacoes.email} />
-                            
+                            {authInfo.actor === "Colaborador" && 
+                                <div>
+                                    <ProfilePic src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8xMl9waG90b19vZl9nb2xkZW5fcmV0cmlldmVyX3B1cHB5X2p1bXBpbmdfaXNvbF83MTM2NGE2OS1kZTM0LTQzMWEtYWRkZS04ZTdmZWQ0ZGFiOTIucG5n.png" />
+                                    <ProfileInfo label={"NOME"} value={profileInfo.informacoes.nome.toUpperCase()} />
+                                    <ProfileInfo label={"MATRÍCULA"} value={profileInfo.matricula} />
+                                    <ProfileInfo label={"E-MAIL"} value={profileInfo.informacoes.email} />
+                                </div>
+                            }
+                            {authInfo.actor === "Fornecedor" && 
+                                <div>
+                                    <ProfileInfo label={"RAZÃO SOCIAL"} value={profileInfo.informacoesLegais[0].toUpperCase()} /> 
+                                    <ProfileInfo label={"NOME FANTASIA"} value={profileInfo.informacoesLegais[1].toUpperCase()} />
+                                    <ProfileInfo label={"CNPJ"} value={profileInfo.informacoesLegais[2]} />
+                                    <ProfileInfo label={"LOGIN"} value={profileInfo.id_fornecedor} />
+                                </div>
+                            }
                             <p className="row m-auto text-center mt-5 mx-4" style={{color: "#ffff", fontWeight:700, fontFamily:"Martel Sans", fontSize: 12}}>
                                 Para alteração dessas informações, por favor, entre em contato com a Arcomix.
                             </p> 

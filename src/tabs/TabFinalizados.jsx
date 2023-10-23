@@ -84,7 +84,7 @@ function TabFinalizados(){
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-7 col-12 mt-lg-0 mt-5">
+                <div className="col-lg-5 col-12 mt-lg-0 mt-5">
                     <Container tipoContainer="finalizados" lista={resultado} isEmpty={isEmpty}/>
                 </div>
 

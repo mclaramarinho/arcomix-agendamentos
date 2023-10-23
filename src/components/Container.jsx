@@ -16,7 +16,7 @@ function Container(props){
     function contentToDisplay(){
         if(isEmpty===true){
             return(
-                <div className="row h-25 p-0 text-center mt-5 mb-5 ">
+                <div className="row h-25 p-0 text-center mt-5 mb-5 gutter-x-0">
                     <h2 className="bold">Não há {tipoContainer==="solicitacoes" ? "solicitações" : tipoContainer === "agendamentos" ? "agendamentos" : "entregas finalizadas"} no momento.</h2>
                     <i class="fa-solid fa-inbox" style={{fontSize: "15vh", marginBottom: "5vh", color: "#A09F9F"}}></i>
                 </div>

@@ -4,6 +4,7 @@ import ActionBtn from "../components/ActionBtn";
 import Container from '../components/Container'
 import {getAgendamentosLS, setAgendamentosLS} from '../utils/agendamentosLS'
 import dayjs from "dayjs";
+import { getList } from "../utils/listContent";
 function TabFinalizados(){
     const [startDate, setStartDate] = useState();
     const [finalDate, setFinalDate] = useState();
@@ -11,17 +12,9 @@ function TabFinalizados(){
     const [resultado, setResultado] = useState([]);
     const [all, setAll] = useState([]);
     const [displayError, setDisplayError] = useState(false)
+    
     useEffect(() =>{
-        if(getAgendamentosLS() !== undefined && getAgendamentosLS() !== null){
-            const finalizados = getAgendamentosLS().map(item => {
-                if(item !== undefined && (item.status === "cancelado" || item.status === "finalizado" || item.isEntregue === true)){
-                    return item
-                }
-            }).filter(item => item !== undefined)
-            setAll(finalizados)
-        }else{
-            setAgendamentosLS([])
-        }
+        getList("finalizados").then((value) => setAll(value))
     }, [])
 
     function handlePesquisa(e){
@@ -43,7 +36,7 @@ function TabFinalizados(){
                         setDisplayError(true)
                         return 
                     }else{
-                        displayError === true && setDisplayError(false)
+                        setDisplayError(false)
                     }
                 }
             }

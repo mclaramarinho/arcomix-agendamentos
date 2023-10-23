@@ -46,7 +46,15 @@ function getList(listType){
         }
 
         if(listType === "finalizados"){
+            return new Promise((resolve, reject) => {
+                const finalizados = getAgendamentosLS().map(item => {
+                    if(item !== undefined && (item.status === "cancelado" || item.status === "finalizado" || item.isEntregue === true)){
+                        return item
+                    }
+                }).filter(item => item !== undefined)
 
+                resolve(finalizados)
+            })
         }
     }else{
         setAgendamentosLS([])

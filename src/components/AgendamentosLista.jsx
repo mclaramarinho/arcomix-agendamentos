@@ -33,7 +33,6 @@ function AgendamentosLista(props){
         }
         return control;
     }
-    const periodo = ['Todos', 'Hoje', 'Essa Semana', 'Esse Mês']
    
    
     return <Container tipoContainer="agendamentos" isEmpty={showLista()} handleCardClick={props.handleDetails} filtro={filtro} handleFiltro={handleFiltro} lista={localAgendamentos} />

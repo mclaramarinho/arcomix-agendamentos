@@ -19,14 +19,13 @@ function SolicitacoesLista(){
         getList("solicitacoes").then((value) => {
             setLocalSolicitacoes(value)
         })
-        
     }, [])
-
+    
+    
+    //every time agendamentos changes
     useEffect(() => {
         setAgendamentosLS(agendamentos)
     }, [agendamentos])
-
-    //every time agendamentos changes
    
 
     // ### NEEDS TO SHOW CONFIRMATION MSG ###
@@ -37,7 +36,7 @@ function SolicitacoesLista(){
         if(value==="accept"){
             agendamentos.map(item => {
                 if(item.id_agendamento === id){
-                    item.status="aceito"
+                    item.status="agendado"
                 }
             })
             
@@ -60,6 +59,7 @@ function SolicitacoesLista(){
     function handleFiltro(e){
         return setFiltro(e.target.value)
     }
+    
     function showLista(){ 
         let control;
         //checks if the localSolicitacoes array contains only undefined items
@@ -67,13 +67,11 @@ function SolicitacoesLista(){
             control = true;
         }
         localSolicitacoes.map(item =>{
-            return item.map(subItem => {
-                if(subItem === undefined){
+                if(item === undefined){
                     return control = true;
                 }else{
                     return control = false;
                 }
-            })
         })
         return control;
     }

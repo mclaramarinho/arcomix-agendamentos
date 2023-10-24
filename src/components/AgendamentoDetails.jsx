@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import React from "react";
 import ActionBtn from "./ActionBtn";
+import {getTempLoginInfo} from '../utils/tempLoginInfo'
 
 function AgendamentoDetails(props){
     return(
@@ -27,7 +28,9 @@ function AgendamentoDetails(props){
             <div className="row btn-row">
             <div className="row w-100 m-auto">
                 <ActionBtn value={"desmarcar"} label={"DESMARCAR"} bg={"red"} handler={props.handleAlterar} id={props.idAgendamento}/>
-                <ActionBtn value={"alterar"} label={"ALTERAR"} handler={props.handleAlterar} id={props.idAgendamento}/>
+                {getTempLoginInfo().actor === "Colaborador" &&
+                    <ActionBtn value={"alterar"} label={"ALTERAR"} handler={props.handleAlterar} id={props.idAgendamento}/>
+                }
              </div>
             </div>
          </div>

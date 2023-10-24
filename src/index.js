@@ -13,7 +13,7 @@ import './styles/TabAgendamentos.css'
 import './styles/TabBtn.css'
 import './styles/PerfilColab.css'
 
-import PerfilColab from './pages/PerfilColab';
+import Perfil from './pages/Perfil';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   },  
   {
     path: "/colaborador/:id/perfil",
-    element: <PerfilColab />
+    element: <Perfil />
   },
   {
     path:'/fornecedor/:id',

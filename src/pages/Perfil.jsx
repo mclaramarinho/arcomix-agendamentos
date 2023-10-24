@@ -12,7 +12,7 @@ import runAuth from "../utils/runAuth";
 import fornecedores from "../users/fornecedores";
 
 
-function PerfilColab(){
+function Perfil(){
     const navigate = useNavigate();
     let {id} = useParams();
     const authInfo = getTempLoginInfo();
@@ -121,4 +121,4 @@ function PerfilColab(){
     
 }
 
-export default PerfilColab;
+export default Perfil;

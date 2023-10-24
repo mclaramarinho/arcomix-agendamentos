@@ -82,10 +82,15 @@ function CriarForm(){
         //checks if all the fields are filled
         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
             //adds the new item to local agendamentos usestate variable
-           
+            if(authInfo.actor==="Colaborador"){
                 setAgendamentos(prev => {
-                    return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dateObj, cargaV, descargaV, recorrenciaV, obsV, false)]
+                    return [...prev, createAgendamento(idAgendamento, fornecedorV, "agendado", dateObj, cargaV, descargaV, recorrenciaV, obsV, false, true)]
                 })
+            }else{
+                setAgendamentos(prev => {
+                    return [...prev, createAgendamento(idAgendamento, fornecedorV, "pendente", dateObj, cargaV, descargaV, recorrenciaV, obsV, false, false)]
+                })
+            }
             // indicates the form was submitted
             setIsSubmitted(true);setFornecedorV("");setCargaV("");setDescargaV("");setRecorrenciaV("");setObsV("");setSelectedDay();setSelectedTime();
         }
@@ -136,6 +141,7 @@ function CriarForm(){
                                     handler={() => {
                                         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
                                             setOpenDialog(true)
+                                            console.log(`trigg`) 
                                         }
                                     }} 
                                 />

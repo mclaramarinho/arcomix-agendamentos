@@ -1,5 +1,8 @@
+import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import dayjs from "dayjs";
 import { getAgendamentosLS, setAgendamentosLS } from "./agendamentosLS";
+import fornecedores from '../users/fornecedores'
+const authInfo = getTempLoginInfo();
 
 function getList(listType){
     if(getAgendamentosLS() !== undefined){
@@ -7,7 +10,7 @@ function getList(listType){
             return new Promise((resolve, reject) => {
                 const today = dayjs();
 
-                const agend = getAgendamentosLS().map(item => {
+                let agend = getAgendamentosLS().map(item => {
                     const itemDate = dayjs(item.data);
                     if(itemDate.year() === today.year()){
                         if(itemDate.month() > today.month()){
@@ -22,11 +25,23 @@ function getList(listType){
                     }
                 }).filter(item => item !== undefined && item.status === 'agendado' && item.isEntregue===false)
                 if(agend !== undefined && agend.length > 0){
+                    if(authInfo.actor === "Fornecedor"){
+                        const razaoSocial = fornecedores.map(item => {
+                            if(item.id_fornecedor === authInfo.id){
+                                return item.informacoesLegais[0];
+                            }
+                        }).filter(item => item!==undefined);
+                        agend = agend.map(item => {
+                            if(item.id_fornecedor[0] === razaoSocial[0]){
+                                return item;
+                            }
+                        }).filter(item => item!==undefined)
+                    }
                     resolve(agend)
                 }else{
                     resolve([])
                 }
-                })
+            })
         }
 
         if(listType === "solicitacoes"){
@@ -52,7 +67,7 @@ function getList(listType){
                         return item
                     }
                 }).filter(item => item !== undefined)
-
+                
                 resolve(finalizados)
             })
         }

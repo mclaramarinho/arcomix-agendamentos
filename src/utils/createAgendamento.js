@@ -21,14 +21,19 @@ function generateId(){
 
     return newId;
 }
-function createAgendamento(idAgendamento, idFornecedor, status, data, tipoCarga, tipoDescarga, recorrencia, observacoes, isEntregue){
-    
-    let nomeFantasia = fornecedores.filter(item =>{
-        if(item.informacoesLegais[0] === idFornecedor){
-            return item.informacoesLegais[1];
+function createAgendamento(idAgendamento, idFornecedor, status, data, tipoCarga, tipoDescarga, recorrencia, observacoes, isEntregue, isColaborador){
+    let nomeFantasia;
+    if(isColaborador===true){
+        nomeFantasia = fornecedores.filter(item =>{
+            if(item.informacoesLegais[0] === idFornecedor){
+                return item.informacoesLegais[1];
+            }
+            nomeFantasia = (nomeFantasia[0].informacoesLegais[1])
         }
-    })
-    nomeFantasia = (nomeFantasia[0].informacoesLegais[1])
+    )}else{
+        nomeFantasia = idFornecedor;
+    }
+    
     return {
         id_agendamento: idAgendamento,
         id_fornecedor: nomeFantasia,

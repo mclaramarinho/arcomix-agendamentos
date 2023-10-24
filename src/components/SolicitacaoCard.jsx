@@ -22,7 +22,7 @@ function SolicitacaoCard(props){
                     {tipoCard === "solicitacao" && (
                         <div className="col col-12 col-md-4 solic-btn-container ">
                             <ActionBtn value={"accept"} label={"Aceitar"} id={props.idAgendamento} handler={props.handleCardClick} color={'green'} classes={"btn solic-btn color-white bold green-bg w-100 mt-2"}/>
-                            <ActionBtn value={"reject"} label={"Recusar"} id={props.idAgendamento} handler={props.handleCardClick} color={'green'} classes={"btn solic-btn bold green-bg w-100"}/>
+                            <ActionBtn value={"reject"} label={"Recusar"} id={props.idAgendamento} handler={props.handleCardClick} color={'red'} classes={"btn solic-btn color-white bold red-bg w-100"}/>
                         </div>
                     )}
                     {tipoCard === "agendamento" && (

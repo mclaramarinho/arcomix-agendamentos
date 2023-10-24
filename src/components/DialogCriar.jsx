@@ -10,7 +10,6 @@ function DialogCriar(props){
     const handleControl = props.handleControl;
     const control = props.control;
     const handleSubmit = props.handleSubmit;
-    if(getTempLoginInfo().actor==="Colaborador"){
     return(
         <Dialog open={control} onClose={() => handleControl(false)}>
             <DialogTitle id="alert-dialog-title" className="text-center bolder font-18">CONFIRMAR AGENDAMENTO</DialogTitle>
@@ -34,10 +33,12 @@ function DialogCriar(props){
                             </div>
                         </div>
                     </div>
-                    <div className="row m-auto mt-3">
-                            <div className="col-5 col-md-4 text-start bold">FORNECEDOR: </div>
-                            <div className="col-7 col-md-8">{props.fornecedor}</div>
-                    </div>
+                    {getTempLoginInfo().actor === "Colaborador" && 
+                        (<div className="row m-auto mt-3">
+                                <div className="col-5 col-md-4 text-start bold">FORNECEDOR: </div>
+                                <div className="col-7 col-md-8">{props.fornecedor}</div>
+                        </div>)
+                    }
                     <div className="row m-auto mt-3">
                             <div className="col-5 col-md-4 text-start bold">TIPO DE CARGA: </div>
                             <div className="col-7 col-md-8">{props.carga}</div>
@@ -58,11 +59,15 @@ function DialogCriar(props){
                     <ActionBtn handler={() => {handleControl(false)}} bg={'red'} label={"Alterar"} addClass={`w-100`} />
                 </div>
                 <div className="col-6">
-                    <ActionBtn handler={() => {handleControl(false); handleSubmit()}} bg={'green'} label={"Agendar"} addClass={`w-100`}/>
+                    <ActionBtn handler={() => {handleControl(false); handleSubmit()}} bg={'green'} 
+                        label={getTempLoginInfo().actor === "Colaborador" ? "Agendar" : "Solicitar"} 
+                        addClass={`w-100`}
+                    />
                 </div>
             </div>
         </Dialog>  
-    )}
+    )
+      
 }
 
 export default DialogCriar;

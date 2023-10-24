@@ -10,7 +10,7 @@ const colaboradores = [
     {
         matricula:"01277804",
         senha:"lohhan_gui",
-        informacoes:{
+        informacoes:{   
             nome: "Lohhan Guilherme",
             email: "email@gmail.com"
         }

@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import colaboradores from "../users/colaboradores";
 
 import ProfileInfo from "../components/ProfileInfo";
-import LogoutBtn from "../components/LogoutBtn";
 import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import runAuth from "../utils/runAuth";
 import fornecedores from "../users/fornecedores";
@@ -48,7 +47,7 @@ function Perfil(){
                 <div className={`container container-login ${position}`}>
                     <div className="row">
                         <div className="col-12 col-lg-5 col-xl-5 login-right-side sky-blue-bg position-relative ">
-                            <LogoutBtn />
+                            <ActionBtn type="logout" />
                             {authInfo.actor === "Colaborador" && 
                                 <div>
                                     <img className="row m-auto" style={{width:"10vh", height:'10vh', borderRadius: "500vw"}} src={profileInfo.profile_pic} alt="" />    

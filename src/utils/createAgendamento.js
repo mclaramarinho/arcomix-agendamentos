@@ -32,7 +32,8 @@ function createAgendamento(idAgendamento, idFornecedor, status, data, tipoCarga,
         console.log(nomeFantasia)
         nomeFantasia = (nomeFantasia[0].informacoesLegais[1])
     }else{
-        nomeFantasia = idFornecedor;
+        console.log(idFornecedor)
+        nomeFantasia = idFornecedor[0];
     }
     
     return {

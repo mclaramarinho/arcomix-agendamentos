@@ -29,14 +29,15 @@ function getList(listType){
                 }).filter(item => item !== undefined && item.status === 'agendado' && item.isEntregue===false)
                 
                 if(agend !== undefined && agend.length > 0){
+
                     if(authInfo.actor === "Fornecedor"){
                         const razaoSocial = fornecedores.map(item => {
                             if(item.id_fornecedor === authInfo.id){
-                                return item.informacoesLegais[0];
+                                return item.informacoesLegais[1];
                             }
-                        }).filter(item => item!==undefined);
+                        }).filter(item => item!==undefined)[0];
                         agend = agend.map(item => {
-                            if(item.id_fornecedor[0] === razaoSocial[0]){
+                            if(item.id_fornecedor === razaoSocial){
                                 return item;
                             }
                         }).filter(item => item!==undefined)

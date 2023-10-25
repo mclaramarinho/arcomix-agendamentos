@@ -3,13 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import colaboradores from "../users/colaboradores";
 
-import BackBtn from "../components/BackBtn";
 import ProfileInfo from "../components/ProfileInfo";
-import ProfilePic from "../components/ProfilePic";
 import LogoutBtn from "../components/LogoutBtn";
 import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import runAuth from "../utils/runAuth";
 import fornecedores from "../users/fornecedores";
+import ActionBtn from "../components/ActionBtn";
 
 
 function Perfil(){
@@ -45,7 +44,7 @@ function Perfil(){
 
         return (
             <div>
-                <BackBtn />
+                <ActionBtn type="back" />
                 <div className={`container container-login ${position}`}>
                     <div className="row">
                         <div className="col-12 col-lg-5 col-xl-5 login-right-side sky-blue-bg position-relative ">

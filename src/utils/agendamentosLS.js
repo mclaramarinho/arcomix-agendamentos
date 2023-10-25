@@ -7,12 +7,11 @@ function getAgendamentosLS(){
 function setAgendamentosLS(value){
     return localStorage.setItem("agendamentos", JSON.stringify(value))
 }
+
 function updateAgendamentosLS(){
     const prev = getAgendamentosLS();
     const today = dayjs();
-    if(prev !== undefined && prev.length > 0){
-        
-
+    if(prev !== null && prev !== undefined && prev.length > 0){
         const updated = prev.map(item => {
 
             const date = dayjs(item.data);
@@ -31,6 +30,8 @@ function updateAgendamentosLS(){
         })
         
         setAgendamentosLS(updated)
+    }else{
+        setAgendamentosLS([])
     }
 }
 export {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS}

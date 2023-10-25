@@ -21,11 +21,13 @@ function AgendamentosLista(props){
         updateAgendamentosLS();
         getList('agendamentos').then((value) => {
             setLocalAgendamentos(value)
+            console.log(value)
         })
     }, [])
 
     function showLista(){ 
-        let control=false;;
+        let control=false;
+        console.log(localAgendamentos)
         if(localAgendamentos === undefined || localAgendamentos.length === 0 ){
             control = true;
         }else{

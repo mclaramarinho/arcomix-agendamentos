@@ -5,8 +5,11 @@ import fornecedores from '../users/fornecedores'
 const authInfo = getTempLoginInfo();
 
 function getList(listType){
+
     if(getAgendamentosLS() !== undefined){
+
         if(listType === 'agendamentos'){
+
             return new Promise((resolve, reject) => {
                 const today = dayjs();
 
@@ -24,6 +27,7 @@ function getList(listType){
                         return item
                     }
                 }).filter(item => item !== undefined && item.status === 'agendado' && item.isEntregue===false)
+                
                 if(agend !== undefined && agend.length > 0){
                     if(authInfo.actor === "Fornecedor"){
                         const razaoSocial = fornecedores.map(item => {

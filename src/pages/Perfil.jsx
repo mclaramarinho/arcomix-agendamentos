@@ -52,7 +52,7 @@ function Perfil(){
                             <LogoutBtn />
                             {authInfo.actor === "Colaborador" && 
                                 <div>
-                                    <ProfilePic src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8xMl9waG90b19vZl9nb2xkZW5fcmV0cmlldmVyX3B1cHB5X2p1bXBpbmdfaXNvbF83MTM2NGE2OS1kZTM0LTQzMWEtYWRkZS04ZTdmZWQ0ZGFiOTIucG5n.png" />
+                                    <img className="row m-auto" style={{width:"10vh", height:'10vh', borderRadius: "500vw"}} src={profileInfo.profile_pic} alt="" />    
                                     <ProfileInfo label={"NOME"} value={profileInfo.informacoes.nome.toUpperCase()} />
                                     <ProfileInfo label={"MATRÍCULA"} value={profileInfo.matricula} />
                                     <ProfileInfo label={"E-MAIL"} value={profileInfo.informacoes.email} />

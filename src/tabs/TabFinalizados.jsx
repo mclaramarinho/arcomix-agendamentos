@@ -16,7 +16,6 @@ function TabFinalizados(){
     const [emptySearch, setEmptySearch] = useState(false);
 
     useEffect(() =>{
-        updateAgendamentosLS()
         getList("finalizados").then((value) => setAll(value))
     }, [])
 
@@ -24,6 +23,7 @@ function TabFinalizados(){
         const action = e.target.value;
         
         if(action === "pesquisar"){
+            console.log(startDate, finalDate)
             if(startDate===undefined || finalDate === undefined){
                 setEmptySearch(true);
                 setDisplayError(false);
@@ -53,14 +53,18 @@ function TabFinalizados(){
                 const date = dayjs(item.data)
 
                 if(date.year() === start.year() || date.year() === end.year()){
-                    if(date.month() === start.month() || date.month() === end.month()){ //if the current item is in the same month as the start or end date
-                        if(date.date() >= start.date() && date.date() <= end.date()){ //if the current item date is within the start and end dates
+                    if(date.month() === start.month()){ 
+                        if(date.date() >= start.date()){ 
                             return item;
                         }
-                    }else if(date.month() > start.month() && date.month() < end.month()){ //if the current item date is not in the same month as the start or end date
+                    }else if(date.month() === end.month()){
+                        if(date.date() <= end.date()){ 
+                            return item;
+                        }
+                    }else if(date.month() > start.month() && date.month() < end.month()){ 
                         return item;
                     }
-                }else if(date.year() > start.year() && date.year() < end.year()){ //if the current item date is withing the start and end year range
+                }else if(date.year() > start.year() && date.year() < end.year()){
                     return item;
                 }
             }).filter(item => item !== undefined)

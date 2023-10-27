@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function ActionBtn(props){
     
-
+    const navigate = useNavigate();
     if(props.type !== null && props.type !== undefined && props.type === "back"){
         return(
             <div className="btn btn-lg mt-5 ms-5 back-btn bold no-outline" onMouseUp={() => window.history.back()}>
@@ -11,7 +11,7 @@ function ActionBtn(props){
             </div>
         )
     }else if(props.type === "logout"){
-        const navigate = useNavigate();
+        
         return (
             <i class="fa-solid fa-arrow-right-from-bracket position-absolute end-0 top-0 mt-3 me-3 back-btn btn"
                 onMouseUp={()=>{

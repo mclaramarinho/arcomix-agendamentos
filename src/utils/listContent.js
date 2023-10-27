@@ -2,10 +2,10 @@ import {getTempLoginInfo} from '../utils/tempLoginInfo'
 import dayjs from "dayjs";
 import { getAgendamentosLS, setAgendamentosLS } from "./agendamentosLS";
 import fornecedores from '../users/fornecedores'
-const authInfo = getTempLoginInfo();
+
 
 function getList(listType){
-
+    const authInfo = getTempLoginInfo();
     if(getAgendamentosLS() !== undefined){
 
         if(listType === 'agendamentos'){
@@ -67,12 +67,27 @@ function getList(listType){
 
         if(listType === "finalizados"){
             return new Promise((resolve, reject) => {
-                const finalizados = getAgendamentosLS().map(item => {
+                let finalizados = getAgendamentosLS().map(item => {
                     if(item !== undefined && (item.status === "cancelado" || item.status === "finalizado" || item.isEntregue === true)){
                         return item
                     }
                 }).filter(item => item !== undefined)
                 
+                
+                if(authInfo.actor === "Fornecedor"){
+                    const razaoSocial = fornecedores.map(item => {
+                        if(item.id_fornecedor === authInfo.id){
+                            return item.informacoesLegais[1];
+                        }
+                    }).filter(item => item!==undefined)[0];
+
+                    const final = finalizados.map(item => {
+                        if(item.id_fornecedor === razaoSocial){
+                            return item;
+                        }
+                    }).filter(item => item!==undefined)
+                    finalizados = final
+                }
                 resolve(finalizados)
             })
         }

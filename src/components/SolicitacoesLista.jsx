@@ -21,13 +21,6 @@ function SolicitacoesLista(){
         })
     }, [])
     
-    
-    //every time agendamentos changes
-    useEffect(() => {
-        setAgendamentosLS(agendamentos)
-    }, [agendamentos])
-   
-
     // ### NEEDS TO SHOW CONFIRMATION MSG ###
     function handleCardClick(e){
         const value = e.target.value;
@@ -47,13 +40,11 @@ function SolicitacoesLista(){
                 }
             })
         }
-
-        setLocalSolicitacoes(localSolicitacoes.filter(item => {
-            if(item!==undefined){
-                return item
-            }
-        }))
-        setAgendamentosLS(agendamentos)
+         setAgendamentosLS(agendamentos)
+        getList("solicitacoes").then((value) => {
+            setLocalSolicitacoes(value)
+        })
+       
 
     }
     function handleFiltro(e){

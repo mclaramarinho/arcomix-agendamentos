@@ -11,19 +11,19 @@ function AgendamentosLista(props){
         return setFiltro(e.target.value)
     }
 
-    
+    const localAgendamentos = props.lista;
     //array to store only the confirmed agendamentos
-    const [localAgendamentos, setLocalAgendamentos] = useState([]);
+    // const [localAgendamentos, setLocalAgendamentos] = useState([]);
   
 
     //runs everytime the page is loaded
-    useEffect(() => {
-        updateAgendamentosLS();
-        getList('agendamentos').then((value) => {
-            setLocalAgendamentos(value)
-            console.log(value)
-        })
-    }, [])
+    // useEffect(() => {
+    //     updateAgendamentosLS();
+    //     getList('agendamentos').then((value) => {
+    //         setLocalAgendamentos(value)
+    //         console.log(value)
+    //     })
+    // }, [])
 
     function showLista(){ 
         let control=false;

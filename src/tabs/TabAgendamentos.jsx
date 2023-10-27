@@ -7,10 +7,11 @@ import { Alert, Snackbar } from "@mui/material";
 import dayjs from "dayjs";
 import DialogAlterar from "../components/DialogAlterar";
 import checkAvailableTime from "../utils/checkAvailableTime";
+import { getList } from "../utils/listContent";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
-
+    const [agendamentos, setAgendamentos] = useState([]);
     const [observacoesV, setObservacoesV] = useState('');
     const [cargaV, setCargaV] = useState('')
     const [descargaV, setDescargaV] = useState('')
@@ -27,12 +28,13 @@ function TabAgendamentos (){
     const [disabledTimes, setDisabledTimes] = useState([]);
     const [dateObj, setDateObj] = useState();
 
-    //checks if there's a local storage already
     useEffect(() => {
-        if(getAgendamentosLS()!==null){ //if this local storage exists
-            return setLocalAgendamentos(getAgendamentosLS()) //agendamentos will receive the items of this storage
-        }
+        setAgendamentos(getAgendamentosLS())
+        getList('agendamentos').then((value) => {
+            setLocalAgendamentos(value)
+        })
     }, [])
+
     useEffect(()=>{
         checkAvailableTime(dateObj, localAgendamentos, "collapsed").then((value) => {
             setDisabledTimes(value)
@@ -53,7 +55,7 @@ function TabAgendamentos (){
 
     function tabContent(){
         if(subTab1){
-            return <AgendamentosLista handleDetails={handleDetails}/>
+            return <AgendamentosLista lista={localAgendamentos} handleDetails={handleDetails}/>
         }else{
             return <h1>Indisponivel no momento...</h1>
         }
@@ -69,13 +71,18 @@ function TabAgendamentos (){
         const action = e.target.value;
         const id = selected[0].id_agendamento;
         if(action === "desmarcar"){
-            setLocalAgendamentos(localAgendamentos.map(item => {
+            setAgendamentos(agendamentos.map(item => {
                 if(item.id_agendamento === id){
                     return item.status="cancelado"
                 }
+                return item
             }))
             setOpenSnackBar(true)
-            return setAgendamentosLS(localAgendamentos)
+            setAgendamentosLS(agendamentos)
+            console.log(agendamentos);
+            getList('agendamentos').then((value) => {
+                return setLocalAgendamentos(value)
+            })
         }else{
             setOpenAlterar(true)
         }
@@ -131,11 +138,14 @@ function TabAgendamentos (){
                 if(item.isEntregue !== isEntregueV){
                     item.isEntregue = isEntregueV;
                     setIsAltered(true)
+                    setOpenDetails(false)
                 }
             }
         })
-        updateAgendamentosLS();
         setAgendamentosLS(localAgendamentos)
+        getList('agendamentos').then((value) => {
+            return setLocalAgendamentos(value)
+        })
     }
 
 

@@ -181,7 +181,7 @@ function Calendar(props){
                 onChange={(value, context) => {
                   props.setDateObject(dayjs(value))
                   setValue(value)
-                  props.setClear(false)
+                  props.setClear !== undefined && props.setClear !== null && props.setClear(false)
                 }}
                 
                 className="row"

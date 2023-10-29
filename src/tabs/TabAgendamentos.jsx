@@ -79,7 +79,6 @@ function TabAgendamentos (){
             }))
             setOpenSnackBar(true)
             setAgendamentosLS(agendamentos)
-            console.log(agendamentos);
             getList('agendamentos').then((value) => {
                 return setLocalAgendamentos(value)
             })
@@ -90,7 +89,7 @@ function TabAgendamentos (){
     const [isAltered, setIsAltered] = useState(false);
     function onAlterarSubmit(){
         if(dateObj !== undefined){
-            localAgendamentos.map(item => {
+            agendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     if(dayjs(dateObj).hour()===0){
                         return 
@@ -102,7 +101,7 @@ function TabAgendamentos (){
             })
         }
         if(cargaV.length > 0){
-            (localAgendamentos.map(item => {
+            (agendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     item.tipo_carga = cargaV;
                 }
@@ -110,7 +109,7 @@ function TabAgendamentos (){
             setIsAltered(true);
         }
         if(descargaV.length > 0){
-            (localAgendamentos.map(item => {
+            (agendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     item.tipo_descarga = descargaV;
                 }
@@ -118,7 +117,7 @@ function TabAgendamentos (){
             setIsAltered(true);
         }
         if(recorrenciaV.length > 0){
-            (localAgendamentos.map(item => {
+            (agendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     item.recorrencia = recorrenciaV;
                 }
@@ -126,23 +125,24 @@ function TabAgendamentos (){
             setIsAltered(true);
         }
         if(observacoesV.length > 0){
-            (localAgendamentos.map(item => {
+            (agendamentos.map(item => {
                 if(item.id_agendamento === selected[0].id_agendamento){
                     item.observacoes = observacoesV;
                 }
             }))
             setIsAltered(true);
         }
-        localAgendamentos.map(item => {
+        agendamentos.map(item => {
             if(item.id_agendamento === selected[0].id_agendamento){
                 if(item.isEntregue !== isEntregueV){
                     item.isEntregue = isEntregueV;
+                    item.status = "finalizado"
                     setIsAltered(true)
                     setOpenDetails(false)
                 }
             }
         })
-        setAgendamentosLS(localAgendamentos)
+        setAgendamentosLS(agendamentos)
         getList('agendamentos').then((value) => {
             return setLocalAgendamentos(value)
         })

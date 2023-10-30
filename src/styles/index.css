@@ -142,3 +142,13 @@ body{
 .thin-black-border{
     border: 1px solid var(--main-black) !important;
 }
+
+#date-filter{
+    border: none;
+    border-bottom: 1px solid var(--main-black);
+}
+#date-filter:focus{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--main-black);
+}

@@ -124,7 +124,7 @@ function Container(props){
                     </div>
                 }
                 <div className={`col col-md-5 ${tipoContainer !== "agendamentos" && "m-auto"}`}>
-                    <button className="btn btn-md bold font-13">
+                    <button onMouseUp={props.generateReport} className="btn btn-md bold font-13">
                         <PrintOutlined fontSize="large" />
                         <span> Relatório</span>
                     </button>

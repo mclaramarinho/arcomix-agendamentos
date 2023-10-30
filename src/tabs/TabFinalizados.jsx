@@ -5,6 +5,7 @@ import Container from '../components/Container'
 import { getList } from "../utils/listContent";
 import {textFilter, textfilter} from "../utils/textFilter"
 import dayjs from "dayjs";
+import { generateReport } from "../utils/generateReport";
 function TabFinalizados(){
     const [startDate, setStartDate] = useState();
     const [finalDate, setFinalDate] = useState();
@@ -107,7 +108,10 @@ function TabFinalizados(){
                     </div>
                 </div>
                 <div className="col-lg-5 col-12 mt-lg-0 mt-5 ms-lg-auto me-lg-0">
-                    <Container tipoContainer="finalizados" lista={queryResult} isEmpty={isEmpty} filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setQueryResult, resultado)}/>
+                    <Container tipoContainer="finalizados" lista={queryResult} isEmpty={isEmpty}
+                                filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setQueryResult, resultado)}
+                                generateReport={()=>generateReport(queryResult)}
+                    />
                 </div>
 
             </div>

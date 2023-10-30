@@ -3,6 +3,7 @@ import {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS} from '../uti
 import Container from "./Container";
 import { getList } from "../utils/listContent";
 import { textFilter } from "../utils/textFilter";
+import { generateReport } from "../utils/generateReport";
 
 function SolicitacoesLista(){
     const [filtro, setFiltro] = useState("");
@@ -73,7 +74,11 @@ function SolicitacoesLista(){
         return control;
     }
 
-    return <Container tipoContainer={'solicitacoes'} handleCardClick={handleCardClick} lista={resultado} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localSolicitacoes)} filtro={filtro} isEmpty={showLista()} />
+    return <Container tipoContainer={'solicitacoes'} handleCardClick={handleCardClick}
+                lista={resultado} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localSolicitacoes)} 
+                filtro={filtro} isEmpty={showLista()}
+                generateReport={()=>generateReport(resultado)}
+            />
 }
 
 export default SolicitacoesLista;

@@ -5,6 +5,9 @@ import { getList } from "../utils/listContent";
 
 function SolicitacoesLista(){
     const [filtro, setFiltro] = useState("");
+    
+    //array to store the query' result
+    const [resultado, setResultado] = useState([])
 
     //array to store only the requests
     const [localSolicitacoes, setLocalSolicitacoes] = useState([]);

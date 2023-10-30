@@ -14,6 +14,7 @@ import './styles/TabBtn.css'
 import './styles/PerfilColab.css'
 
 import Perfil from './pages/Perfil';
+import Relatorio from './pages/PDFViewer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -31,16 +32,25 @@ const router = createBrowserRouter([
   },
   {
     path:'/colaborador/:id/',
-    element: <Start />
-  },  
+    element: <Start />,
+    
+  }, 
+  {
+    path: "/colaborador/:id/relatorio",
+    element: <Relatorio />
+  },
   {
     path: "/colaborador/:id/perfil",
     element: <Perfil />
   },
   {
     path:'/fornecedor/:id',
-    element: <Start />
-  },
+    element: <Start />,
+    children:[{
+      path: "relatorio",
+      element: <Relatorio />
+    }]
+  }  
 ])
 
 

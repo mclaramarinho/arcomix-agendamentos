@@ -33,7 +33,7 @@ function TabAgendamentos (){
 
     //controls the value of what's typed in the filter field
     const [filtro, setFiltro] = useState("");
-    
+    const [dateFilterValue, setDateFilterValue] = useState();
 
      
     useEffect(() => {
@@ -53,6 +53,51 @@ function TabAgendamentos (){
         })
     }, [dateObj])
 
+    //every time the date filter changes its value
+    useEffect(() => {
+        handleDateFilter()
+    }, [dateFilterValue])
+
+
+    function handleDateFilter(){
+        if(dateFilterValue==="1"){ //today
+            setResultado(localAgendamentos)
+            setResultado(resultado.filter(item => dayjs(item.data).format("DD/MM/YYYY")===dayjs().format("DD/MM/YYYY")))
+        }else if(dateFilterValue==="2"){ //this week\
+            setResultado(localAgendamentos)
+
+            const today = dayjs();
+            const dayOfWeek = today.day();
+
+            if(dayOfWeek === 5){
+                return setResultado(localAgendamentos.filter(item => dayjs(item.data) === today))
+            }else if(dayOfWeek < 5){
+                let cont = 0;
+                let currentResult = [];
+                for(let i = dayOfWeek; i<=5; i++){
+                    cont++;
+                }
+                for(let i = 0; i < cont; i++){
+                    const currentDate = today.add(i, "day");
+                    localAgendamentos.map(item => {
+                        if(dayjs(item.data).format("DD/MM/YYYY") === currentDate.format("DD/MM/YYYY")){
+                            currentResult.push(item)
+                        }
+                    })
+                }
+                return setResultado(currentResult)
+            }
+
+        }else if(dateFilterValue==="3"){ //this month
+            setResultado(localAgendamentos)
+
+            const currentMonth = dayjs().month();
+            return setResultado(localAgendamentos.filter(item => dayjs(item.data).month() === currentMonth))
+        }else{
+            return setResultado(localAgendamentos)
+        }
+    }
+
     //everytime the card inside the list container is clicked
     function handleDetails(e){
         const id = e.target.id;
@@ -67,7 +112,11 @@ function TabAgendamentos (){
 
     function tabContent(){
         if(subTab1){
-            return <AgendamentosLista filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localAgendamentos)} lista={resultado} handleDetails={handleDetails}/>
+            return <AgendamentosLista
+                        filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localAgendamentos)}
+                        lista={resultado} handleDetails={handleDetails}
+                        setDateFilterValue={setDateFilterValue}
+                    />
         }else{
             return <h1>Indisponivel no momento...</h1>
         }

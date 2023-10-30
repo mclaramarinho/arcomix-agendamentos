@@ -3,6 +3,8 @@ import SolicitacaoCard from "./SolicitacaoCard";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import dayjs from "dayjs";
+import { getTempLoginInfo } from "../utils/tempLoginInfo";
+import { PrintOutlined } from "@mui/icons-material";
 
 function Container(props){
     const tipoContainer = props.tipoContainer;
@@ -12,7 +14,7 @@ function Container(props){
     const handleFiltro = props.handleFiltro;
     const filtro = props.filtro;
     const title = tipoContainer === "solicitacoes" ? "SOLICITAÇÕES DE AGENDAMENTO" : tipoContainer === "agendamentos" ? "ENTREGAS PENDENTES" : "ENTREGAS FINALIZADAS";
-
+    const authInfo = getTempLoginInfo();
     function contentToDisplay(){
         if(isEmpty===true){
             return(
@@ -96,7 +98,6 @@ function Container(props){
             </div>
             <div className="row h-25 text-center mb-5">
                 <Paper className="m-auto" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
-                    
                     <InputBase
                         sx={{ ml: 1, flex: 1}}
                         placeholder="Nome da empresa..."
@@ -107,9 +108,29 @@ function Container(props){
                     <IconButton type="button" sx={{ p: '5px' }} aria-label="search">
                         <SearchIcon />
                     </IconButton>
-                    
                 </Paper>
             </div>
+            
+            <div className="row w-75 text-center mb-5 m-auto">
+                {tipoContainer==="agendamentos" &&
+                    <div className="col col-md-7 d-inline-flex align-items-center">
+                        <select className="m-auto w-100" name="" id="date-filter" onChange={(e) => props.setDateFilterValue(e.target.value)}>
+                            <option value="" disabled selected hidden>Filtrar por período</option>
+                            <option value="0">Todos</option>
+                            <option value="1">Hoje</option>
+                            <option value="2">Esta Semana</option>
+                            <option value="3">Este Mês</option>
+                        </select>
+                    </div>
+                }
+                <div className={`col col-md-5 ${tipoContainer !== "agendamentos" && "m-auto"}`}>
+                    <button className="btn btn-md bold font-13">
+                        <PrintOutlined fontSize="large" />
+                        <span> Relatório</span>
+                    </button>
+                </div>
+            </div>
+        
             <div className="row h-25 solicitacoes-container m-auto">
                 {contentToDisplay()}
             </div>

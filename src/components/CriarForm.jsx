@@ -17,7 +17,7 @@ function CriarForm(){
     const authInfo = getTempLoginInfo();
     const fornecedor = fornecedores.map(item => {
         if(item.id_fornecedor === authInfo.id){
-            return item.informacoesLegais[0]
+            return item.informacoesLegais[1]
         }
     }).filter(item => item !== undefined)
 

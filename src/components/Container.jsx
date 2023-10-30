@@ -33,8 +33,8 @@ function Container(props){
                                     tipoCard="solicitacao"
                                     empresa={item.id_fornecedor} 
                                     idAgendamento={item.id_agendamento} 
-                                    dataAgendamento={item.data} 
-                                    horaAgendamento={item.hora} 
+                                    dataAgendamento={dayjs(item.data).format("DD/MM/YYYY")} 
+                                    horaAgendamento={dayjs(item.data).format("HH:mm")} 
                                     tipoCarga={item.tipo_carga} 
                                     tipoDescarga={item.tipo_descarga} 
                                     recorrencia={item.recorrencia}

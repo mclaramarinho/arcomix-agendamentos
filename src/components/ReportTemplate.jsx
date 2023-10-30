@@ -18,7 +18,7 @@ function ReportTemplate(props){
     }
 
     const list = props.list;
-
+    const tipoRelatorio = props.tipoRelatorio === "agendamentos" ? "Agendamentos" : props.tipoRelatorio === "solicitacoes" ? "Solicitações de Agendamento" : "Entregas Finalizadas";
     const styles = StyleSheet.create({
         page: {
             padding: "5% 0" 
@@ -63,7 +63,7 @@ function ReportTemplate(props){
         <Document>
             <Page style={styles.page}>
                 <Image src={logoNav} style={styles.image}/>
-                <Text style={styles.header}>Relatório</Text>
+                <Text style={styles.header}>{tipoRelatorio}</Text>
                 <Text style={styles.subtitle}></Text>
                 <View style={styles.section}>
                     {

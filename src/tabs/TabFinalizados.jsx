@@ -110,7 +110,7 @@ function TabFinalizados(){
                 <div className="col-lg-5 col-12 mt-lg-0 mt-5 ms-lg-auto me-lg-0">
                     <Container tipoContainer="finalizados" lista={queryResult} isEmpty={isEmpty}
                                 filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setQueryResult, resultado)}
-                                generateReport={()=>generateReport(queryResult)}
+                                generateReport={()=>generateReport(queryResult, "finalizados")}
                     />
                 </div>
 

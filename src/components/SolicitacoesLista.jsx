@@ -77,7 +77,7 @@ function SolicitacoesLista(){
     return <Container tipoContainer={'solicitacoes'} handleCardClick={handleCardClick}
                 lista={resultado} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localSolicitacoes)} 
                 filtro={filtro} isEmpty={showLista()}
-                generateReport={()=>generateReport(resultado)}
+                generateReport={()=>generateReport(resultado, "solicitacoes")}
             />
 }
 

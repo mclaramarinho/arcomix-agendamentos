@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     
   }, 
   {
-    path: "/colaborador/:id/relatorio",
+    path: "/colaborador/:id/relatorio/:tipoRelatorio",
     element: <Relatorio />
   },
   {

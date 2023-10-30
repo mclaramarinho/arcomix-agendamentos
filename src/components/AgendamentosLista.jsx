@@ -21,7 +21,7 @@ function AgendamentosLista(props){
     return <Container tipoContainer="agendamentos"
                 dateFilterValue={props.dateFilterValue} setDateFilterValue={props.setDateFilterValue} handleDateFilter={props.handleDateFilter}
                 isEmpty={showLista()} handleCardClick={props.handleDetails} filtro={props.filtro} handleFiltro={props.handleFiltro} lista={localAgendamentos}
-                generateReport={()=>generateReport(localAgendamentos)}
+                generateReport={()=>generateReport(localAgendamentos, "agendamentos")}
             />
 }
 

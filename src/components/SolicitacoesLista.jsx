@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS} from '../utils/agendamentosLS'
 import Container from "./Container";
 import { getList } from "../utils/listContent";
+import { textFilter } from "../utils/textFilter";
 
 function SolicitacoesLista(){
     const [filtro, setFiltro] = useState("");
@@ -23,6 +24,11 @@ function SolicitacoesLista(){
             setLocalSolicitacoes(value)
         })
     }, [])
+
+    //everytime localSolicitacoes changes
+    useEffect(() => {
+        setResultado(localSolicitacoes)
+    }, [localSolicitacoes])
     
     // ### NEEDS TO SHOW CONFIRMATION MSG ###
     function handleCardClick(e){
@@ -43,15 +49,12 @@ function SolicitacoesLista(){
                 }
             })
         }
-         setAgendamentosLS(agendamentos)
+        setAgendamentosLS(agendamentos)
         getList("solicitacoes").then((value) => {
             setLocalSolicitacoes(value)
         })
        
 
-    }
-    function handleFiltro(e){
-        return setFiltro(e.target.value)
     }
     
     function showLista(){ 
@@ -70,7 +73,7 @@ function SolicitacoesLista(){
         return control;
     }
 
-    return <Container tipoContainer={'solicitacoes'} handleCardClick={handleCardClick} lista={localSolicitacoes} handleFiltro={handleFiltro} filtro={filtro} isEmpty={showLista()} />
+    return <Container tipoContainer={'solicitacoes'} handleCardClick={handleCardClick} lista={resultado} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localSolicitacoes)} filtro={filtro} isEmpty={showLista()} />
 }
 
 export default SolicitacoesLista;

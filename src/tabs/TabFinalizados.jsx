@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
 import ActionBtn from "../components/ActionBtn";
 import Container from '../components/Container'
-import {getAgendamentosLS, setAgendamentosLS, updateAgendamentosLS} from '../utils/agendamentosLS'
-import dayjs from "dayjs";
 import { getList } from "../utils/listContent";
+import {textFilter, textfilter} from "../utils/textFilter"
+import dayjs from "dayjs";
 function TabFinalizados(){
     const [startDate, setStartDate] = useState();
     const [finalDate, setFinalDate] = useState();
@@ -14,10 +14,16 @@ function TabFinalizados(){
     const [displayError, setDisplayError] = useState(false)
     const [clear, setClear] = useState(false);
     const [emptySearch, setEmptySearch] = useState(false);
+    const [filtro, setFiltro] = useState("")
+    const [queryResult, setQueryResult] = useState([])
 
     useEffect(() =>{
         getList("finalizados").then((value) => setAll(value))
     }, [])
+
+    useEffect(() => {
+        setQueryResult(resultado)
+    }, [resultado])
 
     function handlePesquisa(e){
         const action = e.target.value;
@@ -84,7 +90,6 @@ function TabFinalizados(){
                             <div className="col-md-6 col-12">
                                 <label htmlFor="" className="font-14 bolder row gutter-x-0 justify-content-center">INÍCIO</label> <br />
                                 <Calendar clear={clear} setClear={setClear} disablePast={false} disableFuture={true} agendamentos={[]} setDateObject={setStartDate} placeholder={'none'} />
-                                
                             </div>
                             <div className="col-md-6 col-12 me-auto">
                                 <label htmlFor="" className="font-14 bolder row gutter-x-0 justify-content-center mt-md-0 mt-5">FIM</label> <br />
@@ -102,7 +107,7 @@ function TabFinalizados(){
                     </div>
                 </div>
                 <div className="col-lg-5 col-12 mt-lg-0 mt-5 ms-lg-auto me-lg-0">
-                    <Container tipoContainer="finalizados" lista={resultado} isEmpty={isEmpty}/>
+                    <Container tipoContainer="finalizados" lista={queryResult} isEmpty={isEmpty} filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setQueryResult, resultado)}/>
                 </div>
 
             </div>

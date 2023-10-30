@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import DialogAlterar from "../components/DialogAlterar";
 import checkAvailableTime from "../utils/checkAvailableTime";
 import { getList } from "../utils/listContent";
+import { textFilter } from "../utils/textFilter";
 
 function TabAgendamentos (){
     const [localAgendamentos, setLocalAgendamentos] = useState([]);
@@ -28,12 +29,23 @@ function TabAgendamentos (){
     const [disabledTimes, setDisabledTimes] = useState([]);
     const [dateObj, setDateObj] = useState();
 
+    const [resultado, setResultado] = useState([])
+
+    //controls the value of what's typed in the filter field
+    const [filtro, setFiltro] = useState("");
+    
+
+     
     useEffect(() => {
         setAgendamentos(getAgendamentosLS())
         getList('agendamentos').then((value) => {
             setLocalAgendamentos(value)
         })
     }, [])
+
+    useEffect(() => {
+        setResultado(localAgendamentos)
+    }, [localAgendamentos])
 
     useEffect(()=>{
         checkAvailableTime(dateObj, localAgendamentos, "collapsed").then((value) => {
@@ -55,7 +67,7 @@ function TabAgendamentos (){
 
     function tabContent(){
         if(subTab1){
-            return <AgendamentosLista lista={localAgendamentos} handleDetails={handleDetails}/>
+            return <AgendamentosLista filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localAgendamentos)} lista={resultado} handleDetails={handleDetails}/>
         }else{
             return <h1>Indisponivel no momento...</h1>
         }

@@ -7,7 +7,6 @@ import colaboradores from "../users/colaboradores";
 import fornecedores from "../users/fornecedores";
 import { useParams } from "react-router-dom";
 function ReportTemplate(props){
-    console.log(useParams("tipoRelatorio"))
     const authInfo = getTempLoginInfo();
     let username = "";
     if(authInfo.actor === "Colaborador"){
@@ -18,7 +17,7 @@ function ReportTemplate(props){
         username = username.informacoesLegais[0]
     }
 
-
+    const list = props.list;
 
     const styles = StyleSheet.create({
         page: {

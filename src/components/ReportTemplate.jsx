@@ -1,11 +1,11 @@
 import React from "react";
-import ReactPDF, { Canvas, Document, Font, G, Image, Page, Polygon, StyleSheet, Svg, Text, View} from "@react-pdf/renderer";
+import { Document, Image, Page, StyleSheet, Text, View} from "@react-pdf/renderer";
 import dayjs from "dayjs";
 import logoNav from "../assets/logo-navbar.png";
 import { getTempLoginInfo } from "../utils/tempLoginInfo";
 import colaboradores from "../users/colaboradores";
 import fornecedores from "../users/fornecedores";
-import { useParams } from "react-router-dom";
+
 function ReportTemplate(props){
     const authInfo = getTempLoginInfo();
     let username = "";
@@ -32,7 +32,7 @@ function ReportTemplate(props){
             margin: '0 auto'
         },
         section:{
-            margin: 20
+            margin: 20,
         },
         image:{
             width: '25%',
@@ -42,7 +42,7 @@ function ReportTemplate(props){
             fontSize: 16
         },
         details:{
-            fontSize: 14
+            fontSize: 12
         },
         checkbox:{
             width: 10,
@@ -60,20 +60,26 @@ function ReportTemplate(props){
 
     
     return (
-        <Document>
+        <Document style={{fontFamily: "Helvetica"}}>
             <Page style={styles.page}>
                 <Image src={logoNav} style={styles.image}/>
-                <Text style={styles.header}>{tipoRelatorio}</Text>
-                <Text style={styles.subtitle}></Text>
-                <View style={styles.section}>
+                <Text  style={[styles.header, {color: "#323234", fontFamily:"Helvetica-Bold"}]}>{tipoRelatorio}</Text>
+                <View style={[styles.section, {color: "#323234"}]}>
                     {
                         list.map(item => {
                             return (
-                                <View style={styles.section} wrap={false}>
-                                    <Text style={styles.date}>{dayjs(item.data).format("DD/MM/YYYY")} - {dayjs(item.data).format("HH:mm")} | {item.id_fornecedor.toUpperCase()}</Text>
-                                    <Text style={styles.details}>#{item.id_agendamento}</Text>
-                                    <Text style={styles.details}>{item.tipo_carga} | {item.tipo_descarga}</Text>
-                                    <Text style={styles.details}>Observações: {item.observacoes}</Text>                               
+                                <View style={[styles.section, {border: '1px solid black', padding: 20}]} wrap={false}>
+                                    <Text style={[styles.date, {color: "#323234", fontFamily:"Helvetica-Bold"}]}>
+                                        {dayjs(item.data).format("DD/MM/YYYY")} - {dayjs(item.data).format("HH:mm")} | {item.id_fornecedor.toUpperCase()}
+                                    </Text>
+                                    <Text style={[styles.details, {paddingBottom: 12, paddingTop: 12}]}>
+                                        <Text style={{fontFamily: "Helvetica-Bold"}}>ID AGENDAMENTO:   </Text>#{item.id_agendamento}
+                                    </Text>
+                                    <Text style={[styles.details, {paddingBottom: 12}]}>
+                                        <Text style={{fontFamily: "Helvetica-Bold"}}>TIPO DE CARGA:   </Text>{item.tipo_carga}  |   <Text style={{fontFamily: "Helvetica-Bold"}}>DESCARGA:   </Text>{item.tipo_descarga}</Text>
+                                    <Text style={styles.details}>
+                                        <Text style={{fontFamily: "Helvetica-Bold"}}>Observações:   </Text> {item.observacoes}
+                                    </Text>                               
                                 </View>
                             )
                         }) 

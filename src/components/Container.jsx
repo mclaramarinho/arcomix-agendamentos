@@ -97,15 +97,15 @@ function Container(props){
                 <hr className="w-50 m-auto" />
             </div>
             <div className="row h-25 text-center mb-5">
-                <Paper className="m-auto" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
+                <Paper onSubmit={(e) => e.preventDefault()} className="m-auto" component="form" sx={{ borderRadius:"100vh",  p: '2px 4px', display: 'flex', alignItems: 'center', width: "50%" }}>
                     <InputBase
                         sx={{ ml: 1, flex: 1}}
                         placeholder="Nome da empresa..."
                         value={filtro}
-                        onChange={(e) => handleFiltro(e)}
+                        onChange={(e) => {handleFiltro(e)}}
                         className={'font-13'}
                     />
-                    <IconButton type="button" sx={{ p: '5px' }} aria-label="search">
+                    <IconButton sx={{ p: '5px' }} aria-label="search">
                         <SearchIcon />
                     </IconButton>
                 </Paper>
@@ -114,7 +114,7 @@ function Container(props){
             <div className="row w-75 text-center mb-5 m-auto">
                 {tipoContainer==="agendamentos" &&
                     <div className="col col-md-7 d-inline-flex align-items-center">
-                        <select className="m-auto w-100" name="" id="date-filter" onChange={(e) => props.setDateFilterValue(e.target.value)}>
+                        <select className="m-auto w-100" name="" id="date-filter" onChange={(e) => {props.setDateFilterValue(e.target.value)}}>
                             <option value="" disabled selected hidden>Filtrar por período</option>
                             <option value="0">Todos</option>
                             <option value="1">Hoje</option>

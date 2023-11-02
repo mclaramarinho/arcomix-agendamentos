@@ -113,7 +113,7 @@ function TabAgendamentos (){
     function tabContent(){
         if(subTab1){
             return <AgendamentosLista
-                        filtro={filtro} handleFiltro={(e) => textFilter(e.target.value, setFiltro, setResultado, localAgendamentos)}
+                        filtro={filtro} handleFiltro={(e) => {textFilter(e.target.value, setFiltro, setResultado, localAgendamentos)}}
                         lista={resultado} handleDetails={handleDetails}
                         setDateFilterValue={setDateFilterValue}
                     />

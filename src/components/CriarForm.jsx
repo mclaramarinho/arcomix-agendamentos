@@ -13,7 +13,7 @@ import { getTempLoginInfo } from "../utils/tempLoginInfo";
 import { getRecorrencias, getTiposDeCarga, getTiposDeDescarga } from "../utils/formFieldOptions";
 
 
-function CriarForm(){
+function CriarForm(props){
     const authInfo = getTempLoginInfo();
     const fornecedor = fornecedores.map(item => {
         if(item.id_fornecedor === authInfo.id){
@@ -43,6 +43,10 @@ function CriarForm(){
     let [dateObj, setDateObj] = useState();
     const [disabledTimes, setDisabledTimes] = useState([]);
     
+    const [errorMsg, setErrorMsg] = useState(false);
+
+    const formType = props.formType;
+
     // when the subtab is loaded
     useEffect(() => {
         if(getAgendamentosLS() === null || getAgendamentosLS() === undefined ){ //check if there's a local storage for these items
@@ -112,17 +116,17 @@ function CriarForm(){
         !isSubmitted ? (
             <div className="container h-auto m-auto mt-5 criar-form-container hide-scrollbar large-container-shadow">
                 <DialogCriar handleSubmit={handleSubmit} handleControl={setOpenDialog} control={openDialog} data={dayjs(dateObj).format("DD/MM/YYYY")} hora={dayjs(dateObj).format("HH:mm")} fornecedor={fornecedorV} carga={cargaV} descarga={descargaV} recorrencia={recorrenciaV} />
-                <div className="row my-5 bolder h2 form-header">CRIAR NOVO AGENDAMENTO</div>
+                {formType === "agend" ? <div className="row my-5 bolder h2 form-header">CRIAR NOVO AGENDAMENTO</div> : <div className="row my-5 bolder h2 form-header">SOLICITAR AGENDAMENTO</div>}
                 <div className="row m-auto">
                     <div className="col-lg-3 me-lg-5">
                         <FormInputField type={"text"} label={"CÓDIGO DO AGENDAMENTO"} disabled={true} id={"codAgenda"} value={idAgendamento}  />
                         {authInfo.actor==="Colaborador" ? 
-                            <FormInputField type={"autocomplete"} label={"FORNECEDOR"} disabled={false} id={"fornecedores"} value={fornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} setValue={setFornecedorV} />
+                            <FormInputField required type={"autocomplete"} label={"FORNECEDOR"} disabled={false} id={"fornecedores"} value={fornecedorV} options={fornecedores.map(item => item.informacoesLegais[0])} setValue={setFornecedorV} />
                             : <FormInputField type={"text"} disabled={true} label={"FORNECEDOR"} id={"fornecedores"} value={fornecedorV} />
                         }
-                        <FormInputField type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} options={getTiposDeCarga()} setValue={setCargaV}/>
-                        <FormInputField type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV} options={getTiposDeDescarga()} setValue={setDescargaV}/>
-                        <FormInputField type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV} options={getRecorrencias()} setValue={setRecorrenciaV}/>
+                        <FormInputField required type={"autocomplete"} label={"TIPO DE CARGA"} disabled={false} id={"carga"} value={cargaV} options={getTiposDeCarga()} setValue={setCargaV}/>
+                        <FormInputField required type={"autocomplete"} label={"TIPO DE DESCARGA"} disabled={false} id={"descarga"} value={descargaV} options={getTiposDeDescarga()} setValue={setDescargaV}/>
+                        <FormInputField required type={"autocomplete"} label={"RECORRÊNCIA"} disabled={false} id={"recorrencia"} value={recorrenciaV} options={getRecorrencias()} setValue={setRecorrenciaV}/>
                         <FormInputField type={"paragraph"} id={"observacoes"} value={obsV} setValue={setObsV} label={"OBSERVAÇÕES"}/>
                     </div>
                     
@@ -137,11 +141,14 @@ function CriarForm(){
                             </div>
                             
                             <div className="col text-lg-end text-center">
+                                {errorMsg && <p className="auth-error bold">Voce precisa preencher todos os campos obrigatórios.</p>}
                                 <ActionBtn label={'AGENDAR'}
                                     handler={() => {
                                         if(fornecedorV.length > 0 && cargaV.length > 0 && descargaV.length > 0 && recorrenciaV.length > 0 && selectedDay !== undefined && selectedTime !== undefined){
+                                            errorMsg && setErrorMsg(false)
                                             setOpenDialog(true)
-                                            console.log(`trigg`) 
+                                        }else{
+                                            setErrorMsg(true)
                                         }
                                     }} 
                                 />
@@ -152,9 +159,9 @@ function CriarForm(){
         </div>) : ( //if the form was submitted => show submission message                              
             <div className="container criar-form-container position-relative" >
                 <div className="row agendamento-criado">
-                    <div className="col-12 mb-5 bolder h2 text-center ">AGENDAMENTO CRIADO COM SUCESSO!</div>
+                    {formType === "agend" ? <div className="col-12 mb-5 bolder h2 text-center ">AGENDAMENTO CRIADO COM SUCESSO!</div> : <div className="col-12 mb-5 bolder h2 text-center ">SOLICITAÇÃO CRIADA COM SUCESSO!</div> }
                     <div className="col-12 text-center">
-                        <ActionBtn label={"CRIAR OUTRO"} handler={() => {setIdAgendamento(generateId());setIsSubmitted(false)}}  />
+                        <ActionBtn label={formType === "agend" ? "CRIAR OUTRO" : "CRIAR OUTRA"} handler={() => {setIdAgendamento(generateId());setIsSubmitted(false)}}  />
                     </div>
                 </div>
                 

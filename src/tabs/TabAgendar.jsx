@@ -29,10 +29,10 @@ function TabAgendar(){
             if(subTab1){
                 return <SolicitacoesLista />
             }else{
-                return <CriarForm />
+                return <CriarForm formType="agend" />
             }
         }else{
-            return <CriarForm actor={"Fornecedor"} />
+            return <CriarForm formType="solic" />
         }
         
     }

@@ -56,7 +56,7 @@ function DialogAlterar(props){
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <button onClick={() => {handleAlterar()}} className="entrar-btn btn btn-lg px-5 py-1 m-auto dark-blue-bg bold" >AGENDAR</button>
+                    <button onClick={() => {handleAlterar()}} className="entrar-btn btn btn-lg px-5 py-1 m-auto dark-blue-bg bold" >ALTERAR</button>
                 </DialogActions>
             </Dialog>
         )

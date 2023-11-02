@@ -8,7 +8,7 @@ function FormInputField(props){
     const required = props.required || false;
     if(type === "text"){
         return(
-            <div className="row mb-4">
+            <div className="row mb-4 gutter-x-0">
                 <label htmlFor={id} className="bold font-14 p-0 width-fit">{label}</label>
                 {required && <span className="width-fit d-inline bolder"> *</span>}
                 <TextField 

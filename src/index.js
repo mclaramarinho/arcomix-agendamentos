@@ -46,11 +46,11 @@ const router = createBrowserRouter([
   {
     path:'/fornecedor/:id',
     element: <Start />,
-    children:[{
-      path: "relatorio",
-      element: <Relatorio />
-    }]
-  }  
+  },
+  {
+    path: "/fornecedor/:id/relatorio/:tipoRelatorio",
+    element: <Relatorio />
+  },  
 ])
 
 

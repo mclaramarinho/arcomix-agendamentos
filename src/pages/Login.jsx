@@ -22,10 +22,13 @@ function Login (){
     useEffect(() => {
 
         //To prevent getting back to the login screen if already logged in
-        if(getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){
+        if(getTempLoginInfo()!==undefined && getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){
+            console.log('temp');
             const authInfo = getTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
-        }else if(getLoginInfoLS() !== null && getLoginInfoLS().length>1){
+        }else if(getLoginInfoLS() !== undefined && getLoginInfoLS() !== null && getLoginInfoLS().length>1){
+            console.log('ls');
+
             const storedInfo = getLoginInfoLS();
             runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id).then((value) => {
                 setAuth(value)

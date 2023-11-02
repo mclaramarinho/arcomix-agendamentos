@@ -3,6 +3,7 @@ import TabBtn from "../components/TabBtn";
 import SolicitacoesLista from "../components/SolicitacoesLista";
 import CriarForm from "../components/CriarForm";
 import { getTempLoginInfo } from "../utils/tempLoginInfo";
+import { getLoginInfoLS } from "../utils/loginInfoLS";
 
 function TabAgendar(){
 

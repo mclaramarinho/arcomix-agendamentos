@@ -5,8 +5,9 @@ import runAuth from "../utils/runAuth";
 import MenuTabs from "../components/MenuTabs";
 import TabAgendar from "../tabs/TabAgendar";
 import TabAgendamentos from "../tabs/TabAgendamentos";
-import { getTempLoginInfo } from "../utils/tempLoginInfo";
+import { getTempLoginInfo, setTempLoginInfo } from "../utils/tempLoginInfo";
 import TabFinalizados from "../tabs/TabFinalizados";
+import { getLoginInfoLS } from "../utils/loginInfoLS";
 
 function Start (){
     
@@ -14,13 +15,17 @@ function Start (){
 
     const navigate = useNavigate();
 
-    const authInfo = getTempLoginInfo(); //gets the login info saved for the current session
+    const authInfo = getTempLoginInfo() || getLoginInfoLS(); //gets the login info saved for the current session
 
     const [auth, setAuth] = useState();
 
 
     useEffect(() => {
         runAuth(authInfo.actor, authInfo.senha, authInfo.id).then((value) => setAuth(value)) //checks if user is authorized
+        if(getTempLoginInfo() === undefined || getTempLoginInfo() === null){
+            console.log('ah');
+            setTempLoginInfo(authInfo.id, authInfo.senha, authInfo.actor)
+        }
     }, []);
 
     function handleProfile (){ //after click on the nav button

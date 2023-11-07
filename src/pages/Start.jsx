@@ -56,7 +56,8 @@ function Start (){
                 { //check which tab to display
                     currentTab.includes("AGENDAR") ? <TabAgendar /> 
                     : currentTab.includes("AGENDAMENTOS") ? <TabAgendamentos /> 
-                    : <TabFinalizados />
+                    : currentTab.includes("FINALIZADOS") ? <TabFinalizados />
+                    : navigate(`/colaborador/${id}/relatorio-geral`)
                 }
             </div>
         )

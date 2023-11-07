@@ -1,0 +1,11 @@
+diff --git a/node_modules/chart.js-image/lib.js b/node_modules/chart.js-image/lib.js
+index af6325b..f73a387 100644
+--- a/node_modules/chart.js-image/lib.js
++++ b/node_modules/chart.js-image/lib.js
+@@ -1,5 +1,5 @@
+ const qs = require('querystring');
+-const crypto = require('crypto');
++const crypto = require.resolve("crypto-browserify");
+ const fs = require('fs');
+ const fetch = require('node-fetch');
+ const packageJson = require('./package.json');

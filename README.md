@@ -60,7 +60,3 @@ Se desejar testar o sistema com alguns agendamentos já prontos (caso contrário
 
 
 O sistema já apresentará agendamentos passados e futuros para ser testado.
-
-
-## File Tree
-

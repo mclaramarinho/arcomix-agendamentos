@@ -1,0 +1,53 @@
+[{"id_agendamento":"42210469","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T12:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"","isEntregue":true},
+
+{"id_agendamento":"94780417","id_fornecedor":"Filial Vitarella","status":"finalizado","data":"2023-10-31T15:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"20349612","id_fornecedor":"MASTERBOI","status":"finalizado","data":"2023-10-23T03:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Única","observacoes":"","isEntregue":true},
+
+{"id_agendamento":"47284909","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-20T14:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Única","observacoes":"","isEntregue":true},
+
+{"id_agendamento":"93164738","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T18:00:00.000Z","tipo_carga":"Frios","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"14855632","id_fornecedor":"Perdigao","status":"cancelado","data":"2023-11-08T03:00:00.000Z","tipo_carga":"Frios","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"43874340","id_fornecedor":"MASTERBOI","status":"finalizado","data":"2023-10-31T12:00:00.000Z","tipo_carga":"Frios","tipo_descarga":"Manual","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"75256737","id_fornecedor":"MASTERBOI","status":"finalizado","data":"2023-10-31T13:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"13610339","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T14:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"8552471","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T16:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"40623705","id_fornecedor":"Filial Vitarella","status":"finalizado","data":"2023-10-31T17:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"9683499","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T19:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"87040069","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T20:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"92450855","id_fornecedor":"Filial Vitarella","status":"finalizado","data":"2023-10-31T21:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Manual","recorrencia":"Mensal","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"27171994","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-31T22:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"","isEntregue":false},{"id_agendamento":"62472393","id_fornecedor":"Perdigao","status":"finalizado","data":"2023-10-30T15:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"54679638","id_fornecedor":"Perdigao","status":"recusado","data":"2023-11-10T15:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"11832148","id_fornecedor":"Perdigao","status":"cancelado","data":"2023-11-10T12:00:00.000Z","tipo_carga":"Frios","tipo_descarga":"Paletizada","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"76480843","id_fornecedor":"MASTERBOI","status":"recusado","data":"2023-11-24T03:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Manual","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"40303814","id_fornecedor":"MASTERBOI","status":"agendado","data":"2023-11-24T17:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Paletizada","recorrencia":"Semanal","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"58064337","id_fornecedor":"Perdigao","status":"cancelado","data":"2023-11-16T13:00:00.000Z","tipo_carga":"Frios","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"oferecer EPIs para os descarregadores","isEntregue":false},
+
+{"id_agendamento":"75037015","id_fornecedor":"Filial Vitarella","status":"agendado","data":"2023-11-16T14:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Mensal","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"68863293","id_fornecedor":"MASTERBOI","status":"agendado","data":"2023-11-10T14:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"por favor, receber a entrega pontualmente. Temos prazos a cumprir.","isEntregue":false},
+
+{"id_agendamento":"26559373","id_fornecedor":"Filial Vitarella","status":"agendado","data":"2023-11-17T16:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"15692046","id_fornecedor":"Perdigao","status":"pendente","data":"2023-11-24T14:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Única","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"88131967","id_fornecedor":"Perdigao","status":"agendado","data":"2023-11-28T16:00:00.000Z","tipo_carga":"Granel","tipo_descarga":"Manual","recorrencia":"Diária","observacoes":"","isEntregue":false},
+
+{"id_agendamento":"91759680","id_fornecedor":"Filial Vitarella","status":"agendado","data":"2023-11-16T16:00:00.000Z","tipo_carga":"Carnes","tipo_descarga":"Paletizada","recorrencia":"Única","observacoes":"","isEntregue":false}
+
+]

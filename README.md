@@ -35,21 +35,27 @@ Se desejar testar o sistema com alguns agendamentos já prontos (caso contrário
 1. Copie o json do arquivo test-data.json (localizado em ./test-data.json)
 
 2. Inspecione a página (F12 ou Ctrl+Shift+C - Windows e Linux /// Command+Shift+C - macOS)
+<br/>
 ![passo-2](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/37a25bdf-6e63-48c5-afcc-d7dc1f3fdadb)
 
 4. Siga para a aba "Application"
+<br/>
 ![passo-3](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/c5f46053-a7e4-4e06-a921-88f38cde93f6)
 
-5. Abra o Local Storage e clique na primeira opção dentro dessa página (ou a opção que indicar o URL da página)
+6. Abra o Local Storage e clique na primeira opção dentro dessa página (ou a opção que indicar o URL da página)
+<br/>
 ![passo-4](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/be61d14e-4614-42e3-a977-360f7aaafd14)
 
-6. Clique 2x no campo Value da key Agendamentos
+8. Clique 2x no campo Value da key Agendamentos
+<br/>
 ![passo-5](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/12447036-ab66-44de-a5bf-91b7c8a4dfd3)
 
-7. Cole o json que foi copiado
+10. Cole o json que foi copiado
+<br/>
 ![passo-6](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/ecf2aef4-fbb4-4559-ba73-e5c6c78d14af)
 
-8. Aperte Enter para salvar. Esse deve ser o resultado: 
+12. Aperte Enter para salvar. Esse deve ser o resultado:
+<br/>
 ![passo-7](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/e108e6b6-a7d3-4c28-a07a-eca9eea13ac5)
 
 

@@ -50,6 +50,7 @@ function Container(props){
                             return (
                                 <SolicitacaoCard
                                     key={item.id_agendamento}
+                                    buttonName={props.buttonName}
                                     tipoCard="agendamento"
                                     empresa={item.id_fornecedor} 
                                     idAgendamento={item.id_agendamento} 

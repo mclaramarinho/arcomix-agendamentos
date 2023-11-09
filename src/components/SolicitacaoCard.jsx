@@ -31,9 +31,9 @@ function SolicitacaoCard(props){
                             />
                         </div>
                     )}
-                    {tipoCard === "agendamento" && (
+                    {tipoCard === "agendamento" && props.buttonName !== "Alterar" && (
                         <div className="col col-12 col-md-4 solic-btn-container  d-flex align-items-end">
-                            <ActionBtn value={"details"} label={'Detalhes'} id={props.idAgendamento} handler={props.handleCardClick} classes={"btn solic-btn w-100 bold pt-2 color-black thin-black-border"} /> 
+                            <ActionBtn value={"details"} label={props.buttonName} id={props.idAgendamento} handler={props.handleCardClick} classes={"btn solic-btn w-100 bold pt-2 color-black thin-black-border"} /> 
                         </div>
                     )}
                 </div>

@@ -6,7 +6,7 @@ import { generateReport } from "../utils/generateReport";
 function AgendamentosLista(props){
    
     const localAgendamentos = props.lista;
-    
+    const buttonName = props.buttonName || "Detalhes"
     function showLista(){ 
         let control=false;
         if(localAgendamentos === undefined || localAgendamentos.length === 0 ){
@@ -19,6 +19,7 @@ function AgendamentosLista(props){
     
    
     return <Container tipoContainer="agendamentos"
+                buttonName={buttonName}
                 dateFilterValue={props.dateFilterValue} setDateFilterValue={props.setDateFilterValue} handleDateFilter={props.handleDateFilter}
                 isEmpty={showLista()} handleCardClick={props.handleDetails} filtro={props.filtro} handleFiltro={props.handleFiltro} lista={localAgendamentos}
                 generateReport={()=>generateReport(localAgendamentos, "agendamentos")}

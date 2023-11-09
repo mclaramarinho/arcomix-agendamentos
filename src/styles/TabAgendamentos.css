@@ -67,9 +67,7 @@
         padding: 5vh 1vh !important;
     }
 }
-@media (min-width: 992px) and (max-width: 1300px){
- 
-}
+
 @media (min-width: 992px) and (max-width: 1400px) {
     .details-container{
         width: 85% !important;

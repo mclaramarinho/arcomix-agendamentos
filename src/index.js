@@ -15,48 +15,21 @@ import './styles/PerfilColab.css'
 
 import Perfil from './pages/Perfil';
 import Relatorio from './pages/Relatorio';
+import Recuperar from './pages/Recuperar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 const router = createBrowserRouter([
-  {
-    path:'/',
-    element: <Login />,
-    children:[
-      {
-        path: "login",
-        element: <Login />
-      }
-    ]
-  },
-  {
-    path:'/colaborador/:id/',
-    element: <Start />,
-    
-  }, 
-  {
-    path: "/colaborador/:id/relatorio/:tipoRelatorio",
-    element: <Relatorio />
-  }, 
-  {
-    path: "/colaborador/:id/relatorio-geral",
-    element: <Relatorio />
-  },
-  {
-    path: "/colaborador/:id/perfil",
-    element: <Perfil />
-  },
-  {
-    path:'/fornecedor/:id',
-    element: <Start />,
-  },
-  {
-    path: "/fornecedor/:id/relatorio/:tipoRelatorio",
-    element: <Relatorio />
-  },  
+  {path:'/', element: <Login />},
+  {path: '/recuperar', element: <Recuperar />},
+  {path:'/colaborador/:id/', element: <Start />}, 
+  {path: "/colaborador/:id/relatorio/:tipoRelatorio",element: <Relatorio />}, 
+  {path: "/colaborador/:id/relatorio-geral",element: <Relatorio />},
+  {path: "/colaborador/:id/perfil", element: <Perfil />},
+  {path:'/fornecedor/:id', element: <Start />},
+  {path: "/fornecedor/:id/relatorio/:tipoRelatorio", element: <Relatorio />},
 ])
-
 
 root.render(
   <RouterProvider router={router} />

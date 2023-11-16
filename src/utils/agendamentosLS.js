@@ -1,7 +1,13 @@
 import dayjs from "dayjs";
 
 function getAgendamentosLS(){
-    return JSON.parse(localStorage.getItem("agendamentos"));
+    const LS = JSON.parse(localStorage.getItem("agendamentos"));
+    if(LS === null || LS === undefined){
+        setAgendamentosLS([]);
+        return LS;
+    }else{
+        return LS;
+    }
 }
 
 function setAgendamentosLS(value){

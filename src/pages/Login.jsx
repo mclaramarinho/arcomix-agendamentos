@@ -4,6 +4,7 @@ import logo from '../assets/big_logo.png'
 import runAuth from "../utils/runAuth";
 import { getTempLoginInfo, setTempLoginInfo } from "../utils/tempLoginInfo";
 import { getLoginInfoLS, setLoginInfoLS } from "../utils/loginInfoLS";
+import { getAgendamentosLS } from "../utils/agendamentosLS";
 
 function Login (){
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Login (){
     
     //To login automatically if info are saved
     useEffect(() => {
+        getAgendamentosLS()
 
         //To prevent getting back to the login screen if already logged in
         if(getTempLoginInfo()!==undefined && getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){

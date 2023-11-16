@@ -88,6 +88,9 @@ body{
     outline: none !important;
     border: none !important;
 }
+.no-decoration{
+    text-decoration: none !important;
+}
 .width-fit{
     width: fit-content !important;
 }
@@ -152,3 +155,6 @@ body{
     outline: none;
     border-bottom: 1px solid var(--main-black);
 }
+.LH-20{
+    line-height: 2 !important;
+}	

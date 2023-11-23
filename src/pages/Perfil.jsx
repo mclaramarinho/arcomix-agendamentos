@@ -69,7 +69,6 @@ function Perfil(){
                             </p> 
                         </div>
 
-                        {/* ######## NOT FINISHED ######## */}
                         <div className="col-12 col-lg-7 col-xl-7 login-left-side">
                             <h2 className="row m-auto mt-5 bold justify-content-center">ALTERAR SENHA</h2>
 
@@ -105,7 +104,6 @@ function Perfil(){
                                 <button className="btn btn-lg m-auto bold dark-blue-bg perfil-btn" type="submit">PROSSEGUIR</button>
                             </div>
                         </div>
-                        {/* ######## NOT FUNCTIONAL YET ######## */}
                     </div>
                 </div>
                 

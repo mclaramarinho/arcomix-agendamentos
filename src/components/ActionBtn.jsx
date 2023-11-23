@@ -17,7 +17,7 @@ function ActionBtn(props){
                 onMouseUp={()=>{
                     localStorage.getItem("loginInfo") !== null && localStorage.setItem("loginInfo", JSON.stringify([]));
                     sessionStorage.clear()!== null && sessionStorage.setItem("tempLoginInfo", JSON.stringify([]));
-                    navigate('/login')
+                    navigate('/')
                 }}
             />
         )

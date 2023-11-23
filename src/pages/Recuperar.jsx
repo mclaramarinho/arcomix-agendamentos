@@ -10,7 +10,6 @@ function Recuperar(){
     function onSubmit(){
         if(userID !== undefined && actor !== undefined && userID !== "" && actor !== ""){
             setIsSubmitted(true);
-            console.log(true)
         }
     }
     return(

@@ -23,7 +23,6 @@ function Start (){
     useEffect(() => {
         runAuth(authInfo.actor, authInfo.senha, authInfo.id).then((value) => setAuth(value)) //checks if user is authorized
         if(getTempLoginInfo() === undefined || getTempLoginInfo() === null){
-            console.log('ah');
             setTempLoginInfo(authInfo.id, authInfo.senha, authInfo.actor)
         }
     }, []);

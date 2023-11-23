@@ -29,10 +29,8 @@ function createAgendamento(idAgendamento, idFornecedor, status, data, tipoCarga,
                 return item.informacoesLegais[1];
             }
         })
-        console.log(nomeFantasia)
         nomeFantasia = (nomeFantasia[0].informacoesLegais[1])
     }else{
-        console.log(idFornecedor)
         nomeFantasia = idFornecedor[0];
     }
     

@@ -68,11 +68,6 @@ function CriarForm(props){
         setAgendamentosLS(agendamentos) //adds the new values to the local storage
     }, [agendamentos])
 
-    useEffect(() => {
-        console.log(openDialog)
-    }, [openDialog])
-
-
     function setHour(h,m){ //sets the time of the dateObj
         return new Promise((resolve, reject) => {
             resolve(setDateObj(dateObj.set('hour', h).set('minute', m)))

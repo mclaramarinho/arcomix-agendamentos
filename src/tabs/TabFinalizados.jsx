@@ -30,7 +30,6 @@ function TabFinalizados(){
         const action = e.target.value;
         
         if(action === "pesquisar"){
-            console.log(startDate, finalDate)
             if(startDate===undefined || finalDate === undefined){
                 setEmptySearch(true);
                 setDisplayError(false);

@@ -24,6 +24,7 @@ body{
 @media (max-width: 992px) {
     body{
         overflow-y: scroll !important;
+        box-sizing: border-box !important;
     }
 }
 

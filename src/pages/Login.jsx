@@ -25,12 +25,9 @@ function Login (){
 
         //To prevent getting back to the login screen if already logged in
         if(getTempLoginInfo()!==undefined && getTempLoginInfo()!==null && Object.keys(getTempLoginInfo()).length === 3){
-            console.log('temp');
             const authInfo = getTempLoginInfo();
             navigate(`/${authInfo.actor.toLowerCase()}/${authInfo.id}`)
         }else if(getLoginInfoLS() !== undefined && getLoginInfoLS() !== null && getLoginInfoLS().length>1){
-            console.log('ls');
-
             const storedInfo = getLoginInfoLS();
             runAuth(storedInfo.actor, storedInfo.senha, storedInfo.id).then((value) => {
                 setAuth(value)
@@ -55,11 +52,11 @@ function Login (){
     }
 
     return(
-        <div className="container container-login overflow-clip position-absolute top-50 start-50 translate-middle">
+        <div className="container mt-0 container-login position-absolute top-50 start-50 translate-middle">
 
             <form onSubmit={(e)=>{setSubmit(true); onSubmit(actor, pswd, loginId); e.preventDefault()}} className="row">
-                <div className="col-lg-5 col-xl-5 login-right-side overflow-clip sky-blue-bg">
-                    <div className="row text-center my-5 mt-5 pt-5">
+                <div className="col-lg-5 col-xl-5 login-right-side overflow-clip sky-blue-bg position-relative">
+                    <div className="row text-center mt-3 pt-3 mt-lg-5 pt-lg-5">
                         <h1 className="actor bold">{actor}</h1>
                     </div>
                     <div className="row position-relative mb-5">
@@ -73,15 +70,15 @@ function Login (){
                     </div>
                 </div>
 
-                <div className="col-lg-7 col-xl-7 login-left-side overflow-clip">
+                <div className="col-lg-7 col-xl-7 login-left-side overflow-clip position-relative">
 
-                    <div className="mt-5 pt-5">
+                    <div className="mt-3 pt-3 mt-lg-5 pt-lg-5">
                         <div className="row text-center">
                             <h1 className="bem-vindo bolder width-fit m-auto">Bem vindo</h1>
                         </div>
                         <div className="row text-center mt-3">
                             {   (submit && !auth) && 
-                                <p className="auth-error bold">Alguma informação está incorreta. Verifique-as e tente novamente!</p>
+                                <p className="color-red bold">Alguma informação está incorreta. Verifique-as e tente novamente!</p>
                             }
                         </div>
                         <div className="row mt-5">
@@ -104,13 +101,13 @@ function Login (){
                                 />
                             </div>
                             <div className="group-input group-options no-outline row m-auto mb-5 mt-0 px-0">
-                                <div className="col-7 p-0">
+                                <div className="col-12 col-md-7 p-0 text-center text-md-start">
                                     <span>
                                         <input className="align-middle me-2" type="checkbox" name="lembrar" id="lembrar" onChange={()=>setLembrar(!lembrar)}/>
                                     </span>
                                     <label className="col option-label" htmlFor="lembrar">Lembre-se de mim</label>
                                 </div>
-                                <div className="col-5 p-0 text-end">
+                                <div className="col-12 col-md-5 p-0 text-md-end text-center">
                                     <a href="/recuperar" className="p-0 option-label">Esqueci a senha</a>
                                 </div>
                             </div>

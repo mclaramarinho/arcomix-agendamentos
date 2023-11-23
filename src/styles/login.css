@@ -2,8 +2,9 @@
     border-radius: 5vh;
     box-shadow: 15px 10px 40px 10px rgba(0, 0, 0, 0.185);
     overflow: clip;
+    position: absolute;
+    max-height: 100vh;
 }
-
 
 @media (max-width: 576px) {
     .container-login{
@@ -72,9 +73,6 @@
 
 .bem-vindo{
     color: var(--main-black);
-}
-.auth-error{
-    color: var(--main-red);
 }
 .group-input{
     padding: 0;

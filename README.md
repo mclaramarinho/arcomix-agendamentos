@@ -69,14 +69,17 @@ O sistema já apresentará agendamentos passados e futuros para ser testado.
 - senha: 1357910,
 
 
+
 - id_fornecedor: perdigao_8640,
 
 - senha: 544321,
 
 
+
 - id_fornecedor: masterboi_0378,
 
 - senha: 12345,
+
 
 
 2. COLABORADOR
@@ -86,9 +89,11 @@ O sistema já apresentará agendamentos passados e futuros para ser testado.
 - senha: clara_marinho,
 
 
+
 - matricula:01277804,
 
 - senha: lohhan_gui
+
 
 
 - matricula: 123456,

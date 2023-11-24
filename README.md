@@ -58,5 +58,27 @@ Se desejar testar o sistema com alguns agendamentos já prontos (caso contrário
 
 ![passo-7](https://github.com/mclaramarinho/arcomix-agendamentos/assets/119897667/e108e6b6-a7d3-4c28-a07a-eca9eea13ac5)
 
+## INFORMAÇÕES DE LOGIN
+
+1. FORNECEDOR
+id_fornecedor: vitarella_0765,
+senha: 1357910,
+
+id_fornecedor: perdigao_8640,
+senha: 544321,
+
+id_fornecedor: masterboi_0378,
+senha: 12345,
+
+2. COLABORADOR
+matricula: 01277902,
+senha: clara_marinho,
+
+matricula:01277804,
+senha: lohhan_gui
+
+matricula: 123456,
+senha: alexandre
+
 
 O sistema já apresentará agendamentos passados e futuros para ser testado.

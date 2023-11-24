@@ -67,7 +67,7 @@
           badgeContent={
             isSelected ? (
               <i
-                style={{ color: "#68B644", fontSize: 14 }}
+                style={{ color: "#087BBF", fontSize: 14 }}
                 class="fa-solid fa-circle"
               ></i>
             ) : undefined
